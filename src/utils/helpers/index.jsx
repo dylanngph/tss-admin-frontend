@@ -1,0 +1,1 @@
+//Component chuyên về logic js
