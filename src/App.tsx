@@ -14,9 +14,9 @@ import ManageProject from "./screens/project/components/Manage";
 function App() {
   return (
     <div>
-      <Header />
+      <Sidebar />
       <Switch>
-        <Route path="/" component={HomeScreen} exact />
+        <Route exact path="/" component={HomeScreen} />
         <Route path="/login" component={LoginScreen} />
         <Route path="/register" component={RegisterScreen} />
         <Route path="/forgotpass" component={ForgotPassScreen} />
