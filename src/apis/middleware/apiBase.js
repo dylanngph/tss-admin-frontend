@@ -1,17 +1,16 @@
 import axios from "axios";
 
-export const baseURL = "https://tss.com";
-
-const axiosClient = axios.create({
+const AxiosBase = (baseURL) => {
+  const REQUEST_TIMEOUT = 60000;
+  const axiosBase = axios.create({
     baseURL,
     headers: {
       "Content-Type": "application/json",
     },
+    timeout: REQUEST_TIMEOUT,
   });
-  
-  export default axiosClient;
-  
-  axiosClient.interceptors.request.use(
+
+  axiosBase.interceptors.request.use(
     function (config) {
       return config;
     },
@@ -19,8 +18,8 @@ const axiosClient = axios.create({
       return Promise.reject(error);
     }
   );
-  
-  axiosClient.interceptors.response.use(
+
+  axiosBase.interceptors.response.use(
     function (response) {
       return response?.data ?? {};
     },
@@ -32,4 +31,8 @@ const axiosClient = axios.create({
       }
     }
   );
-  
+
+  return axiosBase
+};
+
+export default AxiosBase;
