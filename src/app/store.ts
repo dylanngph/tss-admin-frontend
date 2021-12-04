@@ -1,9 +1,12 @@
 import { configureStore, combineReducers, ThunkAction, Action } from "@reduxjs/toolkit";
+import { connectRouter, routerMiddleware } from "connected-react-router";
 import createSagaMiddleware from "redux-saga";
 import rootSaga from "sagas";
+import { history } from "utils/general";
 import rootReducer from "./../redux/index";
 
 const rootStore = combineReducers({
+  router: connectRouter(history),
   rootReducer
 })
 
@@ -15,7 +18,7 @@ export const store = configureStore({
       thunk: true,
       immutableCheck: true,
       serializableCheck: true,
-    }).concat(sagaMiddleware),
+    }).concat(sagaMiddleware, routerMiddleware(history)),
 });
 
 sagaMiddleware.run(rootSaga);
