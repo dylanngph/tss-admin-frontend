@@ -18,8 +18,6 @@ const drawerWidth = 255;
 
 function Sidebar(props) {
     const {pathname} = useLocation()
-    console.log(pathname)
-
 
     return (
         <Drawer
