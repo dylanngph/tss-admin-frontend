@@ -4,6 +4,7 @@ import {Box} from '@mui/material'
 import { Page } from 'components/Page/Page';
 import PageTitle from 'components/PageTitle/PageTitle'
 import Filter from './components/Filter/Filter';
+import TableSection from './components/Table/TableSection';
 
 function HomeScreen(props) {
     return (
@@ -11,6 +12,7 @@ function HomeScreen(props) {
             <PageTitle text={'Dự án đang duyệt'} />
             <Col>
                 <Filter/>
+                <TableSection/>
             </Col>
         </Page>
     );
