@@ -4,6 +4,8 @@ import {ReactComponent as MouseSquareIcon} from 'icon/mouse-square.svg'
 import {ReactComponent as RuleIcon} from 'icon/rule.svg'
 import {ReactComponent as UserCircleIcon} from 'icon/user-cirlce-add.svg'
 import {ReactComponent as UserOctagonIcon} from 'icon/user-octagon.svg'
+import {ReactComponent as ThemeIcon} from 'icon/theme.svg'
+import {ReactComponent as FilterListIcon} from 'icon/user-filter-list.svg'
 
 
 export const projectNav = [
@@ -39,5 +41,18 @@ export const ruleNav = [
         label: 'Nhân viên',
         href: '/staff',
         icon: UserCircleIcon
+    }
+]
+
+export const themeNav = [
+    {
+        label : 'Giao diện',
+        href: '/themes',
+        icon: ThemeIcon
+    },
+    {
+        label: 'Danh sách dự án',
+        href: '/list-projects',
+        icon: FilterListIcon
     }
 ]

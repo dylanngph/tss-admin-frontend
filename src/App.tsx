@@ -10,6 +10,7 @@ import RegisterScreen from "./screens/account/components/Register";
 import HomeScreen from "./screens/home";
 import ApprovalProject from "./screens/project/components/Approval";
 import ManageProject from "./screens/project/components/Manage";
+import ThemesScreen from "./screens/Themes";
 import Container from "components/Container/Container";
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
           <Route path="/forgotpass" component={ForgotPassScreen} />
           <Route path="/project/approval" component={ApprovalProject} />
           <Route path="/project/manage" component={ManageProject} />
+          <Route path="/themes" component={ThemesScreen} />
           <Route component={NotFound} />
         </Switch>
         {/* <Footer /> */}

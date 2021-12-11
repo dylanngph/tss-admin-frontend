@@ -11,7 +11,7 @@ import {
 } from '@mui/material'
 import { Link , useLocation } from 'react-router-dom'
 import {ReactComponent as LogoIcon} from 'icon/tss-logo.svg'
-import {projectNav , ruleNav} from './config'
+import {projectNav , ruleNav, themeNav} from './config'
 
 const drawerWidth = 255;
 
@@ -86,6 +86,24 @@ function Sidebar(props) {
             }}}>
             {
                 ruleNav.map((entry) => (
+                    <Link to={entry.href}>
+                        <ListItem button key={entry.label} href={entry.href}>
+                        <ListItemIcon>
+                            <entry.icon />
+                        </ListItemIcon>
+                        <ListItemText primary={entry.label} />
+                        </ListItem>
+                    </Link>
+                ))
+            }
+            </List>
+            <Divider sx={{borderColor: '#F6F8FA', opacity: '.3'}} />
+            <List sx={{ 'a' : {
+                textDecoration: 'none',
+                color: 'inherit'
+            }}}>
+            {
+                themeNav.map((entry) => (
                     <Link to={entry.href}>
                         <ListItem button key={entry.label} href={entry.href}>
                         <ListItemIcon>
