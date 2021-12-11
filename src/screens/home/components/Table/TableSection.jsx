@@ -7,79 +7,129 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { TablePagination } from '@mui/material'
+import { Route, Switch, useRouteMatch, Link } from "react-router-dom";
 
 
 
-function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
-  }
-  
-  const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
-  ];
+function createData(name, projectType, mailType, date) {
+  return { name, projectType, mailType, date };
+}
+
+const rows = [
+  createData('A', 'Tổ chức', 'Xác thực dự án', '28/12/2021'),
+  createData('B', 'Cá nhân', 'Chỉnh sửa thông tin', '28/12/2021'),
+  createData('C', 'Quỹ', 'Xác thực dự án', '28/12/2021'),
+  createData('D', 'Tổ chức', 'Chỉnh sửa thông tin', '28/12/2021'),
+  createData('E', 'Tổ chức', 'Xác thực dự án', '28/12/2021'),
+];
 
 
 const TableSection = () => {
-    return (
-        <TableContainer>
-            <Table sx={{ minWidth: 700, border: '1px solid #EAEAEA' }} aria-label="customized table">
-                <TableHead>
-                <StyledTableRow>
-                    <StyledTableCell>#</StyledTableCell>
-                    <StyledTableCell>Dessert (100g serving)</StyledTableCell>
-                    <StyledTableCell align="right">Calories</StyledTableCell>
-                    <StyledTableCell align="right">Fat&nbsp;(g)</StyledTableCell>
-                    <StyledTableCell align="right">Carbs&nbsp;(g)</StyledTableCell>
-                    <StyledTableCell align="right">Protein&nbsp;(g)</StyledTableCell>
-                </StyledTableRow>
-                </TableHead>
-                <TableBody>
-                {rows.map((row, i) => (
-                    <StyledTableRow key={row.name}>
-                        <StyledTableCell component="th" scope="row">
-                            {i+1}
-                        </StyledTableCell>
-                        <StyledTableCell component="th" scope="row">
-                            {row.name}
-                        </StyledTableCell>
-                        <StyledTableCell align="right">{row.calories}</StyledTableCell>
-                        <StyledTableCell align="right">{row.fat}</StyledTableCell>
-                        <StyledTableCell align="right">{row.carbs}</StyledTableCell>
-                        <StyledTableCell align="right">{row.protein}</StyledTableCell>
-                    </StyledTableRow>
-                ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
-    )
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [page, setPage] = React.useState(0);
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  return (
+    <Paper>
+      <TablePagination
+        rowsPerPageOptions={[5, 10, 25]}
+        labelRowsPerPage="Hiển thị"
+        component="div"
+        count={rows.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+        className="pagination-top"
+      />
+      <TableContainer sx={{ border: "1px solid rgba(224, 224, 224, 1)", borderTopLeftRadius: "10px", borderTopRightRadius: "10px" }}>
+        <Table sx={{ minWidth: 700, borderTopLeftRadius: '10px', borderTopRightRadius: '10px', overflow: 'hidden', }} aria-label="customized table">
+          <TableHead sx={{backgroundColor: '#F7F8FA'}}>
+            <StyledTableRow>
+              <StyledTableCell>#</StyledTableCell>
+              <StyledTableCell>Tên</StyledTableCell>
+              <StyledTableCell>Loại dự án</StyledTableCell>
+              <StyledTableCell>Loại đơn</StyledTableCell>
+              <StyledTableCell>Ngày gửi đơn</StyledTableCell>
+            </StyledTableRow>
+          </TableHead>
+          <TableBody>
+            {rows.map((row, i) => (
+              <StyledTableRow key={row.name}>
+                <StyledTableCell scope="row">
+                  {i + 1}
+                </StyledTableCell>
+                <StyledTableCell scope="row">
+                <Link to='/project/passport-of-blockchain'> Chi tiết </Link>
+                  {row.name}
+                </StyledTableCell>
+                <StyledTableCell>
+                  {row.projectType}
+                </StyledTableCell>
+                <StyledTableCell>
+                  {row.mailType}
+                </StyledTableCell>
+                <StyledTableCell>
+                  {row.date}
+                </StyledTableCell>
+              </StyledTableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <TablePagination
+        rowsPerPageOptions={[5, 10, 25]}
+        labelRowsPerPage="Hiển thị"
+        component="div"
+        count={rows.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+        className="pagination-bottom"
+      />
+    </Paper>
+  )
 }
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
-    
-    [`&.${tableCellClasses.head}`]: {
-      backgroundColor: '#F7F8FA',
-      color: '#11142D',
-      borderTopLeftRadius: '8px',
-      borderTopRightRadius: '8px'
-    },
-    [`&.${tableCellClasses.body}`]: {
-      fontSize: 14,
-    },
-  }));
+  [`&.${tableCellClasses.head}`]: {
+    fontWeight: '500',
+    fontSize: '18px',
+    lineHeight: '22px',
+    color: '#11142D',
+    paddingTop: '12px',
+    paddingBottom: '12px'
+  },
   
-  const StyledTableRow = styled(TableRow)(({ theme }) => ({
-    
-    '&:nth-of-type(odd)': {
-      
-    },
-    // hide last border
-    '&:last-child td, &:last-child th': {
-      
-    },
-  }));
+  [`&.${tableCellClasses.body}`]: {
+    fontWeight: '500',
+    fontSize: '18px',
+    lineHeight: '22px',
+    color: '#58667E',
+    paddingTop: '12px',
+    paddingBottom: '12px'
+  },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+
+  '&:nth-of-type(odd)': {
+
+  },
+  // hide last border
+  '&:last-child td, &:last-child th': {
+
+  },
+}));
 
 export default TableSection

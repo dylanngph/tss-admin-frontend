@@ -11,7 +11,10 @@ const PageTitle = ({text}) => {
 
 const StyledText = styled.div`
     font-size: 18px;
-    font-weight: 700
+    color: #11142D;
+    font-weight: 700;
+    padding: 24px;
+    line-height: 22px;
 `
 
 export default PageTitle

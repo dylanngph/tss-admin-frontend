@@ -1,39 +1,120 @@
-.App {
-  text-align: center;
+.MuiPaper-elevation {
+  border-radius: 0px !important;
+  box-shadow: none !important;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.pagination-top {
+  margin-bottom: 16px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-float infinite 3s ease-in-out;
-  }
+.pagination-top .MuiTablePagination-displayedRows,
+.pagination-top .MuiTablePagination-actions {
+  display: none;
 }
 
-.App-header {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.pagination-top .MuiTablePagination-selectLabel {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+  color: #A6B0C3;
 }
 
-.App-link {
-  color: rgb(112, 76, 182);
+.pagination-top .MuiInputBase-root {
+  color: #58667E;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+  background: #EFF2F5;
+  border-radius: 8px;
+  margin-left: 16px;
+  margin-right: 0;
 }
 
-@keyframes App-logo-float {
-  0% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(10px);
-  }
-  100% {
-    transform: translateY(0px);
-  }
+.pagination-top .MuiTablePagination-select {
+  padding: 12px 52px 12px 24px !important;
+}
+
+.pagination-bottom {
+  background: #F7F8FA;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.pagination-bottom .MuiTablePagination-displayedRows {
+  font-size: 18px;
+  line-height: 150%;
+  color: #58667E;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  position: absolute;
+}
+
+.pagination-bottom .MuiTablePagination-selectLabel,
+.pagination-bottom .MuiInputBase-root {
+  display: none;
+}
+
+.icon-history {
+  padding: 30px;
+  background:#EFF2F5;
+  border-radius: 50%;
+}
+
+.MuiOutlinedInput-root input,
+textarea,
+.MuiOutlinedInput-root .MuiSelect-select {
+  padding: 12px 16px;
+  background: #EFF2F5;
+  border-radius: 8px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  color: #58667E;
+  border: 1px solid #EFF2F5;
+}
+
+.datePicker .MuiFormControl-root {
+  background: #EFF2F5;
+  border-radius: 8px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  color: #58667E;
+  border: 1px solid #EFF2F5;
+  width: 212px;
+}
+
+.MuiButton-root.button {
+  background: #446DFF;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19px;
+  color: #FFFFFF;
+  padding: 12px 24px;
+  width: auto;
+  border: 1px solid #446DFF;
+}
+
+.MuiButton-root.button:hover {
+  background: transparent;
+  color: #446DFF;
+}
+
+.MuiButton-root.button.disable {
+  background: #EFF2F5;
+  border: 1px solid #EFF2F5;
+  color: #A6B0C3;
+}
+
+.MuiButton-root.button.cancel {
+  background: #EA3943;
+  border: 1px solid #EA3943;
+  color: #FFFFFF;
+}
+
+fieldset {
+  display: none !important;
 }

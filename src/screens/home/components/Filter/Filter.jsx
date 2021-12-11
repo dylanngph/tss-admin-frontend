@@ -23,18 +23,6 @@ const Filter = () => {
             <FormControl sx={{
                 flexDirection: 'row',
                 gap: '20px',
-                '& .MuiOutlinedInput-root': {
-                    background: '#EFF2F5',
-                    border: '1px solid #EAEAEA',
-                    borderRadius: '8px',
-                    
-                  '& fieldset': {
-                    border: 'none',
-                  },
-                  '&:hover fieldset': {
-                    border: 'none',
-                  },
-                },
             }}>
                 <SearchField 
                     placeholder="Tên dự án" 
@@ -93,16 +81,6 @@ const Filter = () => {
                   
                 },
             }}>
-                <div style={{color: '#A6B0C3'}}>Hiển thị</div>
-                <SelectField
-                    value={15}
-                    onChange={handleChange}
-                    inputProps={{ 'aria-label': 'Without label' }}
-                    >
-                    <MenuItem value={15}>15</MenuItem>
-                    <MenuItem value={20}>20</MenuItem>
-                    <MenuItem value={25}>25</MenuItem>
-                </SelectField>
             </FormControl>
         </Flex>
     )
@@ -115,9 +93,22 @@ const Flex = styled(Box)`
 `
 const SearchField = muiStyled(TextField)({
     width: '283px',
+    borderRadius: '8px',
+    border: '1px solid #EAEAEA',
+    background: '#EFF2F5',
+
     '& svg': {
         marginRight: '10px'
     },
+
+    '& input': {
+        paddingTop: '11px',
+        paddingBottom: '13px',
+        fontSize: '18px',
+        lineHeight: '22px',
+        fontWeight: '500',
+        color: '#58667E',
+    }
   });
 
   const SelectField = muiStyled(Select)({
