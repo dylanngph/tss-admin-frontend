@@ -33,8 +33,9 @@ function Sidebar(props) {
             '& .MuiListItem-root': {
                 paddingLeft: '40px'
             },
+            
             '& .MuiListItemIcon-root': {
-                minWidth: '40px'
+                minWidth: '40px',
             },
             '& .MuiToolbar-root': {
                 minHeight: '110px',
@@ -68,12 +69,23 @@ function Sidebar(props) {
                             backgroundColor: pathname === entry.href ? 'rgba(159,162,180, .2)' : null,
                             '&:hover' : {
                                 backgroundColor: pathname === entry.href ? 'rgba(159,162,180, .2)' : 'rgba(159,162,180, .08)'
+                            },
+                            '& .MuiListItemIcon-root': {
+                                color: pathname === entry.href ? '#fff' : '#58667E'
                             }
+                            
                         }} button key={entry.label} >
                         <ListItemIcon>
                             <entry.icon/>
                         </ListItemIcon>
-                        <ListItemText primary={entry.label} />
+                        <ListItemText
+                            sx={{
+                                'span' : {
+                                    color: pathname === entry.href ? '#fff' : null
+                                }
+                            }}
+                            primary={entry.label} 
+                        />
                         </ListItem>
                     </Link>
                 ))
@@ -87,11 +99,22 @@ function Sidebar(props) {
             {
                 ruleNav.map((entry) => (
                     <Link to={entry.href}>
-                        <ListItem button key={entry.label} href={entry.href}>
+                        <ListItem sx={{
+                            '& .MuiListItemIcon-root': {
+                                color: pathname === entry.href ? '#fff' : '#58667E'
+                            }
+                        }} button key={entry.label} href={entry.href}>
                         <ListItemIcon>
                             <entry.icon />
                         </ListItemIcon>
-                        <ListItemText primary={entry.label} />
+                        <ListItemText
+                            sx={{
+                                'span' : {
+                                    color: pathname === entry.href ? '#fff' : null
+                                }
+                            }}
+                            primary={entry.label} 
+                        />
                         </ListItem>
                     </Link>
                 ))
