@@ -96,6 +96,7 @@ textarea,
   padding: 12px 24px;
   width: auto;
   border: 1px solid #446DFF;
+  text-transform: none;
 }
 
 .MuiButton-root.button:hover {
@@ -115,6 +116,64 @@ textarea,
   color: #FFFFFF;
 }
 
+.MuiButton-root.button.confirm-denial {
+  background: #FDEBEC;
+  border: 1px solid #FDEBEC;
+  color: #EA3943;
+}
+
+.MuiButton-root.button.confirm-change {
+  background: #EFF2F5;
+  border: 1px solid #EFF2F5;
+  color: #446DFF;
+}
+
+.MuiButton-root.button.confirm-hidden {
+  background: rgba(238, 211, 68, 0.2);
+  border: 1px solid rgba(238, 211, 68, 0.2);
+  color: #EED344;
+}
+
+.MuiButton-root.button.remove {
+  background: #EA3943;
+  border: 1px solid #EA3943;
+  color: #ffffff;
+}
+
 fieldset {
   display: none !important;
+}
+
+.nonactive-status,
+.active-status,
+.author {
+  display: inline-block;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  max-width: 94px;
+  width: 100%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.author {
+  color: #446DFF;
+  background: #F0F6FF;
+}
+
+.nonactive-status {
+  color: #B4B6B8;
+  background: #E3E5E5;
+}
+
+.active-status {
+  color: #23C16B;
+  background: #E3FADA;
+}
+
+.ml-25 {
+  margin-left: 25px;
 }

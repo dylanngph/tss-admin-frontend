@@ -3,6 +3,7 @@ import Information from '../../custom/Information';
 import { Box, Typography, Tabs, Tab } from '@mui/material';
 
 function EditingForm(props) {
+    const { children, value, index, ...other } = props;
     const incorporation = {
         title: "Organization",
         data: [
@@ -152,7 +153,11 @@ function EditingForm(props) {
     }
 
     return (
-        <Box>
+        <Box role="tabpanel" className="application"
+            hidden={value !== index}
+            id={`simple-tabpanel-${index}`}
+            aria-labelledby={`simple-tab-${index}`}
+            {...other}>
             <Information tilte={incorporation.title} data={incorporation.data} />
             <Information tilte={project.title} data={project.data} />
             <Information tilte={tokenomics.title} data={tokenomics.data} />

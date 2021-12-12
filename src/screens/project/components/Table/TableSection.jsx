@@ -12,16 +12,16 @@ import { Route, Switch, useRouteMatch, Link } from "react-router-dom";
 
 
 
-function createData(name, projectType, mailType, date) {
-  return { name, projectType, mailType, date };
+function createData(name, status, projectType, date) {
+  return { name, status, projectType, date };
 }
 
 const rows = [
-  createData('A', 'Tổ chức', 'Xác thực dự án', '28/12/2021'),
-  createData('B', 'Cá nhân', 'Chỉnh sửa thông tin', '28/12/2021'),
-  createData('C', 'Quỹ', 'Xác thực dự án', '28/12/2021'),
-  createData('D', 'Tổ chức', 'Chỉnh sửa thông tin', '28/12/2021'),
-  createData('E', 'Tổ chức', 'Xác thực dự án', '28/12/2021'),
+  createData('A', 'Hoạt động', 'Tổ chức', '28/12/2021'),
+  createData('B', 'Hoạt động', 'Cá nhân', '28/12/2021'),
+  createData('C', 'Hoạt động', 'Quỹ', '28/12/2021'),
+  createData('D', 'Tạm ẩn', 'Tổ chức', '28/12/2021'),
+  createData('E', 'Tạm ẩn', 'Tổ chức', '28/12/2021'),
 ];
 
 
@@ -53,13 +53,13 @@ const TableSection = () => {
       />
       <TableContainer sx={{ border: "1px solid rgba(224, 224, 224, 1)", borderTopLeftRadius: "10px", borderTopRightRadius: "10px" }}>
         <Table sx={{ minWidth: 700, borderTopLeftRadius: '10px', borderTopRightRadius: '10px', overflow: 'hidden', }} aria-label="customized table">
-          <TableHead sx={{backgroundColor: '#F7F8FA'}}>
+          <TableHead sx={{ backgroundColor: '#F7F8FA' }}>
             <StyledTableRow>
               <StyledTableCell>#</StyledTableCell>
-              <StyledTableCell>Tên</StyledTableCell>
+              <StyledTableCell>Tên dự án</StyledTableCell>
+              <StyledTableCell>Trạng thái</StyledTableCell>
               <StyledTableCell>Loại dự án</StyledTableCell>
-              <StyledTableCell>Loại đơn</StyledTableCell>
-              <StyledTableCell>Ngày gửi đơn</StyledTableCell>
+              <StyledTableCell>Ngày xác thực</StyledTableCell>
             </StyledTableRow>
           </TableHead>
           <TableBody>
@@ -72,10 +72,12 @@ const TableSection = () => {
                   {row.name}
                 </StyledTableCell>
                 <StyledTableCell>
-                  {row.projectType}
+                  <span className={row.status == 'Hoạt động' ? 'active-status' : 'nonactive-status'}>
+                    {row.status}
+                  </span>
                 </StyledTableCell>
                 <StyledTableCell>
-                  {row.mailType}
+                  {row.projectType}
                 </StyledTableCell>
                 <StyledTableCell>
                   {row.date}
@@ -109,7 +111,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     paddingTop: '12px',
     paddingBottom: '12px'
   },
-  
+
   [`&.${tableCellClasses.body}`]: {
     fontWeight: '500',
     fontSize: '18px',

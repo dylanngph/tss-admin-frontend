@@ -75,7 +75,7 @@ const ConfirmApproval = (props) => {
 
     return (
         <div>
-            <Button className="button" onClick={handleOpen}>Phê duyệt</Button>
+            <Button sx={{width: "100% !important"}} className="button" onClick={handleOpen}>Phê duyệt</Button>
 
             <Modal
                 open={open}

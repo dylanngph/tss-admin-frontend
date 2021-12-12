@@ -9,12 +9,11 @@ import ProjectDetail from './ProjectDetail'
 
 function HomeScreen(props) {
     const match = useRouteMatch();
-    console.log('match.url==>', match.url);
     return (
         <div>
             <Switch>
                 <Route path={match.url} exact component={ProjectUnderReview} />
-                <Route path={`${match.url}/:id`} exact component={ProjectDetail} />
+                <Route path={match.url} exact component={ProjectDetail} />
                 <Route component={NotFound} />
             </Switch>
         </div>

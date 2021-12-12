@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Box, Button, Modal, Typography, FormControl, TextareaAutosize } from '@mui/material';
 
 
-const SubmitAChangeRequest = (props) => {
+const RemoveRequest = (props) => {
     const defaultValues = {
         schedule: '',
         time: '',
@@ -72,7 +72,7 @@ const SubmitAChangeRequest = (props) => {
 
     return (
         <div>
-            <Button className="button confirm-change" onClick={handleOpen}>Y.c thay đổi</Button>
+            <Button sx={{width: "100% !important"}} className="button remove" onClick={handleOpen}>Xóa</Button>
 
             <Modal
                 open={open}
@@ -84,8 +84,8 @@ const SubmitAChangeRequest = (props) => {
                     <Box mb={3} sx={{ textAlign: "center" }}>
                         <img className="icon-history" src="/assets/icons/send.svg" alt="send" />
                     </Box>
-                    <Typography align="center" mb={2} variant="h4">Gửi yêu cầu thay đổi</Typography>
-                    <Typography align="center" mb={3} variant="body1">Tổ chức sẽ nhận được yêu cầu thay đổi các thông tin dự án đã đánh dấu</Typography>
+                    <Typography align="center" mb={2} variant="h4">Xóa Dự án</Typography>
+                    <Typography align="center" mb={3} variant="body1">Người dùng sẽ được thông báo xóa dự án</Typography>
                     <Box align="center" className="form-control" mb={3} sx={{ maxWidth: "686px", width: "100%", marginLeft: "auto", marginRight: "auto" }}>
                         <TextareaAutosize
                             minRows={5}
@@ -94,8 +94,8 @@ const SubmitAChangeRequest = (props) => {
                         />
                     </Box>
                     <Box sx={contentWrap}>
-                        <Button className="button disable" onClick={handleClose}>Xem lại</Button>
-                        <Button className="button" onClick={handleClose}>Gửi yêu cầu</Button>
+                        <Button className="button disable" onClick={handleClose}>Quay lại</Button>
+                        <Button className="button remove" onClick={handleClose}>Xóa dự án</Button>
                     </Box>
 
                 </Box>
@@ -104,4 +104,4 @@ const SubmitAChangeRequest = (props) => {
     )
 }
 
-export default SubmitAChangeRequest;
+export default RemoveRequest;

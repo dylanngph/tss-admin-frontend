@@ -3,12 +3,12 @@ import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import { Box, Button, Modal, Typography, Divider } from '@mui/material';
-import ConfirmApproval from '../../Modals/ConfirmApproval';
-import ConfirmDenial from '../../Modals/ConfirmDenial';
+import HiddenRequest from '../../Modals/HiddenRequest';
+import RemoveRequest from '../../Modals/RemoveRequest';
 import SubmitAChangeRequest from '../../Modals/SubmitAChangeRequest';
 
 
-const ProfileVerification = (props) => {
+const ProjectAction = (props) => {
     const defaultValues = {
         schedule: '',
         time: '',
@@ -41,12 +41,12 @@ const ProfileVerification = (props) => {
             <Typography variant="h3">Xác thực hồ sơ</Typography>
             <Divider sx={{ margin: "14px 0 !important" }} />
             <Box mb={1} sx={{display: "flex", justifyContent: "space-between" }}>
-                <ConfirmDenial />
+                <HiddenRequest />
                 <SubmitAChangeRequest />
             </Box>
-            <ConfirmApproval />
+            <RemoveRequest />
         </Box>
     )
 }
 
-export default ProfileVerification;
+export default ProjectAction;

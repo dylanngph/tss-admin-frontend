@@ -2,7 +2,7 @@ import React from 'react'
 import styled from '@emotion/styled'
 import { Box, Grid, Tabs, Tab, Typography } from '@mui/material'
 import PageTitle from 'components/PageTitle/PageTitle'
-import ProfileVerification from '../../../components/display/ProfileVerification'
+import ProjectAction from '../../../components/display/ProjectAction'
 import ProfileInformation from '../../../components/display/ProfileInformation'
 import EditingForm from '../../../components/display/EditingForm'
 
@@ -24,10 +24,20 @@ function ProjectDetail(props) {
         <Box>
             <PageTitle text={'Dự án đợi duyệt / Jadelabs'} />
             <Grid sx={{ padding: "24px", }} container spacing={2}>
-                <Grid item xs={9} md={8} xl={9}>
-                    <Box>
+                <Grid item xs={12}>
+                    <Box sx={{ display: "flex", justifyContent: "space-between"}}>
                         <Typography mb={2} variant="h3">Jadelabs</Typography>
+                        <Box sx={{maxWidth: "220px", width: "100%",}}>
+                            <span className='active-status'>
+                                Hoạt động
+                            </span>
+                            <span className='author ml-25'>
+                            Đã xác thực
+                            </span>
+                        </Box>
                     </Box>
+                </Grid>
+                <Grid item xs={9} md={8} xl={9}>
                     <Box>
                         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
                             <Tab className="tab-title" label="Thông tin hồ sơ" {...a11yProps(0)} />
@@ -41,7 +51,7 @@ function ProjectDetail(props) {
                 </Grid>
                 <Grid item xs={3} md={4} xl={3}>
                     <Box sx={{ background: "#EFF2F5", borderRadius: "8px", padding: "16px" }}>
-                        <ProfileVerification />
+                        <ProjectAction />
                     </Box>
                 </Grid>
             </Grid>

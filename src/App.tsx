@@ -10,8 +10,7 @@ import ForgotPassScreen from "./screens/account/components/ForgotPass";
 import LoginScreen from "./screens/account/components/Login";
 import RegisterScreen from "./screens/account/components/Register";
 import HomeScreen from "./screens/home";
-import ApprovalProject from "./screens/project/components/Approval";
-import ManageProject from "./screens/project/components/Manage";
+import Projects from "./screens/project"
 import Container from "components/Container/Container";
 
 function App() {
@@ -61,12 +60,11 @@ function App() {
       <Sidebar />
       <Container>
         <Switch>
-          <Route exact path="/project" component={HomeScreen} />
+          <Route exact path="/" component={HomeScreen} />
           <Route path="/login" component={LoginScreen} />
           <Route path="/register" component={RegisterScreen} />
           <Route path="/forgotpass" component={ForgotPassScreen} />
-          <Route path="/project/approval" component={ApprovalProject} />
-          <Route path="/project/manage" component={ManageProject} />
+          <Route path="/projects" component={Projects} />
           <Route component={NotFound} />
         </Switch>
       </Container>
