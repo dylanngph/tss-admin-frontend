@@ -13,10 +13,8 @@ import { Link , useLocation } from 'react-router-dom'
 import {ReactComponent as LogoIcon} from 'icon/tss-logo.svg'
 import {projectNav , ruleNav} from './config'
 
-const drawerWidth = 255;
 
-
-function Sidebar(props) {
+function Sidebar({drawerWidth}) {
     const {pathname} = useLocation()
 
     return (

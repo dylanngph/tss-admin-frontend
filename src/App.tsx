@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import './App.css';
 import { Route, Switch } from "react-router-dom";
 import { ThemeProvider, createMuiTheme, createTheme } from '@mui/material/styles';
@@ -12,11 +12,18 @@ import RegisterScreen from "./screens/account/components/Register";
 import HomeScreen from "./screens/home";
 import Projects from "./screens/project"
 import Container from "components/Container/Container";
+import {adminData} from 'screens/admin/config'
+import Cookies from 'js-cookie'
+
+
+interface LoginProps {
+  email: string,
+  password: string
+}
 
 function App() {
 
-  const theme = createTheme();
-  const THEME = createMuiTheme({
+  const theme = createTheme({
     typography: {
       "fontFamily": `"Inter", sans-serif`,
       "fontSize": 14,
@@ -33,11 +40,6 @@ function App() {
         fontWeight: "bold",
         lineHeight: "29px",
         color: "#11142D",
-
-        [theme.breakpoints.down('md')]: {
-          fontSize: "18px",
-          lineHeight: "22px",
-        },
       },
 
       h5: {
@@ -45,29 +47,79 @@ function App() {
         fontSize: "16px",
         lineHeight: "19px",
       },
-
       body1: {
         fontSize: "14px",
         fontWeight: "normal",
         lineHeight: "17px",
         color: "#58667E",
       }
-    },
+    }
   });
+  const drawerWidth = 255;
+
+
+  const [auth , setAuth] = useState(false)
+  const [error , setError] = useState(false)
+  const [user , setUser] = useState({email:""})
+
+  const readCookies = () => {
+    const userCookies = Cookies.get("user")
+    if(userCookies){
+      setAuth(true)
+    }
+  }
+
+  useEffect(() => {
+    readCookies()
+  }, [])
+
+  const handleLogin = (values:LoginProps) => {
+    for(let i = 0; i < adminData.length ; i++) {
+        if(values.email === adminData[i].email){
+            if(values.password === adminData[i].password){
+              setUser({
+                email: values.email
+              })
+              setError(false)
+              setAuth(true)
+              Cookies.set("user","loginTrue")
+              return
+            }
+        }
+    }
+    setError(true)
+    return auth
+  }
+
+  const handleLogout = () => {
+    setUser({email:""})
+    setAuth(false)
+    Cookies.remove("user")
+  }
+
+  console.log(user)
 
   return (
-    <ThemeProvider theme={THEME}>
-      <Sidebar />
-      <Container>
-        <Switch>
-          <Route exact path="/" component={HomeScreen} />
-          <Route path="/login" component={LoginScreen} />
-          <Route path="/register" component={RegisterScreen} />
-          <Route path="/forgotpass" component={ForgotPassScreen} />
-          <Route path="/projects" component={Projects} />
-          <Route component={NotFound} />
-        </Switch>
-      </Container>
+    <ThemeProvider theme={theme}>
+        {
+          auth ? 
+          <>
+          <Header drawerWidth={drawerWidth} handleLogout={handleLogout} />
+          <Sidebar drawerWidth={drawerWidth}/>
+          <Container>
+            <Switch>
+              <Route exact path="/" component={HomeScreen} />
+              {/* <Route path="/login" component={LoginScreen} />
+              <Route path="/register" component={RegisterScreen} />
+              <Route path="/forgotpass" component={ForgotPassScreen} /> */}
+              <Route path="/projects" component={Projects} />
+              <Route component={NotFound} />
+            </Switch>
+          </Container>
+          </>
+          :
+          <LoginScreen handleLogin={handleLogin} error={error}/>
+        }
     </ThemeProvider>
   );
 }

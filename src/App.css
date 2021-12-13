@@ -1,6 +1,11 @@
+* {
+  box-sizing: border-box;
+}
+.MuiPaper-root {
+  box-shadow: none!important;
+}
 .MuiPaper-elevation {
-  border-radius: 0px !important;
-  box-shadow: none !important;
+  
 }
 
 .pagination-top {
