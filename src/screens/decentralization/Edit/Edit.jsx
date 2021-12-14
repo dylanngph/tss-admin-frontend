@@ -82,7 +82,7 @@ function EditDecentralizationScreen({item}) {
                     marginBottom: '15px'
                 }}>
                     <StyledLabel>Tên nhóm quyền</StyledLabel>
-                    <CustomInput aria-label="Tên nhóm quyền" value={item.name}/>
+                    <CustomInput aria-label="Tên nhóm quyền" value={item && item.name}/>
                 </Box>
                 <Box sx={{
                     marginBottom: '15px'

@@ -9,14 +9,13 @@ import Sidebar from "./components/display/Sidebar";
 import LoginScreen from "./screens/account/components/Login";
 import HomeScreen from "./screens/home";
 import Projects from "./screens/project"
-// import ApprovalProject from "./screens/project/components/Approval";
-// import ManageProject from "./screens/project/components/Manage";
 import ThemesScreen from "./screens/Themes";
 import ProjectUnderReviewDetail from "./screens/home/ProjectDetail"
 import ProjectDetail from "./screens/project/ProjectDetail"
 import Users from "./screens/Users"
 import Staffs from "./screens/Staffs"
 import NFTSeal from "./screens/NFTSeal"
+import TabPanel from "screens/Decentralization/Edit/Edit"
 import NFTSealDetail from "./screens/NFTSealDetail"
 import Decentralization from "./screens/Decentralization"
 import Container from "components/Container/Container";
@@ -126,6 +125,7 @@ function App() {
               <Route path="/users" exact component={Users} />
               <Route path="/staffs" exact component={Staffs} />
               <Route path="/decentralization" exact component={Decentralization} />
+              <Route path="/decentralization-detail" exact component={TabPanel} />
               
               <Route component={NotFound} />
             </Switch>

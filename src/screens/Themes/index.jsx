@@ -6,6 +6,7 @@ import {
     Grid,
     InputUnstyled,
     TextareaAutosize,
+    Typography
 } from '@mui/material'
 import { Page } from 'components/Page/Page'
 import PageTitle from 'components/PageTitle/PageTitle'
@@ -32,7 +33,7 @@ function ThemesScreen(props) {
         <Page>
             <PageTitle text={'Dự án đang duyệt'} />
             <StyledBox>
-                <PageTitle text={'Hero banner'} />
+                <Typography variant='h3'>Hero banner</Typography>
                 <Box sx={{
                     marginTop: '15px'
                     }}>
@@ -93,7 +94,7 @@ function ThemesScreen(props) {
                 </Box>
             </StyledBox>
             <StyledBox>
-                <PageTitle text={'Đơn vị xác thực'} />
+                <Typography variant='h3'>Đơn vị xác thực</Typography>
                 <Grid>
                     <StyledLabelUpload htmlFor="file-image">
                         <Grid container direction="column" justifyContent="center" alignItems="center" sx={{ height: '100%'}}>
