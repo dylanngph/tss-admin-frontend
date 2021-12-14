@@ -16,6 +16,8 @@ import ProjectUnderReviewDetail from "./screens/home/ProjectDetail"
 import ProjectDetail from "./screens/project/ProjectDetail"
 import Users from "./screens/Users"
 import Staffs from "./screens/Staffs"
+import NFTSeal from "./screens/NFTSeal"
+import NFTSealDetail from "./screens/NFTSealDetail"
 import Decentralization from "./screens/Decentralization"
 import Container from "components/Container/Container";
 import {adminData} from 'screens/admin/config'
@@ -118,6 +120,8 @@ function App() {
               <Route path="/projects" component={Projects} />
               <Route path="/themes" component={ThemesScreen} />
               <Route path="/project-under-review-detail" exact component={ProjectUnderReviewDetail} />
+              <Route path="/nft-seal" exact component={NFTSeal} />
+              <Route path="/nft-seal-detail" exact component={NFTSealDetail} />
               <Route path="/project-detail" exact component={ProjectDetail} />
               <Route path="/users" exact component={Users} />
               <Route path="/staffs" exact component={Staffs} />

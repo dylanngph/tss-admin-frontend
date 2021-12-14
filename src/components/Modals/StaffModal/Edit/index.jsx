@@ -139,7 +139,7 @@ const EditStaffModal = (props) => {
                             />
                         </FormControl>
                         <FormControl sx={{ width: "100%" }} className="form-control mb-16">
-                            <FormLabel>Phân quyền</FormLabel>
+                            <FormLabel className="label">Phân quyền</FormLabel>
                             <Select
                                 labelId="role"
                                 name="role"

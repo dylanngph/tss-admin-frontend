@@ -21,7 +21,7 @@ export const projectNav = [
     },
     {
         label: 'Con dấu NFT',
-        href: '/nfts',
+        href: '/nft-seal',
         icon: Judgeicon
     },
     {

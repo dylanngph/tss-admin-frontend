@@ -209,3 +209,11 @@ line-height: 17px;
   border-radius: 8px;
   background: #EFF2F5;
 }
+
+.MuiFormControl-root.MuiTextField-root {
+  width: 100%;
+}
+
+.AccordionSummary:before {
+  display: none !important;
+}
