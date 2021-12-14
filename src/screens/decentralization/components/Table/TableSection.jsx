@@ -9,7 +9,6 @@ import TableRow from '@mui/material/TableRow';
 import Menu from '@mui/material/Menu';
 import Paper from '@mui/material/Paper';
 import MenuItem from '@mui/material/MenuItem';
-import EditUserModal from "../../../../components/Modals/UserModal/Edit"
 import { TablePagination, Box, Button } from '@mui/material'
 import { Route, Switch, useRouteMatch, Link } from "react-router-dom";
 
