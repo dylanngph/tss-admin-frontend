@@ -6,11 +6,17 @@ import Footer from "./components/display/Footer";
 import Header from "./components/display/Header";
 import NotFound from "./components/display/NotFound";
 import Sidebar from "./components/display/Sidebar";
-import ForgotPassScreen from "./screens/account/components/ForgotPass";
 import LoginScreen from "./screens/account/components/Login";
-import RegisterScreen from "./screens/account/components/Register";
 import HomeScreen from "./screens/home";
 import Projects from "./screens/project"
+// import ApprovalProject from "./screens/project/components/Approval";
+// import ManageProject from "./screens/project/components/Manage";
+import ThemesScreen from "./screens/Themes";
+import ProjectUnderReviewDetail from "./screens/home/ProjectDetail"
+import ProjectDetail from "./screens/project/ProjectDetail"
+import Users from "./screens/Users"
+import Staffs from "./screens/Staffs"
+import Decentralization from "./screens/Decentralization"
 import Container from "components/Container/Container";
 import {adminData} from 'screens/admin/config'
 import Cookies from 'js-cookie'
@@ -106,13 +112,17 @@ function App() {
           <>
           <Header drawerWidth={drawerWidth} handleLogout={handleLogout} />
           <Sidebar drawerWidth={drawerWidth}/>
-          <Container>
+          <Container className="wrap-container">
             <Switch>
               <Route exact path="/" component={HomeScreen} />
-              {/* <Route path="/login" component={LoginScreen} />
-              <Route path="/register" component={RegisterScreen} />
-              <Route path="/forgotpass" component={ForgotPassScreen} /> */}
               <Route path="/projects" component={Projects} />
+              <Route path="/themes" component={ThemesScreen} />
+              <Route path="/project-under-review-detail" exact component={ProjectUnderReviewDetail} />
+              <Route path="/project-detail" exact component={ProjectDetail} />
+              <Route path="/users" exact component={Users} />
+              <Route path="/staffs" exact component={Staffs} />
+              <Route path="/decentralization" exact component={Decentralization} />
+              
               <Route component={NotFound} />
             </Switch>
           </Container>

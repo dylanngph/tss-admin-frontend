@@ -6,22 +6,23 @@ import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import Menu from '@mui/material/Menu';
 import Paper from '@mui/material/Paper';
-import { TablePagination } from '@mui/material'
+import MenuItem from '@mui/material/MenuItem';
+import EditUserModal from "../../../../components/Modals/UserModal/Edit"
+import { TablePagination, Box, Button } from '@mui/material'
 import { Route, Switch, useRouteMatch, Link } from "react-router-dom";
 
 
 
-function createData(name, status, projectType, date) {
-  return { name, status, projectType, date };
+function createData(role, numberOfUsers, description) {
+  return { role, numberOfUsers, description };
 }
 
 const rows = [
-  createData('A', 'Hoạt động', 'Tổ chức', '28/12/2021'),
-  createData('B', 'Hoạt động', 'Cá nhân', '28/12/2021'),
-  createData('C', 'Hoạt động', 'Quỹ', '28/12/2021'),
-  createData('D', 'Tạm ẩn', 'Tổ chức', '28/12/2021'),
-  createData('E', 'Tạm ẩn', 'Tổ chức', '28/12/2021'),
+  createData('Root Admin', '1', '(907) 555-0101'),
+  createData('Team leader', '2', '(207) 555-0119'),
+  createData('Team member', '4', '(205) 555-0100'),
 ];
 
 
@@ -38,6 +39,43 @@ const TableSection = () => {
     setPage(0);
   };
 
+  const deleteButton = {
+    fontWeight: "500",
+    fontSize: "14px",
+    lineHeight: "22px",
+    color: "#EA3943",
+    textTransform: "none",
+    width: "100%",
+    justifyContent: "flex-start",
+
+    "img": {
+      marginRight: "10px"
+    }
+  }
+
+  const addButton = {
+    fontWeight: "500",
+    fontSize: "14px",
+    lineHeight: "22px",
+    color: "#111827",
+    textTransform: "none",
+
+    "img": {
+        marginRight: "10px"
+    }
+}
+
+  const wrapMore = {
+    position: "absolute",
+    background: "#FFFFFF",
+    boxShadow: "0px 4px 6px rgb(0 0 0 / 10%), 0px 2px 4px rgb(0 0 0 / 6%)",
+    borderRadius: "8px",
+    padding: "16px 0",
+    zIndex: "100",
+    left: "-60px",
+
+  }
+
   return (
     <Paper sx={{ position: "relative", }}>
       <TablePagination
@@ -49,38 +87,46 @@ const TableSection = () => {
         page={page}
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
-        className="pagination-top"
+        className="pagination-top normal"
       />
       <TableContainer sx={{ border: "1px solid rgba(224, 224, 224, 1)", borderTopLeftRadius: "10px", borderTopRightRadius: "10px" }}>
         <Table sx={{ minWidth: 700, borderTopLeftRadius: '10px', borderTopRightRadius: '10px', overflow: 'hidden', }} aria-label="customized table">
           <TableHead sx={{ backgroundColor: '#F7F8FA' }}>
             <StyledTableRow>
               <StyledTableCell>#</StyledTableCell>
-              <StyledTableCell>Tên dự án</StyledTableCell>
-              <StyledTableCell>Trạng thái</StyledTableCell>
-              <StyledTableCell>Loại dự án</StyledTableCell>
-              <StyledTableCell>Ngày xác thực</StyledTableCell>
+              <StyledTableCell>Tên nhóm quyền</StyledTableCell>
+              <StyledTableCell>Số người dùng</StyledTableCell>
+              <StyledTableCell>Mô tả</StyledTableCell>
+              <StyledTableCell></StyledTableCell>
             </StyledTableRow>
           </TableHead>
           <TableBody>
             {rows.map((row, i) => (
-              <StyledTableRow key={row.name} component={Link} sx={{ textDecoration: "none" }} to={`/project-detail`}>
+              <StyledTableRow key={row.name}>
                 <StyledTableCell scope="row">
                   {i + 1}
                 </StyledTableCell>
                 <StyledTableCell scope="row">
-                  {row.name}
+                  {row.role}
                 </StyledTableCell>
                 <StyledTableCell>
-                  <span className={row.status == 'Hoạt động' ? 'active-status' : 'nonactive-status'}>
-                    {row.status}
-                  </span>
+                  {row.numberOfUsers}
                 </StyledTableCell>
                 <StyledTableCell>
-                  {row.projectType}
+                  {row.description}
                 </StyledTableCell>
-                <StyledTableCell>
-                  {row.date}
+                <StyledTableCell sx={{ position: "relative" }}>
+                  <img src="./assets/icons/more.svg" alt="more" />
+                  <Box hidden={i != 0} sx={wrapMore}>
+                    <Button sx={addButton}>
+                      <img src="./assets/icons/edit.svg" alt="edit" />
+                      Chỉnh sửa
+                    </Button>
+                    <Button sx={deleteButton}>
+                      <img src="./assets/icons/trash.svg" alt="trash" />
+                      Xóa
+                    </Button>
+                  </Box>
                 </StyledTableCell>
               </StyledTableRow>
             ))}

@@ -4,12 +4,17 @@
 .MuiPaper-root {
   box-shadow: none!important;
 }
-.MuiPaper-elevation {
-  
-}
 
 .pagination-top {
   margin-bottom: 16px;
+  position: absolute;
+    top: -75px;
+    right: 0;
+}
+
+.pagination-top.normal {
+  position: relative;
+  top: auto;
 }
 
 .pagination-top .MuiTablePagination-displayedRows,
@@ -181,4 +186,26 @@ fieldset {
 
 .ml-25 {
   margin-left: 25px;
+}
+
+.wrap-container {
+  position: relative;
+}
+
+.mb-16 {
+  margin-bottom: 16px !important;
+}
+
+.MuiFormLabel-root.label {
+  margin-bottom: 4px;
+  color: #58667E;
+  font-style: normal;
+font-weight: 600;
+font-size: 14px;
+line-height: 17px;
+}
+
+.password-field {
+  border-radius: 8px;
+  background: #EFF2F5;
 }

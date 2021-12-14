@@ -3,19 +3,21 @@ import styled from '@emotion/styled'
 import { Box, Button } from '@mui/material'
 import { Route, Switch, useRouteMatch } from "react-router-dom";
 import PageTitle from 'components/PageTitle/PageTitle'
+import Filter from './components/Filter/Filter';
 import TableSection from './components/Table/TableSection';
-import CreateDecentralizationModal from '../../components/Modals/DecentralizationModal/Create'
+import CreateStaffModal from '../../components/Modals/StaffModal/Create'
 
 
-function Decentralization(props) {
+function Staffs(props) {
     const match = useRouteMatch();
     return (
         <Box>
-            <PageTitle text={'Nhóm quyền'} />
+            <PageTitle text={'Nhân viên'} />
             <Box sx={{ position: "absolute", top: "11px", zIndex: "1100", right: "80px", }}>
-                <CreateDecentralizationModal />
+                <CreateStaffModal />
             </Box>
             <Col>
+                <Filter />
                 <TableSection />
             </Col>
         </Box>
@@ -30,4 +32,4 @@ const Col = styled(Box)`
     margin-right: 24px;
 `
 
-export default Decentralization;
+export default Staffs;

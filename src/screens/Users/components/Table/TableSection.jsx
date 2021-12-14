@@ -6,22 +6,33 @@ import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import Menu from '@mui/material/Menu';
 import Paper from '@mui/material/Paper';
-import { TablePagination } from '@mui/material'
+import MenuItem from '@mui/material/MenuItem';
+import EditUserModal from "../../../../components/Modals/UserModal/Edit"
+import { TablePagination, Box, Button } from '@mui/material'
 import { Route, Switch, useRouteMatch, Link } from "react-router-dom";
 
 
 
-function createData(name, status, projectType, date) {
-  return { name, status, projectType, date };
+function createData(name, email, phone, company) {
+  return { name, email, phone, company };
 }
 
 const rows = [
-  createData('A', 'Hoạt động', 'Tổ chức', '28/12/2021'),
-  createData('B', 'Hoạt động', 'Cá nhân', '28/12/2021'),
-  createData('C', 'Hoạt động', 'Quỹ', '28/12/2021'),
-  createData('D', 'Tạm ẩn', 'Tổ chức', '28/12/2021'),
-  createData('E', 'Tạm ẩn', 'Tổ chức', '28/12/2021'),
+  createData('Jane Cooper', 'jessica.hanson@example.com', '(907) 555-0101', 'Barone LLC.'),
+  createData('Jacob Jones', 'bill.sanders@example.com', '(207) 555-0119', 'Biffco Enterprises Ltd.'),
+  createData('Annette Black', 'willie.jennings@example.com', '(205) 555-0100', 'Barone LLC.'),
+  createData('Courtney Henry', 'dolores.chambers@example.com', '(302) 555-0107', 'Abstergo Ltd.'),
+  createData('Darlene Robertson', 'tim.jennings@example.com', '(229) 555-0109', 'Binford Ltd.'),
+  createData('Wade Warren', 'jackson.graham@example.com', '(684) 555-0102', 'Binford Ltd.'),
+  createData('Albert Flores', 'debra.holt@example.com', '(209) 555-0104', 'Acme Co.'),
+  createData('Ronald Richards', 'tanya.hill@example.com', '(229) 555-0109', 'Biffco Enterprises Ltd.'),
+  createData('Robert Fox', 'alma.lawson@example.com', '(219) 555-0114', 'Binford Ltd.'),
+  createData('Floyd Miles', 'deanna.curtis@example.com', '(319) 555-0115', 'Big Kahuna Burger Ltd.'),
+  createData('Eleanor Pena', 'michael.mitc@example.com', '(704) 555-0127', 'Binford Ltd.'),
+  createData('Brooklyn Simmons', 'debbie.baker@example.com', '(603) 555-0123', 'Abstergo Ltd.'),
+
 ];
 
 
@@ -37,6 +48,31 @@ const TableSection = () => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
+
+  const deleteButton = {
+    fontWeight: "500",
+    fontSize: "14px",
+    lineHeight: "22px",
+    color: "#EA3943",
+    textTransform: "none",
+    width: "100%",
+    justifyContent: "flex-start",
+
+    "img": {
+      marginRight: "10px"
+    }
+  }
+
+  const wrapMore = {
+    position: "absolute",
+    background: "#FFFFFF",
+    boxShadow: "0px 4px 6px rgb(0 0 0 / 10%), 0px 2px 4px rgb(0 0 0 / 6%)",
+    borderRadius: "8px",
+    padding: "16px 0",
+    zIndex: "100",
+    left: "-60px",
+
+  }
 
   return (
     <Paper sx={{ position: "relative", }}>
@@ -56,15 +92,16 @@ const TableSection = () => {
           <TableHead sx={{ backgroundColor: '#F7F8FA' }}>
             <StyledTableRow>
               <StyledTableCell>#</StyledTableCell>
-              <StyledTableCell>Tên dự án</StyledTableCell>
-              <StyledTableCell>Trạng thái</StyledTableCell>
-              <StyledTableCell>Loại dự án</StyledTableCell>
-              <StyledTableCell>Ngày xác thực</StyledTableCell>
+              <StyledTableCell>Người dùng</StyledTableCell>
+              <StyledTableCell>Email</StyledTableCell>
+              <StyledTableCell>Số điện thoại</StyledTableCell>
+              <StyledTableCell>Đại diện dự án</StyledTableCell>
+              <StyledTableCell></StyledTableCell>
             </StyledTableRow>
           </TableHead>
           <TableBody>
             {rows.map((row, i) => (
-              <StyledTableRow key={row.name} component={Link} sx={{ textDecoration: "none" }} to={`/project-detail`}>
+              <StyledTableRow key={row.name}>
                 <StyledTableCell scope="row">
                   {i + 1}
                 </StyledTableCell>
@@ -72,15 +109,23 @@ const TableSection = () => {
                   {row.name}
                 </StyledTableCell>
                 <StyledTableCell>
-                  <span className={row.status == 'Hoạt động' ? 'active-status' : 'nonactive-status'}>
-                    {row.status}
-                  </span>
+                  {row.email}
                 </StyledTableCell>
                 <StyledTableCell>
-                  {row.projectType}
+                  {row.phone}
                 </StyledTableCell>
                 <StyledTableCell>
-                  {row.date}
+                  {row.company}
+                </StyledTableCell>
+                <StyledTableCell sx={{ position: "relative" }}>
+                  <img src="./assets/icons/more.svg" alt="more" />
+                  <Box hidden={i != 0} sx={wrapMore}>
+                    <EditUserModal />
+                    <Button sx={deleteButton}>
+                      <img src="./assets/icons/trash.svg" alt="trash" />
+                      Xóa
+                    </Button>
+                  </Box>
                 </StyledTableCell>
               </StyledTableRow>
             ))}

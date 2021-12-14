@@ -40,7 +40,7 @@ function ProjectDetail(props) {
                     </Box>
                 </Grid>
                 <Grid item xs={3} md={4} xl={3}>
-                    <Box sx={{ background: "#EFF2F5", borderRadius: "8px", padding: "16px" }}>
+                    <Box sx={{ background: "#EFF2F5", borderRadius: "8px", padding: "16px", marginTop: "160px" }}>
                         <ProfileVerification />
                     </Box>
                 </Grid>

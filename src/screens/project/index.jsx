@@ -13,8 +13,6 @@ function Projects(props) {
         <div>
             <Switch>
                 <Route path={match.url} exact component={ProjectManagement} />
-                <Route path={`${match.url}/:id`} exact component={ProjectDetail} />
-                <Route component={NotFound} />
             </Switch>
         </div>
     );

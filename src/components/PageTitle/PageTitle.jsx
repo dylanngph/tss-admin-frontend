@@ -15,6 +15,9 @@ const StyledText = styled.div`
     font-weight: 700;
     padding: 24px;
     line-height: 22px;
+    position: absolute;
+    z-index: 10;
+    top: 0;
 `
 
 export default PageTitle

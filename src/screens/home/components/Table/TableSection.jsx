@@ -39,7 +39,7 @@ const TableSection = () => {
   };
 
   return (
-    <Paper>
+    <Paper sx={{ position: "relative", }}>
       <TablePagination
         rowsPerPageOptions={[5, 10, 25]}
         labelRowsPerPage="Hiển thị"
@@ -64,7 +64,7 @@ const TableSection = () => {
           </TableHead>
           <TableBody>
             {rows.map((row, i) => (
-              <StyledTableRow key={row.name}>
+              <StyledTableRow key={row.name} component={Link} sx={{ textDecoration: "none" }} to={`/project-under-review-detail`}>
                 <StyledTableCell scope="row">
                   {i + 1}
                 </StyledTableCell>
