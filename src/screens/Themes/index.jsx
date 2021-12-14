@@ -86,6 +86,7 @@ function ThemesScreen(props) {
                                 transition: 'width 300ms ease',
                                 fontSize: '16px',
                                 fontFamily: 'inherit',
+                                fontWeight: '400',
                             }}
                         />
                     </Box>
