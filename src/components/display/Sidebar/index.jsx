@@ -11,15 +11,11 @@ import {
 } from '@mui/material'
 import { Link , useLocation } from 'react-router-dom'
 import {ReactComponent as LogoIcon} from 'icon/tss-logo.svg'
-import {projectNav , ruleNav} from './config'
-
-const drawerWidth = 255;
+import {projectNav , ruleNav, themeNav} from './config'
 
 
-function Sidebar(props) {
+function Sidebar({drawerWidth}) {
     const {pathname} = useLocation()
-    console.log(pathname)
-
 
     return (
         <Drawer
@@ -35,8 +31,9 @@ function Sidebar(props) {
             '& .MuiListItem-root': {
                 paddingLeft: '40px'
             },
+            
             '& .MuiListItemIcon-root': {
-                minWidth: '40px'
+                minWidth: '40px',
             },
             '& .MuiToolbar-root': {
                 minHeight: '110px',
@@ -70,12 +67,23 @@ function Sidebar(props) {
                             backgroundColor: pathname === entry.href ? 'rgba(159,162,180, .2)' : null,
                             '&:hover' : {
                                 backgroundColor: pathname === entry.href ? 'rgba(159,162,180, .2)' : 'rgba(159,162,180, .08)'
+                            },
+                            '& .MuiListItemIcon-root': {
+                                color: pathname === entry.href ? '#fff' : '#58667E'
                             }
+                            
                         }} button key={entry.label} >
                         <ListItemIcon>
                             <entry.icon/>
                         </ListItemIcon>
-                        <ListItemText primary={entry.label} />
+                        <ListItemText
+                            sx={{
+                                'span' : {
+                                    color: pathname === entry.href ? '#fff' : null
+                                }
+                            }}
+                            primary={entry.label} 
+                        />
                         </ListItem>
                     </Link>
                 ))
@@ -88,6 +96,35 @@ function Sidebar(props) {
             }}}>
             {
                 ruleNav.map((entry) => (
+                    <Link to={entry.href}>
+                        <ListItem sx={{
+                            '& .MuiListItemIcon-root': {
+                                color: pathname === entry.href ? '#fff' : '#58667E'
+                            }
+                        }} button key={entry.label} href={entry.href}>
+                        <ListItemIcon>
+                            <entry.icon />
+                        </ListItemIcon>
+                        <ListItemText
+                            sx={{
+                                'span' : {
+                                    color: pathname === entry.href ? '#fff' : null
+                                }
+                            }}
+                            primary={entry.label} 
+                        />
+                        </ListItem>
+                    </Link>
+                ))
+            }
+            </List>
+            <Divider sx={{borderColor: '#F6F8FA', opacity: '.3'}} />
+            <List sx={{ 'a' : {
+                textDecoration: 'none',
+                color: 'inherit'
+            }}}>
+            {
+                themeNav.map((entry) => (
                     <Link to={entry.href}>
                         <ListItem button key={entry.label} href={entry.href}>
                         <ListItemIcon>

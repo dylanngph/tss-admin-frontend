@@ -1,39 +1,219 @@
-.App {
+* {
+  box-sizing: border-box;
+}
+.MuiPaper-root {
+  box-shadow: none!important;
+}
+
+.pagination-top {
+  margin-bottom: 16px;
+  position: absolute;
+    top: -75px;
+    right: 0;
+}
+
+.pagination-top.normal {
+  position: relative;
+  top: auto;
+}
+
+.pagination-top .MuiTablePagination-displayedRows,
+.pagination-top .MuiTablePagination-actions {
+  display: none;
+}
+
+.pagination-top .MuiTablePagination-selectLabel {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+  color: #A6B0C3;
+}
+
+.pagination-top .MuiInputBase-root {
+  color: #58667E;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+  background: #EFF2F5;
+  border-radius: 8px;
+  margin-left: 16px;
+  margin-right: 0;
+}
+
+.pagination-top .MuiTablePagination-select {
+  padding: 12px 52px 12px 24px !important;
+}
+
+.pagination-bottom {
+  background: #F7F8FA;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.pagination-bottom .MuiTablePagination-displayedRows {
+  font-size: 18px;
+  line-height: 150%;
+  color: #58667E;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  position: absolute;
+}
+
+.pagination-bottom .MuiTablePagination-selectLabel,
+.pagination-bottom .MuiInputBase-root {
+  display: none;
+}
+
+.icon-history {
+  padding: 30px;
+  background:#EFF2F5;
+  border-radius: 50%;
+}
+
+.MuiOutlinedInput-root input,
+textarea,
+.MuiOutlinedInput-root .MuiSelect-select {
+  padding: 12px 16px;
+  background: #EFF2F5;
+  border-radius: 8px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  color: #58667E;
+  border: 1px solid #EFF2F5;
+}
+
+.datePicker .MuiFormControl-root {
+  background: #EFF2F5;
+  border-radius: 8px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  color: #58667E;
+  border: 1px solid #EFF2F5;
+  width: 212px;
+}
+
+.MuiButton-root.button {
+  background: #446DFF;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19px;
+  color: #FFFFFF;
+  padding: 12px 24px;
+  width: auto;
+  border: 1px solid #446DFF;
+  text-transform: none;
+}
+
+.MuiButton-root.button:hover {
+  background: transparent;
+  color: #446DFF;
+}
+
+.MuiButton-root.button.disable {
+  background: #EFF2F5;
+  border: 1px solid #EFF2F5;
+  color: #A6B0C3;
+}
+
+.MuiButton-root.button.cancel {
+  background: #EA3943;
+  border: 1px solid #EA3943;
+  color: #FFFFFF;
+}
+
+.MuiButton-root.button.confirm-denial {
+  background: #FDEBEC;
+  border: 1px solid #FDEBEC;
+  color: #EA3943;
+}
+
+.MuiButton-root.button.confirm-change {
+  background: #EFF2F5;
+  border: 1px solid #EFF2F5;
+  color: #446DFF;
+}
+
+.MuiButton-root.button.confirm-hidden {
+  background: rgba(238, 211, 68, 0.2);
+  border: 1px solid rgba(238, 211, 68, 0.2);
+  color: #EED344;
+}
+
+.MuiButton-root.button.remove {
+  background: #EA3943;
+  border: 1px solid #EA3943;
+  color: #ffffff;
+}
+
+fieldset {
+  display: none !important;
+}
+
+.nonactive-status,
+.active-status,
+.author {
+  display: inline-block;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  max-width: 94px;
+  width: 100%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-radius: 4px;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.author {
+  color: #446DFF;
+  background: #F0F6FF;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-float infinite 3s ease-in-out;
-  }
+.nonactive-status {
+  color: #B4B6B8;
+  background: #E3E5E5;
 }
 
-.App-header {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.active-status {
+  color: #23C16B;
+  background: #E3FADA;
 }
 
-.App-link {
-  color: rgb(112, 76, 182);
+.ml-25 {
+  margin-left: 25px;
 }
 
-@keyframes App-logo-float {
-  0% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(10px);
-  }
-  100% {
-    transform: translateY(0px);
-  }
+.wrap-container {
+  position: relative;
+}
+
+.mb-16 {
+  margin-bottom: 16px !important;
+}
+
+.MuiFormLabel-root.label {
+  margin-bottom: 4px;
+  color: #58667E;
+  font-style: normal;
+font-weight: 600;
+font-size: 14px;
+line-height: 17px;
+}
+
+.password-field {
+  border-radius: 8px;
+  background: #EFF2F5;
+}
+
+.MuiFormControl-root.MuiTextField-root {
+  width: 100%;
+}
+
+.AccordionSummary:before {
+  display: none !important;
 }
