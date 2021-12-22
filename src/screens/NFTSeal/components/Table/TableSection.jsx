@@ -32,6 +32,7 @@ const rows = [
 const TableSection = () => {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [page, setPage] = React.useState(0);
+  const [status, setStatus] = React.useState([]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -41,6 +42,11 @@ const TableSection = () => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
+
+  const abc = () => {
+    setStatus(rows);
+    console.log('status==>', status)
+  }
 
   const deleteButton = {
     fontWeight: "500",
@@ -123,7 +129,7 @@ const TableSection = () => {
                   {row.date}
                 </StyledTableCell>
                 <StyledTableCell sx={{ position: "relative" }}>
-                  <img src="./assets/icons/more.svg" alt="more" />
+                  <img src="./assets/icons/more.svg" alt="more" onClick={abc} />
                   <Box hidden={i != 0} sx={wrapMore}>
                     <Button component={Link} to="/nft-seal-detail" sx={addButton} >
                       <img src="./assets/icons/edit.svg" alt="edit" />

@@ -118,7 +118,7 @@ function Sidebar({drawerWidth}) {
                 ))
             }
             </List>
-            <Divider sx={{borderColor: '#F6F8FA', opacity: '.3'}} />
+            {/* <Divider sx={{borderColor: '#F6F8FA', opacity: '.3'}} />
             <List sx={{ 'a' : {
                 textDecoration: 'none',
                 color: 'inherit'
@@ -135,7 +135,7 @@ function Sidebar({drawerWidth}) {
                     </Link>
                 ))
             }
-            </List>
+            </List> */}
         </Drawer>
     );
 }
