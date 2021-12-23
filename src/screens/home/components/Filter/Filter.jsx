@@ -12,10 +12,61 @@ import {ReactComponent as SearchIcon} from 'assets/icons/search.svg'
 
 
 const Filter = () => {
-    const [age, setAge] = useState('');
+    const [poject, setPoject] = useState({
+        projectName: '',
+        projectType: '',
+        statusDocument: '',
+        date: '',
+    });
 
-    const handleChange = (event) => {
-        setAge(event.target.value);
+    const handleChange = (prop) => (event) => {
+        setPoject({ ...poject, [prop]: event.target.value });
+    }
+
+    const projectTypes = [
+        {
+            label: 'Loại hồ sơ',
+            value: ''
+        },
+        {
+            label: 'Tổ chức',
+            value: 'tổ chức'
+        },
+        {
+            label: 'Cá nhân',
+            value: 'cá nhân'
+        },
+        {
+            label: 'Quỹ',
+            value: 'quỹ'
+        },
+    ]
+
+    const statusDocument = [
+        {
+            label: 'Loại đơn',
+            value: ''
+        },
+        {
+            label: 'Xác thực dự án',
+            value: 'xác thực dự án'
+        },
+        {
+            label: 'Chỉnh sửa thông tin',
+            value: 'chỉnh sửa thông tin'
+        },
+    ]
+
+    const styleSelect = {
+        '.MuiSelect-select': {
+            padding: '12px 24px',
+            fontStyle: 'normal',
+            fontWeight: '500',
+            fontSize: '18px',
+            lineHeight: '22px',
+            color: '#11142D',
+            border: '1px solid #EAEAEA',
+        }
     }
 
     return (
@@ -31,38 +82,38 @@ const Filter = () => {
                       }}
                 />
                 <SelectField
-                    value={age}
-                    onChange={handleChange}
+                    sx={styleSelect}
+                    value={poject.projectType}
+                    onChange={handleChange('projectType')}
                     displayEmpty
                     inputProps={{ 'aria-label': 'Without label' }}
                     >
-                    <MenuItem disabled value="">Loại dự án</MenuItem>
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    {projectTypes.map((item, index) => (
+                        <MenuItem value={item.value}>{item.label}</MenuItem>
+                    ))}
                 </SelectField>
                 <SelectField
-                    value={age}
-                    onChange={handleChange}
+                    sx={styleSelect}
+                    value={poject.statusDocument}
+                    onChange={handleChange('statusDocument')}
                     displayEmpty
                     inputProps={{ 'aria-label': 'Without label' }}
                     >
-                    <MenuItem disabled value="">Loại đơn</MenuItem>
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    {statusDocument.map((item, index) => (
+                        <MenuItem value={item.value}>{item.label}</MenuItem>
+                    ))}
                 </SelectField>
-                <SelectField
-                    value={age}
-                    onChange={handleChange}
+                {/* <SelectField
+                    value={poject.date}
+                    onChange={handleChange('date')}
                     displayEmpty
                     inputProps={{ 'aria-label': 'Without label' }}
                     >
-                    <MenuItem disabled value="">Ngày gửi đơn</MenuItem>
+                    <MenuItem value="">Ngày gửi đơn</MenuItem>
                     <MenuItem value={10}>Ten</MenuItem>
                     <MenuItem value={20}>Twenty</MenuItem>
                     <MenuItem value={30}>Thirty</MenuItem>
-                </SelectField>
+                </SelectField> */}
             </FormControl>
             <FormControl sx={{
                 flexDirection: 'row',

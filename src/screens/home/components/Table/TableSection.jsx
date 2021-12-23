@@ -22,6 +22,9 @@ const rows = [
   createData('C', 'Quỹ', 'Xác thực dự án', '28/12/2021'),
   createData('D', 'Tổ chức', 'Chỉnh sửa thông tin', '28/12/2021'),
   createData('E', 'Tổ chức', 'Xác thực dự án', '28/12/2021'),
+  createData('E', 'Tổ chức', 'Xác thực dự án', '29/12/2021'),
+  createData('E', 'Tổ chức', 'Xác thực dự án', '30/12/2021'),
+  createData('E', 'Tổ chức', 'Xác thực dự án', '31/12/2021'),
 ];
 
 
@@ -63,7 +66,7 @@ const TableSection = () => {
             </StyledTableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row, i) => (
+            {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, i) => (
               <StyledTableRow key={row.name} component={Link} sx={{ textDecoration: "none" }} to={`/project-under-review-detail`}>
                 <StyledTableCell scope="row">
                   {i + 1}

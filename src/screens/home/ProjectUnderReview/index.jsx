@@ -14,7 +14,7 @@ function ProjectUnderReview({ match }) {
             <PageTitle text={'Dự án đang duyệt'} />
             <Col>
                 <Filter/>
-                <TableSection/>
+                <TableSection filter="abc" />
             </Col>
         </Box>
     );
