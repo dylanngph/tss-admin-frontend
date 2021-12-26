@@ -18,6 +18,18 @@ const Filter = () => {
         setAge(event.target.value);
     }
 
+    const styleSelect = {
+        '.MuiSelect-select': {
+            padding: '12px 24px',
+            fontStyle: 'normal',
+            fontWeight: '500',
+            fontSize: '18px',
+            lineHeight: '22px',
+            color: '#11142D',
+            border: '1px solid #EAEAEA',
+        }
+    }
+
     return (
         <Flex justifyContent="space-between">
             <FormControl sx={{
@@ -31,6 +43,7 @@ const Filter = () => {
                       }}
                 />
                 <SelectField
+                    sx={styleSelect}
                     value={age}
                     onChange={handleChange}
                     displayEmpty
@@ -42,6 +55,7 @@ const Filter = () => {
                     <MenuItem value={30}>Thirty</MenuItem>
                 </SelectField>
                 <SelectField
+                    sx={styleSelect}
                     value={age}
                     onChange={handleChange}
                     displayEmpty
@@ -53,6 +67,7 @@ const Filter = () => {
                     <MenuItem value={30}>Thirty</MenuItem>
                 </SelectField>
                 <SelectField
+                    sx={styleSelect}
                     value={age}
                     onChange={handleChange}
                     displayEmpty

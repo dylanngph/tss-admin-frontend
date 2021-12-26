@@ -103,7 +103,8 @@ const Filter = () => {
                         <MenuItem value={item.value}>{item.label}</MenuItem>
                     ))}
                 </SelectField>
-                {/* <SelectField
+                <SelectField
+                    sx={styleSelect}
                     value={poject.date}
                     onChange={handleChange('date')}
                     displayEmpty
@@ -113,7 +114,7 @@ const Filter = () => {
                     <MenuItem value={10}>Ten</MenuItem>
                     <MenuItem value={20}>Twenty</MenuItem>
                     <MenuItem value={30}>Thirty</MenuItem>
-                </SelectField> */}
+                </SelectField>
             </FormControl>
             <FormControl sx={{
                 flexDirection: 'row',

@@ -20,6 +20,14 @@ function ProjectDetail(props) {
         setValue(newValue);
     };
 
+    const tabStyle = {
+        fontWeight: '600',
+        textTransform: 'inherit',
+        fontSize: '18px',
+        lineHeight: '22px',
+        color: '#A6B0C3',
+    }
+
     return (
         <Box>
             <PageTitle text={'Dự án đợi duyệt / Jadelabs'} />
@@ -30,8 +38,8 @@ function ProjectDetail(props) {
                     </Box>
                     <Box>
                         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-                            <Tab className="tab-title" label="Thông tin hồ sơ" {...a11yProps(0)} />
-                            <Tab className="tab-title" label="Đơn chỉnh sửa" {...a11yProps(1)} />
+                            <Tab sx={tabStyle} className="tab-title" label="Thông tin hồ sơ" {...a11yProps(0)} />
+                            <Tab sx={tabStyle} className="tab-title" label="Đơn chỉnh sửa" {...a11yProps(1)} />
                         </Tabs>
                     </Box>
                     <Box mt={4}>

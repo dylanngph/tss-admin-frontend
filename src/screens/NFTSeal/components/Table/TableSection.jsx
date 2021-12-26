@@ -15,17 +15,17 @@ import { Route, Switch, useRouteMatch, Link } from "react-router-dom";
 
 
 
-function createData(project, typeProject, typeNFT, date) {
+function createData(project, typeProject, typeNFT, date, statusAction) {
   return { project, typeProject, typeNFT, date };
 }
 
 const rows = [
-  createData('JadeLabs', 'Doanh nghiệp', 'Passport of Blockchain', '27/11/2021'),
-  createData('JadeLabs', 'Doanh nghiệp', 'Tài sản nền', '27/11/2021'),
-  createData('JadeLabs', 'Doanh nghiệp', 'Tài sản số', '27/11/2021'),
-  createData('JadeLabs', 'Doanh nghiệp', 'Passport of Blockchain', '27/11/2021'),
-  createData('JadeLabs', 'Doanh nghiệp', 'Passport of Blockchain', '27/11/2021'),
-  createData('JadeLabs', 'Doanh nghiệp', 'Passport of Blockchain', '27/11/2021'),
+  createData('JadeLabs', 'Doanh nghiệp', 'Passport of Blockchain', '27/11/2021', false),
+  createData('JadeLabs', 'Doanh nghiệp', 'Tài sản nền', '27/11/2021', false),
+  createData('JadeLabs', 'Doanh nghiệp', 'Tài sản số', '27/11/2021', false),
+  createData('JadeLabs', 'Doanh nghiệp', 'Passport of Blockchain', '27/11/2021', false),
+  createData('JadeLabs', 'Doanh nghiệp', 'Passport of Blockchain', '27/11/2021', false),
+  createData('JadeLabs', 'Doanh nghiệp', 'Passport of Blockchain', '27/11/2021', false),
 ];
 
 
