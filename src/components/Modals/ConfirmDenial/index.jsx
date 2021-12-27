@@ -72,7 +72,7 @@ const ConfirmDenial = (props) => {
 
     return (
         <div>
-            <Button className="button confirm-denial" onClick={handleOpen}>Từ chối</Button>
+            <Button sx={{width: '100% !important'}} className="button confirm-denial" onClick={handleOpen}>Từ chối</Button>
 
             <Modal
                 open={open}

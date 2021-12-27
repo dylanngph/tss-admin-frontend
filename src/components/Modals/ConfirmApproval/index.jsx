@@ -67,8 +67,8 @@ const ConfirmApproval = (props) => {
     const contentWrap = {
         display: "flex",
         alignItems: "center",
-        justifyContent: "space-around",
-        maxWidth: "545px",
+        justifyContent: "center",
+        maxWidth: "550px",
         width: "100%",
         margin: "auto"
     }
@@ -90,7 +90,7 @@ const ConfirmApproval = (props) => {
                     <Typography align="center" mb={2} variant="h4">Xác nhận phê duyệt</Typography>
                     <Typography align="center" mb={3} variant="body1">Sau khi phê duyệt, thông tin dự án sẽ được công khai tại trang dAPP</Typography>
                     <Box sx={contentWrap}>
-                        <FormControl className="form-control mb-16">
+                        <FormControl sx={{ maxWidth: '190px', width: '100%', marginRight: '12px' }} className="form-control">
                             <Select
                                 labelId="schedule"
                                 name="schedule"
@@ -98,7 +98,6 @@ const ConfirmApproval = (props) => {
                                 placeholder="Đặt lịch"
                                 value={formValues.schedule}
                                 onChange={handleSelectChange}
-                                sx={{ width: '190px' }}
                             >
                                 {types.map((item, index) => (
                                     <MenuItem value={item.value}>{item.label}</MenuItem>
@@ -108,7 +107,7 @@ const ConfirmApproval = (props) => {
                         {
                             formValues.schedule == '2'
                                 ?
-                                <FormControl className="form-control mb-16 datePicker">
+                                <FormControl sx={{ maxWidth: '212px', width: '100%', marginRight: '12px' }} className="form-control datePicker">
                                     <LocalizationProvider dateAdapter={AdapterDateFns}>
                                         <DesktopDatePicker
                                             inputFormat="MM/dd/yyyy"

@@ -1,4 +1,4 @@
-import React from 'react'
+import React , {useState, useEffect} from 'react'
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -16,16 +16,16 @@ import { Route, Switch, useRouteMatch, Link } from "react-router-dom";
 
 
 function createData(project, typeProject, typeNFT, date, statusAction) {
-  return { project, typeProject, typeNFT, date };
+  return { project, typeProject, typeNFT, date, statusAction };
 }
 
 const rows = [
-  createData('JadeLabs', 'Doanh nghiệp', 'Passport of Blockchain', '27/11/2021', false),
-  createData('JadeLabs', 'Doanh nghiệp', 'Tài sản nền', '27/11/2021', false),
-  createData('JadeLabs', 'Doanh nghiệp', 'Tài sản số', '27/11/2021', false),
-  createData('JadeLabs', 'Doanh nghiệp', 'Passport of Blockchain', '27/11/2021', false),
-  createData('JadeLabs', 'Doanh nghiệp', 'Passport of Blockchain', '27/11/2021', false),
-  createData('JadeLabs', 'Doanh nghiệp', 'Passport of Blockchain', '27/11/2021', false),
+  createData('JadeLabs', 'Doanh nghiệp', 'Passport of Blockchain', '27/11/2021', true),
+  createData('JadeLabs', 'Doanh nghiệp', 'Tài sản nền', '27/11/2021', true),
+  createData('JadeLabs', 'Doanh nghiệp', 'Tài sản số', '27/11/2021', true),
+  createData('JadeLabs', 'Doanh nghiệp', 'Passport of Blockchain', '27/11/2021', true),
+  createData('JadeLabs', 'Doanh nghiệp', 'Passport of Blockchain', '27/11/2021', true),
+  createData('JadeLabs', 'Doanh nghiệp', 'Passport of Blockchain', '27/11/2021', true),
 ];
 
 
@@ -43,9 +43,12 @@ const TableSection = () => {
     setPage(0);
   };
 
-  const abc = () => {
-    setStatus(rows);
-    console.log('status==>', status)
+  const abc = (row, index) => {
+    rows.map((item) => {
+      item.statusAction = true;
+    })
+    setStatus(row);
+    rows[index].statusAction = false;
   }
 
   const deleteButton = {
@@ -129,8 +132,8 @@ const TableSection = () => {
                   {row.date}
                 </StyledTableCell>
                 <StyledTableCell sx={{ position: "relative" }}>
-                  <img src="./assets/icons/more.svg" alt="more" onClick={abc} />
-                  <Box hidden={i != 0} sx={wrapMore}>
+                  <img src="./assets/icons/more.svg" alt="more" onClick={() => abc(row, i)} />
+                  <Box hidden={row.statusAction} sx={wrapMore}>
                     <Button component={Link} to="/nft-seal-detail" sx={addButton} >
                       <img src="./assets/icons/edit.svg" alt="edit" />
                       Chỉnh sửa

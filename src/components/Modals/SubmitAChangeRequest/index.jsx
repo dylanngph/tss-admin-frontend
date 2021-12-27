@@ -72,7 +72,7 @@ const SubmitAChangeRequest = (props) => {
 
     return (
         <div>
-            <Button className="button confirm-change" onClick={handleOpen}>Y.c thay đổi</Button>
+            <Button sx={{width: '100% !important'}} className="button confirm-change" onClick={handleOpen}>Y.c thay đổi</Button>
 
             <Modal
                 open={open}

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { alpha, styled } from '@mui/material/styles';
 import { Box, Button, FormControl, Tooltip, tooltipClasses, TextareaAutosize, TextField, Typography } from '@mui/material';
-import { ReactComponent as MoreCircleIcon } from 'icon/more-circle.svg'
+import { ReactComponent as SecurityTimeIcon } from 'icon/security-time.svg'
+import { ReactComponent as ShieldTickIcon } from 'icon/shield-tick.svg'
 
 const Information = (props) => {
     const [open, setOpen] = React.useState([]);
@@ -11,18 +12,6 @@ const Information = (props) => {
             setOpen(open => [...open, false]);
         })
     }, [props.data])
-
-    const handleTooltipClose = (item, index) => {
-        console.log('item==>', item);
-        props.data[index].open = false;
-    };
-
-    const handleTooltipOpen = (item, index) => {
-        setOpen(open => ({
-            ...open,
-            [index]: true
-        }))
-    };
 
     const inforItem = {
         display: "flex",
@@ -102,44 +91,9 @@ const Information = (props) => {
 
     return (
         <Box sx={{ marginBottom: "24px" }}>
-            <Typography variant="h5" mb={3}>
-                {props.tilte}
-            </Typography>
-            <Box>
-                <Box sx={wrapInfo}>
-                    <form>
-                        {props.data.map((item, index) => (
-                            <FormControl sx={inforItem} className="form-control">
-                                <Typography sx={labelInforItem}>{item.title}</Typography>
-                                <Box sx={{ position: 'relative' }}>
-                                    <CssTextField
-                                        id="incorporationName"
-                                        name="incorporationName"
-                                        type="text"
-                                        value={item.value}
-                                        readOnly="true"
-                                    />
-                                    <HtmlTooltip
-                                        title={
-                                            <React.Fragment>
-                                                <Typography mb={2} sx={titleTooltip}>Admin</Typography>
-                                                <TextareaAutosize
-                                                    minRows={5}
-                                                    maxRows={5}
-                                                    placeholder="Note..."
-                                                    style={contentTextareaTooltip}
-                                                />
-                                                <Button sx={buttonTextareaTooltip}>Gắn cờ</Button>
-                                            </React.Fragment>
-                                        }
-                                    >
-                                        <MoreCircleIcon className="more-circle" />
-                                    </HtmlTooltip>
-                                </Box>
-                            </FormControl>
-                        ))}
-                    </form>
-                </Box>
+            <Box className="">
+                <SecurityTimeIcon />
+                <Typography>Đã xác thực</Typography>
             </Box>
         </Box>
     )

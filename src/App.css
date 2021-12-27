@@ -103,7 +103,7 @@ textarea,
   font-size: 16px;
   line-height: 19px;
   color: #FFFFFF;
-  padding: 12px 24px;
+  padding: 14px 24px;
   width: auto;
   border: 1px solid #446DFF;
   text-transform: none;
@@ -216,4 +216,10 @@ line-height: 17px;
 
 .AccordionSummary:before {
   display: none !important;
+}
+
+.more-circle {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
 }
