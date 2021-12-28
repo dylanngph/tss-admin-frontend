@@ -62,7 +62,7 @@ function Sidebar({drawerWidth}) {
             }}}>
             {
                 projectNav.map((entry) => (
-                    <Link to={entry.href}>
+                    <Link to={entry.href} key={entry.href}>
                         <ListItem sx={{
                             backgroundColor: pathname === entry.href ? 'rgba(159,162,180, .2)' : null,
                             '&:hover' : {
@@ -96,7 +96,7 @@ function Sidebar({drawerWidth}) {
             }}}>
             {
                 ruleNav.map((entry) => (
-                    <Link to={entry.href}>
+                    <Link to={entry.href} key={entry.href}>
                         <ListItem sx={{
                             '& .MuiListItemIcon-root': {
                                 color: pathname === entry.href ? '#fff' : '#58667E'
@@ -125,7 +125,7 @@ function Sidebar({drawerWidth}) {
             }}}>
             {
                 themeNav.map((entry) => (
-                    <Link to={entry.href}>
+                    <Link to={entry.href} key={entry.href}>
                         <ListItem button key={entry.label} href={entry.href}>
                         <ListItemIcon>
                             <entry.icon />

@@ -5,6 +5,7 @@ import PageTitle from 'components/PageTitle/PageTitle'
 import ProfileVerification from '../../../components/display/ProfileVerification'
 import ProfileInformation from '../../../components/display/ProfileInformation'
 import EditingForm from '../../../components/display/EditingForm'
+import Status from '../../../components/custom/Status'
 
 function a11yProps(index) {
     return {
@@ -28,14 +29,23 @@ function ProjectDetail(props) {
         color: '#A6B0C3',
     }
 
+    const titleStyle = {
+        padding: '13px 24px',
+        display: 'inline-flex',
+        alignItems: 'center',
+        width: '100%',
+        justifyContent: 'space-between'
+    }
+
     return (
         <Box>
             <PageTitle text={'Dự án đợi duyệt / Jadelabs'} />
-            <Grid sx={{ padding: "24px", }} container spacing={2}>
+            <Box sx={ titleStyle }>
+                <Typography variant="h3">Jadelabs</Typography>
+                <Status value='0' />
+            </Box>
+            <Grid sx={{ paddingLeft: "24px", paddingRight: "24px" }} container spacing={3}>
                 <Grid item xs={9} md={8} xl={9}>
-                    <Box>
-                        <Typography mb={2} variant="h3">Jadelabs</Typography>
-                    </Box>
                     <Box>
                         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
                             <Tab sx={tabStyle} className="tab-title" label="Thông tin hồ sơ" {...a11yProps(0)} />
@@ -48,7 +58,7 @@ function ProjectDetail(props) {
                     </Box>
                 </Grid>
                 <Grid item xs={3} md={4} xl={3}>
-                    <Box sx={{ background: "#EFF2F5", borderRadius: "8px", padding: "16px", marginTop: "160px" }}>
+                    <Box sx={{ background: "#EFF2F5", borderRadius: "8px", padding: "16px", marginTop: "125px" }}>
                         <ProfileVerification />
                     </Box>
                 </Grid>

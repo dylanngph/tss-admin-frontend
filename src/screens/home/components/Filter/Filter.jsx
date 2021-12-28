@@ -57,6 +57,29 @@ const Filter = () => {
         },
     ]
 
+    const documentDate = [
+        {
+            label: 'Ngày gửi đơn',
+            value: ''
+        },
+        {
+            label: 'Hôm nay',
+            value: '1'
+        },
+        {
+            label: 'Một tuần trước',
+            value: '2'
+        },
+        {
+            label: 'Hai tuần trước',
+            value: '3'
+        },
+        {
+            label: 'Tháng này',
+            value: '4'
+        },
+    ]
+
     const styleSelect = {
         '.MuiSelect-select': {
             padding: '12px 24px',
@@ -89,7 +112,7 @@ const Filter = () => {
                     inputProps={{ 'aria-label': 'Without label' }}
                     >
                     {projectTypes.map((item, index) => (
-                        <MenuItem value={item.value}>{item.label}</MenuItem>
+                        <MenuItem key={item.label} value={item.value}>{item.label}</MenuItem>
                     ))}
                 </SelectField>
                 <SelectField
@@ -100,7 +123,7 @@ const Filter = () => {
                     inputProps={{ 'aria-label': 'Without label' }}
                     >
                     {statusDocument.map((item, index) => (
-                        <MenuItem value={item.value}>{item.label}</MenuItem>
+                        <MenuItem key={item.label} value={item.value}>{item.label}</MenuItem>
                     ))}
                 </SelectField>
                 <SelectField
@@ -110,10 +133,9 @@ const Filter = () => {
                     displayEmpty
                     inputProps={{ 'aria-label': 'Without label' }}
                     >
-                    <MenuItem value="">Ngày gửi đơn</MenuItem>
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    {documentDate.map((item, index) => (
+                        <MenuItem key={item.label} value={item.value}>{item.label}</MenuItem>
+                    ))}
                 </SelectField>
             </FormControl>
             <FormControl sx={{

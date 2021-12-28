@@ -5,6 +5,7 @@ import PageTitle from 'components/PageTitle/PageTitle'
 import ProjectAction from '../../../components/display/ProjectAction'
 import ProfileInformation from '../../../components/display/ProfileInformation'
 import EditingForm from '../../../components/display/EditingForm'
+import Status from '../../../components/custom/Status'
 
 function a11yProps(index) {
     return {
@@ -20,28 +21,41 @@ function ProjectDetail(props) {
         setValue(newValue);
     };
 
+    const tabStyle = {
+        fontWeight: '600',
+        textTransform: 'inherit',
+        fontSize: '18px',
+        lineHeight: '22px',
+        color: '#A6B0C3',
+    }
+
+    const titleStyle = {
+        padding: '13px 24px',
+        display: 'inline-flex',
+        alignItems: 'center',
+        width: '100%',
+        justifyContent: 'space-between'
+    }
+
     return (
         <Box>
-            <PageTitle text={'Dự án đợi duyệt / Jadelabs'} />
-            <Grid sx={{ padding: "24px", }} container spacing={2}>
-                <Grid item xs={12}>
-                    <Box sx={{ display: "flex", justifyContent: "space-between"}}>
-                        <Typography mb={2} variant="h3">Jadelabs</Typography>
-                        <Box sx={{maxWidth: "220px", width: "100%",}}>
-                            <span className='active-status'>
-                                Hoạt động
-                            </span>
-                            <span className='author ml-25'>
-                            Đã xác thực
-                            </span>
-                        </Box>
-                    </Box>
-                </Grid>
+            <PageTitle text={'Quản lý dự án / Jadelabs'} />
+            <Box sx={ titleStyle }>
+                <Typography variant="h3">Jadelabs</Typography>
+                
+                <Box sx={{maxWidth: "270px", width: "100%", display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+                    <span className='active-status'>
+                        Hoạt động
+                    </span>
+                    <Status value='2' />
+                </Box>
+            </Box>
+            <Grid sx={{ paddingLeft: "24px", paddingRight: "24px" }} container spacing={2}>
                 <Grid item xs={9} md={8} xl={9}>
                     <Box>
                         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-                            <Tab className="tab-title" label="Thông tin hồ sơ" {...a11yProps(0)} />
-                            <Tab className="tab-title" label="Đơn chỉnh sửa" {...a11yProps(1)} />
+                            <Tab sx={tabStyle} className="tab-title" label="Thông tin hồ sơ" {...a11yProps(0)} />
+                            <Tab sx={tabStyle} className="tab-title" label="Đơn chỉnh sửa" {...a11yProps(1)} />
                         </Tabs>
                     </Box>
                     <Box mt={4}>

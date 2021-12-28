@@ -1,4 +1,4 @@
-import React , {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -6,33 +6,28 @@ import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Menu from '@mui/material/Menu';
 import Paper from '@mui/material/Paper';
-import MenuItem from '@mui/material/MenuItem';
-import EditUserModal from "../../../../components/Modals/UserModal/Edit"
-import { TablePagination, Box, Button } from '@mui/material'
-import { Route, Switch, useRouteMatch, Link } from "react-router-dom";
+import { TablePagination, Box, Button, Tooltip, Typography, tooltipClasses } from '@mui/material'
+import { Route, Link, useRouteMatch } from "react-router-dom";
 
 
-
-function createData(project, typeProject, typeNFT, date, statusAction) {
-  return { project, typeProject, typeNFT, date, statusAction };
+function createData(project, typeProject, typeNFT, date) {
+  return { project, typeProject, typeNFT, date };
 }
 
 const rows = [
-  createData('JadeLabs', 'Doanh nghiệp', 'Passport of Blockchain', '27/11/2021', true),
-  createData('JadeLabs', 'Doanh nghiệp', 'Tài sản nền', '27/11/2021', true),
-  createData('JadeLabs', 'Doanh nghiệp', 'Tài sản số', '27/11/2021', true),
-  createData('JadeLabs', 'Doanh nghiệp', 'Passport of Blockchain', '27/11/2021', true),
-  createData('JadeLabs', 'Doanh nghiệp', 'Passport of Blockchain', '27/11/2021', true),
-  createData('JadeLabs', 'Doanh nghiệp', 'Passport of Blockchain', '27/11/2021', true),
+  createData('JadeLabs', 'Doanh nghiệp', 'Passport of Blockchain', '27/11/2021'),
+  createData('JadeLabs', 'Doanh nghiệp', 'Tài sản nền', '27/11/2021'),
+  createData('JadeLabs', 'Doanh nghiệp', 'Tài sản số', '27/11/2021'),
+  createData('JadeLabs', 'Doanh nghiệp', 'Passport of Blockchain', '27/11/2021'),
+  createData('JadeLabs', 'Doanh nghiệp', 'Passport of Blockchain', '27/11/2021'),
+  createData('JadeLabs', 'Doanh nghiệp', 'Passport of Blockchain', '27/11/2021'),
 ];
 
 
 const TableSection = () => {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [page, setPage] = React.useState(0);
-  const [status, setStatus] = React.useState([]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -42,14 +37,6 @@ const TableSection = () => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-
-  const abc = (row, index) => {
-    rows.map((item) => {
-      item.statusAction = true;
-    })
-    setStatus(row);
-    rows[index].statusAction = false;
-  }
 
   const deleteButton = {
     fontWeight: "500",
@@ -88,6 +75,20 @@ const TableSection = () => {
     }
   }
 
+  const HtmlTooltip = styled(({ className, ...props }) => (
+    <Tooltip {...props} classes={{ popper: className }} />
+  ))(({ theme }) => ({
+    [`& .${tooltipClasses.tooltip}`]: {
+      backgroundColor: '#FFFFFF',
+      maxWidth: 332,
+      width: '332px',
+      border: 'none',
+      boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.05)',
+      borderRadius: '12px',
+      padding: '20px 15px 15px',
+    },
+  }));
+
   return (
     <Paper sx={{ position: "relative", }}>
       <TablePagination
@@ -110,12 +111,11 @@ const TableSection = () => {
               <StyledTableCell>Loại dự án</StyledTableCell>
               <StyledTableCell>Loại con dấu NFT</StyledTableCell>
               <StyledTableCell>Ngày cấp</StyledTableCell>
-              <StyledTableCell></StyledTableCell>
             </StyledTableRow>
           </TableHead>
           <TableBody>
             {rows.map((row, i) => (
-              <StyledTableRow key={row.name}>
+              <StyledTableRow key={row.name} component={Link} sx={{ textDecoration: "none" }} to={`/nft-seal-detail`}>
                 <StyledTableCell scope="row">
                   {i + 1}
                 </StyledTableCell>
@@ -126,23 +126,25 @@ const TableSection = () => {
                   {row.typeProject}
                 </StyledTableCell>
                 <StyledTableCell>
-                  {row.typeNFT}
+                  <Box sx={{ display: 'inline-flex'}}>
+                    <Box mr={1}>
+                      {
+                        row.typeNFT == 'Tài sản nền'
+                        ?
+                        <img src="./assets/images/IOTA1.png" alt="IOTA" />
+                        :
+                        row.typeNFT == 'Tài sản số'
+                        ?
+                        <img src="./assets/images/IOTA2.png" alt="IOTA" />
+                        :
+                        <img src="./assets/images/IOTA3.png" alt="IOTA" />
+                      }
+                    </Box>
+                    {row.typeNFT}
+                  </Box>
                 </StyledTableCell>
                 <StyledTableCell>
                   {row.date}
-                </StyledTableCell>
-                <StyledTableCell sx={{ position: "relative" }}>
-                  <img src="./assets/icons/more.svg" alt="more" onClick={() => abc(row, i)} />
-                  <Box hidden={row.statusAction} sx={wrapMore}>
-                    <Button component={Link} to="/nft-seal-detail" sx={addButton} >
-                      <img src="./assets/icons/edit.svg" alt="edit" />
-                      Chỉnh sửa
-                    </Button>
-                    <Button sx={deleteButton}>
-                      <img src="./assets/icons/trash.svg" alt="trash" />
-                      Xóa
-                    </Button>
-                  </Box>
                 </StyledTableCell>
               </StyledTableRow>
             ))}

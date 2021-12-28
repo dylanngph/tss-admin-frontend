@@ -41,8 +41,12 @@ const ProjectAction = (props) => {
             <Typography variant="h3">Xác thực hồ sơ</Typography>
             <Divider sx={{ margin: "14px 0 !important" }} />
             <Box mb={1} sx={{display: "flex", justifyContent: "space-between" }}>
-                <HiddenRequest />
-                <SubmitAChangeRequest />
+                <Box sx={{ maxWidth: '143px', width: '100%' }}>
+                    <HiddenRequest />
+                </Box>
+                <Box sx={{ maxWidth: '143px', width: '100%' }}>
+                    <SubmitAChangeRequest />
+                </Box>
             </Box>
             <RemoveRequest />
         </Box>

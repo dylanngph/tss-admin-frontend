@@ -12,10 +12,15 @@ import {ReactComponent as SearchIcon} from 'assets/icons/search.svg'
 
 
 const Filter = () => {
-    const [age, setAge] = useState('');
+    const [poject, setPoject] = useState({
+        projectName: '',
+        projectType: '',
+        status: '',
+        date: '',
+    });
 
-    const handleChange = (event) => {
-        setAge(event.target.value);
+    const handleChange = (prop) => (event) => {
+        setPoject({ ...poject, [prop]: event.target.value });
     }
 
     const styleSelect = {
@@ -29,6 +34,63 @@ const Filter = () => {
             border: '1px solid #EAEAEA',
         }
     }
+
+    const statuses = [
+        {
+            label: 'Trạng thái',
+            value: ''
+        },
+        {
+            label: 'Hoạt động',
+            value: 1
+        },
+        {
+            label: 'Tạm ẩn',
+            value: 2
+        },
+    ]
+
+    const projectTypes = [
+        {
+            label: 'Loại hồ sơ',
+            value: ''
+        },
+        {
+            label: 'Tổ chức',
+            value: 'tổ chức'
+        },
+        {
+            label: 'Cá nhân',
+            value: 'cá nhân'
+        },
+        {
+            label: 'Quỹ',
+            value: 'quỹ'
+        },
+    ]
+
+    const documentDate = [
+        {
+            label: 'Ngày gửi đơn',
+            value: ''
+        },
+        {
+            label: 'Hôm nay',
+            value: '1'
+        },
+        {
+            label: 'Một tuần trước',
+            value: '2'
+        },
+        {
+            label: 'Hai tuần trước',
+            value: '3'
+        },
+        {
+            label: 'Tháng này',
+            value: '4'
+        },
+    ]
 
     return (
         <Flex justifyContent="space-between">
@@ -44,39 +106,36 @@ const Filter = () => {
                 />
                 <SelectField
                     sx={styleSelect}
-                    value={age}
-                    onChange={handleChange}
+                    value={poject.status}
+                    onChange={handleChange('status')}
                     displayEmpty
                     inputProps={{ 'aria-label': 'Without label' }}
                     >
-                    <MenuItem disabled value="">Loại dự án</MenuItem>
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    {statuses.map((item, index) => (
+                        <MenuItem key={item.label} value={item.value}>{item.label}</MenuItem>
+                    ))}
                 </SelectField>
                 <SelectField
                     sx={styleSelect}
-                    value={age}
-                    onChange={handleChange}
+                    value={poject.projectType}
+                    onChange={handleChange('projectType')}
                     displayEmpty
                     inputProps={{ 'aria-label': 'Without label' }}
                     >
-                    <MenuItem disabled value="">Loại đơn</MenuItem>
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    {projectTypes.map((item, index) => (
+                        <MenuItem key={item.label} value={item.value}>{item.label}</MenuItem>
+                    ))}
                 </SelectField>
                 <SelectField
                     sx={styleSelect}
-                    value={age}
-                    onChange={handleChange}
+                    value={poject.date}
+                    onChange={handleChange('date')}
                     displayEmpty
                     inputProps={{ 'aria-label': 'Without label' }}
                     >
-                    <MenuItem disabled value="">Ngày gửi đơn</MenuItem>
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    {documentDate.map((item, index) => (
+                        <MenuItem key={item.label} value={item.value}>{item.label}</MenuItem>
+                    ))}
                 </SelectField>
             </FormControl>
             <FormControl sx={{

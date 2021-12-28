@@ -111,7 +111,7 @@ const CreateStaffModal = (props) => {
                             />
                         </FormControl>
                         <FormControl sx={{ width: "100%" }} className="form-control mb-16">
-                            <FormLabel className="label">Tên người dùng</FormLabel>
+                            <FormLabel className="label">Tên nhân viên</FormLabel>
                             <OutlinedInput
                                 id="name"
                                 name="name"
@@ -148,7 +148,7 @@ const CreateStaffModal = (props) => {
                             </Select>
                         </FormControl>
                         <FormControl sx={{ width: "100%" }} className="form-control mb-16">
-                            <FormLabel className="label">Đặt lại mật khẩu</FormLabel>
+                            <FormLabel className="label">Mật khẩu</FormLabel>
                             <TextField
                                 className="password-field"
                                 fullWidth

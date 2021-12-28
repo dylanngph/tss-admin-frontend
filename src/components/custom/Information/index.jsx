@@ -4,26 +4,6 @@ import { Box, Button, FormControl, Tooltip, tooltipClasses, TextareaAutosize, Te
 import { ReactComponent as MoreCircleIcon } from 'icon/more-circle.svg'
 
 const Information = (props) => {
-    const [open, setOpen] = React.useState([]);
-
-    useEffect(() => {
-        props.data.map((item) => {
-            setOpen(open => [...open, false]);
-        })
-    }, [props.data])
-
-    const handleTooltipClose = (item, index) => {
-        console.log('item==>', item);
-        props.data[index].open = false;
-    };
-
-    const handleTooltipOpen = (item, index) => {
-        setOpen(open => ({
-            ...open,
-            [index]: true
-        }))
-    };
-
     const inforItem = {
         display: "flex",
         flexDirection: "revert",
@@ -98,8 +78,6 @@ const Information = (props) => {
         },
     }));
 
-    const [onEdit, setOnEdit] = useState(false)
-
     return (
         <Box sx={{ marginBottom: "24px" }}>
             <Typography variant="h5" mb={3}>
@@ -109,7 +87,7 @@ const Information = (props) => {
                 <Box sx={wrapInfo}>
                     <form>
                         {props.data.map((item, index) => (
-                            <FormControl sx={inforItem} className="form-control">
+                            <FormControl key={item.title} sx={inforItem} className="form-control">
                                 <Typography sx={labelInforItem}>{item.title}</Typography>
                                 <Box sx={{ position: 'relative' }}>
                                     <CssTextField

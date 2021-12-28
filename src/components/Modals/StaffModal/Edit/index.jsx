@@ -117,7 +117,7 @@ const EditStaffModal = (props) => {
                             />
                         </FormControl>
                         <FormControl sx={{ width: "100%" }} className="form-control mb-16">
-                            <FormLabel className="label">Tên người dùng</FormLabel>
+                            <FormLabel className="label">Tên nhân viên</FormLabel>
                             <OutlinedInput
                                 id="name"
                                 name="name"

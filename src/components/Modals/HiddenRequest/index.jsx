@@ -72,7 +72,7 @@ const HiddenRequest = (props) => {
 
     return (
         <div>
-            <Button className="button confirm-hidden" onClick={handleOpen}>Tạm ẩn</Button>
+            <Button sx={{width: "100% !important"}} className="button confirm-hidden" onClick={handleOpen}>Tạm ẩn</Button>
 
             <Modal
                 open={open}

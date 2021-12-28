@@ -4,99 +4,69 @@ import { Box, Button, FormControl, Tooltip, tooltipClasses, TextareaAutosize, Te
 import { ReactComponent as SecurityTimeIcon } from 'icon/security-time.svg'
 import { ReactComponent as ShieldTickIcon } from 'icon/shield-tick.svg'
 
-const Information = (props) => {
-    const [open, setOpen] = React.useState([]);
+const Status = (props) => {
+    const status = {
+        borderRadius: '8px',
+        padding: '12px 16px',
+        display: 'inline-flex',
 
-    useEffect(() => {
-        props.data.map((item) => {
-            setOpen(open => [...open, false]);
-        })
-    }, [props.data])
+        '&.pending-approve': {
+            background: '#EFF2F5',
 
-    const inforItem = {
-        display: "flex",
-        flexDirection: "revert",
-        justifyContent: "space-between",
-        alignItems: "center",
-        borderBottom: "1px solid #A6B0C3",
-
-        '&:last-child': {
-            borderBottom: "none",
-        }
-    }
-
-    const labelInforItem = {
-        color: "#58667E",
-        fontStyle: "normal",
-        fontWeight: "600",
-        fontSize: "16px",
-        lineHeight: "19px",
-    }
-
-    const wrapInfo = {
-        padding: "4px 36px 4px",
-        background: "#EFF2F5",
-        borderRadius: "12px",
-    }
-
-    const titleTooltip = {
-        fontWeight: 'bold',
-        fontSize: '14px',
-        lineHeight: '17px',
-        color: '#446DFF',
-    }
-
-    const contentTextareaTooltip = {
-        fontWeight: '500',
-        width: '100%',
-        fontSize: '16px',
-        lineHeight: '19px',
-        color: '#58667E',
-        background: "transparent",
-        padding: 0,
-        border: 'none',
-        outline: 'none',
-    }
-
-    const buttonTextareaTooltip = {
-        fontWeight: '500',
-        fontSize: '16px',
-        lineHeight: '19px',
-        textTransform: 'inherit',
-        marginLeft: 'auto',
-        display: 'block',
-    }
-
-    const CssTextField = styled(TextField)({
-        '& .MuiInputBase-input': {
-            textAlign: 'right'
+            'h5': {
+                color: '#A6B0C3'
+            }
         },
-    });
 
-    const HtmlTooltip = styled(({ className, ...props }) => (
-        <Tooltip {...props} classes={{ popper: className }} />
-    ))(({ theme }) => ({
-        [`& .${tooltipClasses.tooltip}`]: {
-            backgroundColor: '#FFFFFF',
-            maxWidth: 332,
-            width: '332px',
-            border: 'none',
-            boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.05)',
-            borderRadius: '12px',
-            padding: '20px 15px 15px',
+        '&.pending-edit': {
+            background: 'rgba(238, 211, 68, 0.2)',
+
+            'h5': {
+                color: '#EED344'
+            },
+
+            'path': {
+                fill: '#EED344',
+            }
         },
-    }));
 
-    const [onEdit, setOnEdit] = useState(false)
+        '&.approved': {
+            background: '#F0F6FF',
+
+            'h5': {
+                color: '#446DFF'
+            }
+        },
+    }
+
+    const addClassName = () => {
+        console.log('status==>', status);
+        // if (status == 0) {
+        //     return 'pending-approve';
+        // }
+        // else if (status == 1) {
+        //     return 'pending-edit';
+        // }
+        // return 'approved';
+    }
 
     return (
-        <Box sx={{ marginBottom: "24px" }}>
-            <Box className="">
-                <SecurityTimeIcon />
-                <Typography>Đã xác thực</Typography>
+        <Box>
+            <Box className={props.value == 0 ? 'pending-approve' : props.value == 1 ? 'pending-edit' : 'approved'} sx={status}>
+                {
+                    props.value == 2
+                    ?
+                    <ShieldTickIcon />
+                    :
+                    <SecurityTimeIcon />
+                }
+                
+                <Typography sx={{ marginLeft: '12px' }} variant="h5">
+                    {props.value == 0 ? 'Đợi duyệt' : props.value == 1 ? 'Đợi chỉnh sửa' : 'Đã xác thực'}
+                </Typography>
             </Box>
         </Box>
     )
 }
 
-export default Information
+export default Status

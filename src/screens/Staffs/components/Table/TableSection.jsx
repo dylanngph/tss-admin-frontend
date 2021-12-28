@@ -6,13 +6,11 @@ import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Menu from '@mui/material/Menu';
 import Paper from '@mui/material/Paper';
-import MenuItem from '@mui/material/MenuItem';
 import EditStaffModal from "../../../../components/Modals/StaffModal/Edit"
-import { TablePagination, Box, Button } from '@mui/material'
-import { Route, Switch, useRouteMatch, Link } from "react-router-dom";
-
+import { TablePagination, Tooltip, Button, tooltipClasses } from '@mui/material'
+import { ReactComponent as MoreIcon } from 'icon/more.svg'
+import { ReactComponent as TrashIcon } from 'icon/trash.svg'
 
 
 function createData(name, email, phone, company) {
@@ -20,18 +18,18 @@ function createData(name, email, phone, company) {
 }
 
 const rows = [
-  createData('Jane Cooper', 'jessica.hanson@example.com', '(907) 555-0101', 'Barone LLC.'),
-  createData('Jacob Jones', 'bill.sanders@example.com', '(207) 555-0119', 'Biffco Enterprises Ltd.'),
-  createData('Annette Black', 'willie.jennings@example.com', '(205) 555-0100', 'Barone LLC.'),
-  createData('Courtney Henry', 'dolores.chambers@example.com', '(302) 555-0107', 'Abstergo Ltd.'),
-  createData('Darlene Robertson', 'tim.jennings@example.com', '(229) 555-0109', 'Binford Ltd.'),
-  createData('Wade Warren', 'jackson.graham@example.com', '(684) 555-0102', 'Binford Ltd.'),
-  createData('Albert Flores', 'debra.holt@example.com', '(209) 555-0104', 'Acme Co.'),
-  createData('Ronald Richards', 'tanya.hill@example.com', '(229) 555-0109', 'Biffco Enterprises Ltd.'),
-  createData('Robert Fox', 'alma.lawson@example.com', '(219) 555-0114', 'Binford Ltd.'),
-  createData('Floyd Miles', 'deanna.curtis@example.com', '(319) 555-0115', 'Big Kahuna Burger Ltd.'),
-  createData('Eleanor Pena', 'michael.mitc@example.com', '(704) 555-0127', 'Binford Ltd.'),
-  createData('Brooklyn Simmons', 'debbie.baker@example.com', '(603) 555-0123', 'Abstergo Ltd.'),
+  createData('Jane Cooper', 'jessica.hanson@example.com', '(907) 555-0101', 'Admin'),
+  createData('Jacob Jones', 'bill.sanders@example.com', '(207) 555-0119', 'Admin'),
+  createData('Annette Black', 'willie.jennings@example.com', '(205) 555-0100', 'Admin'),
+  createData('Courtney Henry', 'dolores.chambers@example.com', '(302) 555-0107', 'Admin'),
+  createData('Darlene Robertson', 'tim.jennings@example.com', '(229) 555-0109', 'Admin'),
+  createData('Wade Warren', 'jackson.graham@example.com', '(684) 555-0102', 'Admin'),
+  createData('Albert Flores', 'debra.holt@example.com', '(209) 555-0104', 'Admin'),
+  createData('Ronald Richards', 'tanya.hill@example.com', '(229) 555-0109', 'Admin'),
+  createData('Robert Fox', 'alma.lawson@example.com', '(219) 555-0114', 'Admin'),
+  createData('Floyd Miles', 'deanna.curtis@example.com', '(319) 555-0115', 'Admin'),
+  createData('Eleanor Pena', 'michael.mitc@example.com', '(704) 555-0127', 'Admin'),
+  createData('Brooklyn Simmons', 'debbie.baker@example.com', '(603) 555-0123', 'Admin'),
 
 ];
 
@@ -63,16 +61,19 @@ const TableSection = () => {
     }
   }
 
-  const wrapMore = {
-    position: "absolute",
-    background: "#FFFFFF",
-    boxShadow: "0px 4px 6px rgb(0 0 0 / 10%), 0px 2px 4px rgb(0 0 0 / 6%)",
-    borderRadius: "8px",
-    padding: "16px 0",
-    zIndex: "100",
-    left: "-60px",
-
-  }
+  const HtmlTooltip = styled(({ className, ...props }) => (
+    <Tooltip {...props} classes={{ popper: className }} />
+  ))(({ theme }) => ({
+    [`& .${tooltipClasses.tooltip}`]: {
+      backgroundColor: '#FFFFFF',
+      maxWidth: 155,
+      width: '155px',
+      border: 'none',
+      boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1), 0px 2px 4px rgba(0, 0, 0, 0.06)',
+      borderRadius: '8px',
+      padding: '16px 0',
+    },
+  }));
 
   return (
     <Paper sx={{ position: "relative", }}>
@@ -92,10 +93,10 @@ const TableSection = () => {
           <TableHead sx={{ backgroundColor: '#F7F8FA' }}>
             <StyledTableRow>
               <StyledTableCell>#</StyledTableCell>
-              <StyledTableCell>Người dùng</StyledTableCell>
+              <StyledTableCell>Tên Nhân viên</StyledTableCell>
               <StyledTableCell>Email</StyledTableCell>
               <StyledTableCell>Số điện thoại</StyledTableCell>
-              <StyledTableCell>Đại diện dự án</StyledTableCell>
+              <StyledTableCell>Phân quyền</StyledTableCell>
               <StyledTableCell></StyledTableCell>
             </StyledTableRow>
           </TableHead>
@@ -118,14 +119,19 @@ const TableSection = () => {
                   {row.company}
                 </StyledTableCell>
                 <StyledTableCell sx={{ position: "relative" }}>
-                  <img src="./assets/icons/more.svg" alt="more" />
-                  <Box hidden={i != 0} sx={wrapMore}>
-                    <EditStaffModal />
-                    <Button sx={deleteButton}>
-                      <img src="./assets/icons/trash.svg" alt="trash" />
-                      Xóa
-                    </Button>
-                  </Box>
+                  <HtmlTooltip
+                    title={
+                      <React.Fragment>
+                        <EditStaffModal />
+                        <Button sx={deleteButton}>
+                          <TrashIcon />
+                          Xóa
+                        </Button>
+                      </React.Fragment>
+                    }
+                  >
+                    <MoreIcon />
+                  </HtmlTooltip>
                 </StyledTableCell>
               </StyledTableRow>
             ))}

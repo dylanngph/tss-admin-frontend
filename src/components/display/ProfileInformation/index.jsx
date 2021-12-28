@@ -5,7 +5,7 @@ import { Box, Typography, Tabs, Tab } from '@mui/material';
 function ProfileInformation(props) {
     const { children, value, index, ...other } = props;
     const incorporation = {
-        title: "Organization",
+        title: "Tổ chức",
         data: [
             {
                 title: "Tên tổ chức",
@@ -39,7 +39,7 @@ function ProfileInformation(props) {
     }
 
     const project = {
-        title: "Project",
+        title: "Dự án",
         data: [
             {
                 title: "Tên dự án",
