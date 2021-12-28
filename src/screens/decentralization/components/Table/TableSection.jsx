@@ -96,12 +96,11 @@ const TableSection = () => {
               <StyledTableCell>Tên nhóm quyền</StyledTableCell>
               <StyledTableCell>Số người dùng</StyledTableCell>
               <StyledTableCell>Mô tả</StyledTableCell>
-              <StyledTableCell></StyledTableCell>
             </StyledTableRow>
           </TableHead>
           <TableBody>
             {rows.map((row, i) => (
-              <StyledTableRow key={row.name}>
+              <StyledTableRow key={row.name} component={Link} sx={{ textDecoration: "none" }} to={`/decentralization-detail`}>
                 <StyledTableCell scope="row">
                   {i + 1}
                 </StyledTableCell>
@@ -113,19 +112,6 @@ const TableSection = () => {
                 </StyledTableCell>
                 <StyledTableCell>
                   {row.description}
-                </StyledTableCell>
-                <StyledTableCell sx={{ position: "relative" }}>
-                  <img src="./assets/icons/more.svg" alt="more" />
-                  <Box hidden={i != 0} sx={wrapMore}>
-                    <Button sx={addButton}>
-                      <img src="./assets/icons/edit.svg" alt="edit" />
-                      Chỉnh sửa
-                    </Button>
-                    <Button sx={deleteButton}>
-                      <img src="./assets/icons/trash.svg" alt="trash" />
-                      Xóa
-                    </Button>
-                  </Box>
                 </StyledTableCell>
               </StyledTableRow>
             ))}

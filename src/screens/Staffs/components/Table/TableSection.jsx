@@ -55,8 +55,9 @@ const TableSection = () => {
     textTransform: "none",
     width: "100%",
     justifyContent: "flex-start",
+    padding: "12px",
 
-    "img": {
+    "svg": {
       marginRight: "10px"
     }
   }

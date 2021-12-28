@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Box, Button, Modal, Typography, FormControl, FormLabel, OutlinedInput, TextField, InputAdornment, IconButton, Select, MenuItem } from '@mui/material';
 import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
+import { ReactComponent as EditIcon } from 'icon/edit.svg'
 
 
 const EditStaffModal = (props) => {
@@ -83,8 +84,11 @@ const EditStaffModal = (props) => {
         lineHeight: "22px",
         color: "#111827",
         textTransform: "none",
+        width: '100%',
+        padding: '12px',
+        justifyContent: 'flex-start',
 
-        "img": {
+        "svg": {
             marginRight: "10px"
         }
     }
@@ -92,7 +96,7 @@ const EditStaffModal = (props) => {
     return (
         <div>
             <Button sx={addButton} onClick={handleOpen}>
-                <img src="./assets/icons/edit.svg" alt="edit" /> 
+            <EditIcon />
                 Chỉnh sửa
             </Button>
 

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Button, Modal, Typography, FormControl, FormLabel, OutlinedInput, TextField, InputAdornment, IconButton } from '@mui/material';
+import { Box, Button, Modal, Typography, FormControl, FormLabel, OutlinedInput, TextField, InputAdornment, TextareaAutosize } from '@mui/material';
 import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
 
@@ -70,7 +70,7 @@ const CreateDecentralizationModal = (props) => {
     return (
         <div>
             <Button sx={addButton} className="button" onClick={handleOpen}>
-                <img src="./assets/icons/add.svg" alt="add" /> 
+                <img src="./assets/icons/add.svg" alt="add" />
                 Tạo mới
             </Button>
 
@@ -95,49 +95,22 @@ const CreateDecentralizationModal = (props) => {
                             />
                         </FormControl>
                         <FormControl sx={{ width: "100%" }} className="form-control mb-16">
-                            <FormLabel className="label">Tên người dùng</FormLabel>
-                            <OutlinedInput
-                                id="name"
-                                name="name"
-                                type="text"
-                                placeholder="Tên người dùng"
-                                value={values.name}
-                                onChange={handleChange('name')}
-                            />
-                        </FormControl>
-                        <FormControl sx={{ width: "100%" }} className="form-control mb-16">
-                            <FormLabel className="label">Số điện thoại</FormLabel>
-                            <OutlinedInput
-                                id="tel"
-                                name="tel"
-                                type="tel"
-                                placeholder="Số điện thoại"
-                                value={values.phone}
-                                onChange={handleChange('phone')}
-                            />
-                        </FormControl>
-                        <FormControl sx={{ width: "100%" }} className="form-control mb-16">
-                            <FormLabel className="label">Đặt lại mật khẩu</FormLabel>
-                            <TextField
-                                className="password-field"
-                                fullWidth
-                                type={values.showPassword ? 'text' : 'password'}
-                                value={values.password}
-                                onChange={handleChange('password')}
-                                placeholder="••••••••••••"
-                                variant="outlined"
-                                InputProps={{
-                                    endAdornment:
-                                        <InputAdornment position="end">
-                                            <IconButton
-                                                onClick={handleClickShowPassword}
-                                                onMouseDown={handleMouseDownPassword}
-                                                edge="end"
-                                                style={{ color: '#A6B0C3' }}
-                                            >
-                                                {values.showPassword ? <Visibility /> : <VisibilityOff />}
-                                            </IconButton>
-                                        </InputAdornment>
+                            <FormLabel className="label">Mô tả (không bắt buộc)</FormLabel>
+                            <TextareaAutosize
+                                placeholder="Mô tả nhóm quyền"
+                                style={{
+                                    width: '100%',
+                                    height: 130,
+                                    backgroundColor: '#EFF2F5',
+                                    borderRadius: '8px',
+                                    padding: '16px',
+                                    color: '#58667E',
+                                    border: '1px solid #EFF2F5',
+                                    transition: 'width 300ms ease',
+                                    fontSize: '16px',
+                                    fontFamily: 'inherit',
+                                    fontWeight: '400',
+                                    outline: 'none'
                                 }}
                             />
                         </FormControl>
