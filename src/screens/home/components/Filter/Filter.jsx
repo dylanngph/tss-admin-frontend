@@ -94,7 +94,8 @@ const Filter = () => {
 
     return (
         <Flex justifyContent="space-between">
-            <FormControl sx={{
+            <Box sx={{
+                display: 'inline-flex',
                 flexDirection: 'row',
                 gap: '20px',
             }}>
@@ -137,7 +138,7 @@ const Filter = () => {
                         <MenuItem key={item.label} value={item.value}>{item.label}</MenuItem>
                     ))}
                 </SelectField>
-            </FormControl>
+            </Box>
             <FormControl sx={{
                 flexDirection: 'row',
                 gap: '20px',

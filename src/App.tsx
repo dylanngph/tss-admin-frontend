@@ -21,6 +21,7 @@ import Decentralization from "./screens/Decentralization"
 import Container from "components/Container/Container";
 import {adminData} from 'screens/admin/config'
 import Cookies from 'js-cookie'
+import useToken from "components/hook/useToken";
 
 
 interface LoginProps {
@@ -68,6 +69,7 @@ function App() {
   const [auth , setAuth] = useState(false)
   const [error , setError] = useState(false)
   const [user , setUser] = useState({email:""})
+  const {token, setToken} = useToken();
 
   const readCookies = () => {
     const userCookies = Cookies.get("user")

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from "react";
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -9,32 +9,50 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { TablePagination } from '@mui/material'
 import { Route, Switch, useRouteMatch, Link } from "react-router-dom";
+import axios from "axios";
 
-
-
-function createData(name, projectType, mailType, date) {
-  return { name, projectType, mailType, date };
+function createData(index, name, projectType, mailType, date, id) {
+  let d = new Date(date);
+  date = d.getDate() + "/"+ parseInt(d.getMonth()+1) +"/"+d.getFullYear();
+  return {index, name, projectType, mailType, date, id};
 }
 
-const rows = [
-  createData('A', 'Tổ chức', 'Xác thực dự án', '28/12/2021'),
-  createData('B', 'Cá nhân', 'Chỉnh sửa thông tin', '28/12/2021'),
-  createData('C', 'Quỹ', 'Xác thực dự án', '28/12/2021'),
-  createData('D', 'Tổ chức', 'Chỉnh sửa thông tin', '28/12/2021'),
-  createData('E', 'Tổ chức', 'Xác thực dự án', '28/12/2021'),
-  createData('E', 'Tổ chức', 'Xác thực dự án', '29/12/2021'),
-  createData('E', 'Tổ chức', 'Xác thực dự án', '30/12/2021'),
-  createData('E', 'Tổ chức', 'Xác thực dự án', '31/12/2021'),
-];
-
-
-const TableSection = () => {
+const TableSection = (props) => {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [page, setPage] = React.useState(0);
+  const [data, setData] = React.useState([]);
+
+  useEffect(() => {
+    handleSubmit();
+  }, []);
+
+  const handleSubmit = async () => {
+    try {
+      const res = await axios.get('http://localhost:5555/project/application/all');
+      if (res.data) {
+        const items = res.data.data;
+        inintData(items);
+      }
+    } catch (error) {
+      console.log('error===>', error);
+    }
+  };
+
+  const inintData = (items) => {
+    items?.map((item, index) => {
+      console.log('item==>', item);
+      setData(data => [...data, createData(index + 1, item.projectName, item.projectType, item.applicationType, item.updatedAt, item._id)])
+    })
+  }
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
+
+  const handleClickItem = (item) => {
+    console.log('item===>', item);
+    localStorage.setItem('itemWaitingForApproval', JSON.stringify(item));
+  }
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
@@ -47,7 +65,7 @@ const TableSection = () => {
         rowsPerPageOptions={[5, 10, 25]}
         labelRowsPerPage="Hiển thị"
         component="div"
-        count={rows.length}
+        count={data.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
@@ -56,7 +74,7 @@ const TableSection = () => {
       />
       <TableContainer sx={{ border: "1px solid rgba(224, 224, 224, 1)", borderTopLeftRadius: "10px", borderTopRightRadius: "10px" }}>
         <Table sx={{ minWidth: 700, borderTopLeftRadius: '10px', borderTopRightRadius: '10px', overflow: 'hidden', }} aria-label="customized table">
-          <TableHead sx={{backgroundColor: '#F7F8FA'}}>
+          <TableHead sx={{ backgroundColor: '#F7F8FA' }}>
             <StyledTableRow>
               <StyledTableCell>#</StyledTableCell>
               <StyledTableCell>Tên</StyledTableCell>
@@ -66,10 +84,10 @@ const TableSection = () => {
             </StyledTableRow>
           </TableHead>
           <TableBody>
-            {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, i) => (
-              <StyledTableRow key={row.name} component={Link} sx={{ textDecoration: "none" }} to={`/project-under-review-detail`}>
+            {data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, i) => (
+              <StyledTableRow key={row.name + row.index} onClick={() => handleClickItem(row)} component={Link} sx={{ textDecoration: "none" }} to={`/project-under-review-detail`}>
                 <StyledTableCell scope="row">
-                  {i + 1}
+                  {row.index}
                 </StyledTableCell>
                 <StyledTableCell scope="row">
                   {row.name}
@@ -92,7 +110,7 @@ const TableSection = () => {
         rowsPerPageOptions={[5, 10, 25]}
         labelRowsPerPage="Hiển thị"
         component="div"
-        count={rows.length}
+        count={data.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
@@ -112,7 +130,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     paddingTop: '12px',
     paddingBottom: '12px'
   },
-  
+
   [`&.${tableCellClasses.body}`]: {
     fontWeight: '500',
     fontSize: '18px',

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from "react";
 import styled from '@emotion/styled'
 import { Box, Grid, Tabs, Tab, Typography } from '@mui/material'
 import PageTitle from 'components/PageTitle/PageTitle'
@@ -6,6 +6,7 @@ import ProfileVerification from '../../../components/display/ProfileVerification
 import ProfileInformation from '../../../components/display/ProfileInformation'
 import EditingForm from '../../../components/display/EditingForm'
 import Status from '../../../components/custom/Status'
+import axios from "axios";
 
 function a11yProps(index) {
     return {

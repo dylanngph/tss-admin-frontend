@@ -3,12 +3,12 @@ import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import { Box, Button, Modal, Typography, FormControl, Select, MenuItem, TextField } from '@mui/material';
-
+import axios from "axios";
 
 const ConfirmApproval = (props) => {
     const defaultValues = {
         schedule: '',
-        time: '',
+        acceptDate: '',
     }
 
     const types = [
@@ -27,9 +27,34 @@ const ConfirmApproval = (props) => {
     const handleOpen = () => setOpen(true);
     const [formValues, setFormValues] = useState(defaultValues)
 
-    const handleClose = () => {
-        setActiveStep(0)
-        setOpen(false)
+    const handleClose = async () => {
+        try {
+            const dataString = localStorage.getItem('itemWaitingForApproval');
+            const userData = JSON.parse(dataString);
+            let value = null
+            if (formValues.schedule == 1) {
+                value = {
+                    applicationId: userData.id,
+                    isPublishNow: true,
+                    publicationDate: "",
+                }
+            }
+            else if (formValues.schedule == 2) {
+                value = {
+                    applicationId: userData.id,
+                    isPublishNow: false,
+                    publicationDate: formValues.acceptDate,
+                }
+            }
+            const res = await axios.post('http://localhost:5555/project/application/verify', value);
+            if (res.data) {
+                console.log(res.data);
+                setActiveStep(0)
+                setOpen(false)
+            }
+        } catch (error) {
+            console.log('error===>', error);
+        }
     };
 
     const handleDatePickerChange = (newValue) => {
@@ -75,7 +100,7 @@ const ConfirmApproval = (props) => {
 
     return (
         <div>
-            <Button sx={{width: "100% !important"}} className="button" onClick={handleOpen}>Phê duyệt</Button>
+            <Button sx={{ width: "100% !important" }} className="button" onClick={handleOpen}>Phê duyệt</Button>
 
             <Modal
                 open={open}
