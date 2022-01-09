@@ -28,7 +28,7 @@ const TableSection = (props) => {
 
   const handleSubmit = async () => {
     try {
-      const res = await axios.get('http://localhost:5555/project/application/all');
+      const res = await axios.get('https://dev-api.tss.org.vn/project/application/pending/all');
       if (res.data) {
         const items = res.data.data;
         inintData(items);

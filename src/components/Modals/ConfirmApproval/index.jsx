@@ -46,7 +46,7 @@ const ConfirmApproval = (props) => {
                     publicationDate: formValues.acceptDate,
                 }
             }
-            const res = await axios.post('http://localhost:5555/project/application/verify', value);
+            const res = await axios.post('https://dev-api.tss.org.vn/project/application/verify', value);
             if (res.data) {
                 console.log(res.data);
                 setActiveStep(0)

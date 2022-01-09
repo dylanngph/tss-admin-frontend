@@ -15,9 +15,10 @@ const Information = (props) => {
         const userData = JSON.parse(dataString);
 
         try {
-            const res = await axios.get('http://localhost:5555/project/application', { params: { applicationId: userData.id } });
+            const res = await axios.get('https://dev-api.tss.org.vn/project/application', { params: { applicationId: userData.id } });
             if (res.data) {
-                setProject(res.data.data);
+                setProject({...res.data.data, ...res.data.data.detail, ...res.data.data.detail.legalRepresentative})
+                console.log('res.data.data===>', res.data.data);
             }
         } catch (error) {
             console.log('error===>', error);

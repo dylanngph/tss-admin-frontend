@@ -50,12 +50,12 @@ function ProjectDetail(props) {
                     <Box>
                         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
                             <Tab sx={tabStyle} className="tab-title" label="Thông tin hồ sơ" {...a11yProps(0)} />
-                            <Tab sx={tabStyle} className="tab-title" label="Đơn chỉnh sửa" {...a11yProps(1)} />
+                            {/* <Tab sx={tabStyle} className="tab-title" label="Đơn chỉnh sửa" {...a11yProps(1)} /> */}
                         </Tabs>
                     </Box>
                     <Box mt={4}>
                         <ProfileInformation value={value} index={0} />
-                        <EditingForm value={value} index={1} />
+                        {/* <EditingForm value={value} index={1} /> */}
                     </Box>
                 </Grid>
                 <Grid item xs={3} md={4} xl={3}>
