@@ -113,7 +113,6 @@ const Information = ({ project }) => {
                             placeholder="Note..."
                             style={contentTextareaTooltip}
                         />
-                        <Button sx={buttonTextareaTooltip}>Gắn cờ</Button>
                     </React.Fragment>
                 }
             >
@@ -135,7 +134,6 @@ const Information = ({ project }) => {
                 case 'companyCode':
                 case 'acceptDate':
                     valueItem = project?.detail[item.key];
-                    renderNote();
                     break;
                 case 'businessAreas':
                     valueItem = project?.detail[item.key].join("; ");
@@ -218,9 +216,7 @@ const Information = ({ project }) => {
                     <Typography sx={labelInforItem}>{item.title}</Typography>
                     <Box sx={wrapperBoxValue}>
                         <a download="Download" href={valueItem} title='Giấy phép đăng ký kinh doanh' >Chi tiết</a>
-                        {
-                            renderNote()
-                        }
+                        {renderNote()}
                     </Box>
                 </>
             )
@@ -230,9 +226,7 @@ const Information = ({ project }) => {
                     <Typography sx={labelInforItem}>{item.title}</Typography>
                     <Box sx={wrapperBoxValue}>
                         <img src={valueItem} alt="img" width="20px" height="20px" />
-                        {
-                            (project && project.note && project.note.flags && project.note.flags[item.key])
-                        }
+                        {renderNote()}
                     </Box>
                 </>
             )
@@ -242,13 +236,10 @@ const Information = ({ project }) => {
                     <Typography sx={labelInforItem}>{item.title}</Typography>
                     <Box sx={wrapperBoxValue}>
                         {
-                            (project && project.note && project.note.flags && project.note.flags[item.key]) ?
-                                <>
-
-                                    <p>{valueItem}</p>
-                                </>
-                                :
-                                valueItem
+                            <>
+                                {valueItem}
+                                {renderNote()}
+                            </>
                         }
                     </Box>
                 </>

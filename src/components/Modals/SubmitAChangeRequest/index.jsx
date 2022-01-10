@@ -1,48 +1,35 @@
 import React, { useState } from "react";
 import { Box, Button, Modal, Typography, FormControl, TextareaAutosize } from '@mui/material';
+import axios from "axios";
+import SuccessNotify from '../SuccessNotify'
 
-
-const SubmitAChangeRequest = (props) => {
-    const defaultValues = {
-        schedule: '',
-        time: '',
-    }
-
-    const types = [
-        {
-            value: 1,
-            label: 'Công bố ngay',
-        },
-        {
-            value: 2,
-            label: 'Lên lịch',
-        }
-    ]
-
-    const [activeStep, setActiveStep] = useState(0);
+const SubmitAChangeRequest = ({data}) => {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
-    const [formValues, setFormValues] = useState(defaultValues)
+    const [openModelSuccess, setOpenModelSuccess] = useState(false)
 
     const handleClose = () => {
-        setActiveStep(0)
         setOpen(false)
     };
 
-    const handleDatePickerChange = (newValue) => {
-        setFormValues({
-            ...formValues,
-            ["acceptDate"]: newValue,
-        });
-    };
+    const handleSubmitAChangeRequest = async () => {
+        try {
+            const value = {
+                projectId: data._id,
+                message: 'abc',
+                flags: {
 
-    const handleSelectChange = (e) => {
-        const { name, value } = e.target;
-        setFormValues({
-            ...formValues,
-            [name]: value,
-        });
-    };
+                }
+            }
+            const res = await axios.post('https://dev-api.tss.org.vn/project/require-change', value);
+            if (res.data) {
+                setOpen(false);
+                setOpenModelSuccess(true);
+            }
+        } catch (error) {
+            console.log('error===>', error);
+        }
+    }
 
     const style = {
         position: 'absolute',
@@ -73,7 +60,6 @@ const SubmitAChangeRequest = (props) => {
     return (
         <div>
             <Button sx={{width: '100% !important'}} className="button confirm-change" onClick={handleOpen}>Y.c thay đổi</Button>
-
             <Modal
                 open={open}
                 onClose={handleClose}
@@ -95,11 +81,11 @@ const SubmitAChangeRequest = (props) => {
                     </Box>
                     <Box sx={contentWrap}>
                         <Button className="button disable" onClick={handleClose}>Xem lại</Button>
-                        <Button className="button" onClick={handleClose}>Gửi yêu cầu</Button>
+                        <Button className="button" onClick={handleSubmitAChangeRequest}>Gửi yêu cầu</Button>
                     </Box>
-
                 </Box>
             </Modal>
+            <SuccessNotify title='Yêu Cầu Thay Đổi Thành Công' content='Người dùng sẽ nhận được thông báo yêu cầu thay đổi' openStatus={openModelSuccess} />
         </div>
     )
 }

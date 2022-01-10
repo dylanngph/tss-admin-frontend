@@ -1,4 +1,4 @@
-import React , {useState} from 'react'
+import React, { useState } from 'react'
 import {
     Box,
     TextField,
@@ -8,21 +8,10 @@ import {
 } from '@mui/material'
 import { styled as muiStyled } from '@mui/material/styles';
 import styled from '@emotion/styled'
-import {ReactComponent as SearchIcon} from 'assets/icons/search.svg'
+import { ReactComponent as SearchIcon } from 'assets/icons/search.svg'
 
 
-const Filter = () => {
-    const [poject, setPoject] = useState({
-        projectName: '',
-        projectType: '',
-        status: '',
-        date: '',
-    });
-
-    const handleChange = (prop) => (event) => {
-        setPoject({ ...poject, [prop]: event.target.value });
-    }
-
+const Filter = ({ handleChange, project }) => {
     const styleSelect = {
         '.MuiSelect-select': {
             padding: '12px 24px',
@@ -38,7 +27,7 @@ const Filter = () => {
     const statuses = [
         {
             label: 'Trạng thái',
-            value: ''
+            value: null
         },
         {
             label: 'Hoạt động',
@@ -46,33 +35,33 @@ const Filter = () => {
         },
         {
             label: 'Tạm ẩn',
-            value: 2
+            value: 0
         },
     ]
 
     const projectTypes = [
         {
-            label: 'Loại hồ sơ',
-            value: ''
+            label: 'Loại dự án',
+            value: null
         },
         {
-            label: 'Tổ chức',
-            value: 'tổ chức'
+            label: 'Doanh nghiệp',
+            value: 1
         },
         {
             label: 'Cá nhân',
-            value: 'cá nhân'
+            value: 2
         },
         {
             label: 'Quỹ',
-            value: 'quỹ'
+            value: 3
         },
     ]
 
     const documentDate = [
         {
             label: 'Ngày gửi đơn',
-            value: ''
+            value: null
         },
         {
             label: 'Hôm nay',
@@ -94,50 +83,53 @@ const Filter = () => {
 
     return (
         <Flex justifyContent="space-between">
-            <FormControl sx={{
+            <Box sx={{
+                display: 'inline-flex',
                 flexDirection: 'row',
                 gap: '20px',
             }}>
-                <SearchField 
-                    placeholder="Tên dự án" 
+                <SearchField
+                    placeholder="Tên dự án"
+                    value={project?.projectName}
+                    onChange={handleChange('projectName')}
                     InputProps={{
-                        startAdornment: <SearchIcon/>,
-                      }}
+                        startAdornment: <SearchIcon />,
+                    }}
                 />
                 <SelectField
                     sx={styleSelect}
-                    value={poject.status}
+                    value={project?.status}
                     onChange={handleChange('status')}
                     displayEmpty
                     inputProps={{ 'aria-label': 'Without label' }}
-                    >
+                >
                     {statuses.map((item, index) => (
-                        <MenuItem key={item.label} value={item.value}>{item.label}</MenuItem>
+                        <MenuItem key={item.value} value={item.value}>{item.label}</MenuItem>
                     ))}
                 </SelectField>
                 <SelectField
                     sx={styleSelect}
-                    value={poject.projectType}
+                    value={project?.projectType}
                     onChange={handleChange('projectType')}
                     displayEmpty
                     inputProps={{ 'aria-label': 'Without label' }}
-                    >
+                >
                     {projectTypes.map((item, index) => (
                         <MenuItem key={item.label} value={item.value}>{item.label}</MenuItem>
                     ))}
                 </SelectField>
                 <SelectField
                     sx={styleSelect}
-                    value={poject.date}
+                    value={project?.date}
                     onChange={handleChange('date')}
                     displayEmpty
                     inputProps={{ 'aria-label': 'Without label' }}
-                    >
+                >
                     {documentDate.map((item, index) => (
                         <MenuItem key={item.label} value={item.value}>{item.label}</MenuItem>
                     ))}
                 </SelectField>
-            </FormControl>
+            </Box>
             <FormControl sx={{
                 flexDirection: 'row',
                 gap: '20px',
@@ -145,14 +137,14 @@ const Filter = () => {
                 '& .MuiOutlinedInput-root': {
                     background: '#EFF2F5',
                     border: '1px solid #EAEAEA',
-                    borderRadius: '8px',                    
-                  '& fieldset': {
-                    border: 'none'
-                  },
-                  '&:hover fieldset': {
-                    border: 'none',
-                  },
-                  
+                    borderRadius: '8px',
+                    '& fieldset': {
+                        border: 'none'
+                    },
+                    '&:hover fieldset': {
+                        border: 'none',
+                    },
+
                 },
             }}>
             </FormControl>
@@ -183,9 +175,9 @@ const SearchField = muiStyled(TextField)({
         fontWeight: '500',
         color: '#58667E',
     }
-  });
+});
 
-  const SelectField = muiStyled(Select)({
+const SelectField = muiStyled(Select)({
 
 });
 

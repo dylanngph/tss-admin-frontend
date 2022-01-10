@@ -22,6 +22,7 @@ const TableSection = ({ data }) => {
   const [row, setRow] = useState([]);
 
   useEffect(() => {
+    setRow([]);
     data?.map((item, index) => {
       setRow(data => [...data, createData(index + 1, item.projectName, item.isActive, item.projectType, item.updatedAt, item._id)])
     })

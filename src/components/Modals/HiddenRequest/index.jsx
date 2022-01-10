@@ -1,47 +1,15 @@
 import React, { useState } from "react";
-import { Box, Button, Modal, Typography, FormControl, TextareaAutosize } from '@mui/material';
+import { Box, Button, Modal, Typography, TextareaAutosize } from '@mui/material';
+import SuccessNotify from '../SuccessNotify'
+import axios from "axios";
 
-
-const HiddenRequest = (props) => {
-    const defaultValues = {
-        schedule: '',
-        time: '',
-    }
-
-    const types = [
-        {
-            value: 1,
-            label: 'Công bố ngay',
-        },
-        {
-            value: 2,
-            label: 'Lên lịch',
-        }
-    ]
-
-    const [activeStep, setActiveStep] = useState(0);
+const HiddenRequest = ({data}) => {
+    const [openModelSuccess, setOpenModelSuccess] = useState(false)
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
-    const [formValues, setFormValues] = useState(defaultValues)
 
     const handleClose = () => {
-        setActiveStep(0)
         setOpen(false)
-    };
-
-    const handleDatePickerChange = (newValue) => {
-        setFormValues({
-            ...formValues,
-            ["acceptDate"]: newValue,
-        });
-    };
-
-    const handleSelectChange = (e) => {
-        const { name, value } = e.target;
-        setFormValues({
-            ...formValues,
-            [name]: value,
-        });
     };
 
     const style = {
@@ -70,10 +38,25 @@ const HiddenRequest = (props) => {
         margin: "auto"
     }
 
+    const handleHideProject = async () => {
+        try {
+            const value = {
+                projectId: data._id,
+                isHide: true
+            }
+            const res = await axios.post('https://dev-api.tss.org.vn/project/hide', value);
+            if (res.data) {
+                setOpen(false);
+                setOpenModelSuccess(true);
+            }
+        } catch (error) {
+            console.log('error===>', error);
+        }
+    }
+
     return (
         <div>
             <Button sx={{width: "100% !important"}} className="button confirm-hidden" onClick={handleOpen}>Tạm ẩn</Button>
-
             <Modal
                 open={open}
                 onClose={handleClose}
@@ -95,11 +78,11 @@ const HiddenRequest = (props) => {
                     </Box>
                     <Box sx={contentWrap}>
                         <Button className="button disable" onClick={handleClose}>Quay lại</Button>
-                        <Button className="button" onClick={handleClose}>Xác nhận</Button>
+                        <Button className="button" onClick={handleHideProject}>Xác nhận</Button>
                     </Box>
-
                 </Box>
             </Modal>
+            <SuccessNotify title='Tạm ẩn Dự án thành công' content='Người dùng sẽ nhận được thông báo ẩn dự án' openStatus={openModelSuccess} />
         </div>
     )
 }

@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
-import styled from '@emotion/styled'
 import { Box, Grid, Tabs, Tab, Typography } from '@mui/material'
 import PageTitle from 'components/PageTitle/PageTitle'
 import ProjectAction from '../../../components/display/ProjectAction'
 import ProfileInformation from '../../../components/display/ProfileInformation'
-import EditingForm from '../../../components/display/EditingForm'
 import Status from '../../../components/custom/Status'
 import axios from "axios";
+import Loading from '../../../components/display/Loading'
 
 function a11yProps(index) {
     return {
@@ -18,6 +17,7 @@ function a11yProps(index) {
 function ProjectDetail() {
     const [value, setValue] = React.useState(0);
     const [data, setData] = useState()
+    const [loading, setLoading] = useState(true);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -28,14 +28,15 @@ function ProjectDetail() {
     }, []);
 
     const initData = async () => {
+        setLoading(true);
         const dataString = localStorage.getItem('itemApproval');
         const userData = JSON.parse(dataString);
-        console.log('userData===>', userData);
         try {
             const res = await axios.get('https://dev-api.tss.org.vn/project', { params: { projectId: userData.id } });
             if (res.data) {
                 setData(res.data.data);
             }
+            setLoading(false);
         } catch (error) {
             console.log('error===>', error);
         }
@@ -59,36 +60,43 @@ function ProjectDetail() {
 
     return (
         <Box>
-            <PageTitle text={`Quản lý dự án / ${data?.projectName}`} />
-            <Box sx={titleStyle}>
-                <Typography variant="h3">{data?.projectName}</Typography>
+            {
+                loading ?
+                    <Loading />
+                    :
+                    <>
+                        <PageTitle text={`Quản lý dự án / ${data?.projectName}`} />
+                        <Box sx={titleStyle}>
+                            <Typography variant="h3">{data?.projectName}</Typography>
 
-                <Box sx={{ maxWidth: "270px", width: "100%", display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <span className='active-status'>
-                        {data?.isActive ? 'Hoạt động' : 'Tạm ẩn'}
-                    </span>
-                    <Status value='2' />
-                </Box>
-            </Box>
-            <Grid sx={{ paddingLeft: "24px", paddingRight: "24px" }} container spacing={2}>
-                <Grid item xs={9} md={8} xl={9}>
-                    <Box>
-                        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-                            <Tab sx={tabStyle} className="tab-title" label="Thông tin hồ sơ" {...a11yProps(0)} />
-                            {/* <Tab sx={tabStyle} className="tab-title" label="Đơn chỉnh sửa" {...a11yProps(1)} /> */}
-                        </Tabs>
-                    </Box>
-                    <Box mt={4}>
-                        <ProfileInformation data={data} value={value} index={0} />
-                        {/* <EditingForm value={value} index={1} /> */}
-                    </Box>
-                </Grid>
-                <Grid item xs={3} md={4} xl={3}>
-                    <Box sx={{ background: "#EFF2F5", borderRadius: "8px", padding: "16px", marginTop: "125px" }}>
-                        <ProjectAction />
-                    </Box>
-                </Grid>
-            </Grid>
+                            <Box sx={{ maxWidth: "270px", width: "100%", display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                                <span className='active-status'>
+                                    {data?.isActive ? 'Hoạt động' : 'Tạm ẩn'}
+                                </span>
+                                <Status value='2' />
+                            </Box>
+                        </Box>
+                        <Grid sx={{ paddingLeft: "24px", paddingRight: "24px" }} container spacing={2}>
+                            <Grid item xs={9} md={8} xl={9}>
+                                <Box>
+                                    <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+                                        <Tab sx={tabStyle} className="tab-title" label="Thông tin hồ sơ" {...a11yProps(0)} />
+                                        {/* <Tab sx={tabStyle} className="tab-title" label="Đơn chỉnh sửa" {...a11yProps(1)} /> */}
+                                    </Tabs>
+                                </Box>
+                                <Box mt={4}>
+                                    <ProfileInformation data={data} value={value} index={0} />
+                                    {/* <EditingForm value={value} index={1} /> */}
+                                </Box>
+                            </Grid>
+                            <Grid item xs={3} md={4} xl={3}>
+                                <Box sx={{ background: "#EFF2F5", borderRadius: "8px", padding: "16px", marginTop: "125px" }}>
+                                    <ProjectAction data={data} />
+                                </Box>
+                            </Grid>
+                        </Grid>
+                    </>
+            }
         </Box>
     );
 }

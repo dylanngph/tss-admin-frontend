@@ -222,6 +222,7 @@ line-height: 17px;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
+  right: -23px;
 }
 
 .MuiTypography-root.tab-title {
