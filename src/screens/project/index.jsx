@@ -10,11 +10,9 @@ import NotFound from 'components/display/NotFound';
 function Projects(props) {
     const match = useRouteMatch();
     return (
-        <div>
-            <Switch>
-                <Route path={match.url} exact component={ProjectManagement} />
-            </Switch>
-        </div>
+        <Switch>
+            <Route path={match.url} exact component={ProjectManagement} />
+        </Switch>
     );
 }
 

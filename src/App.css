@@ -223,3 +223,12 @@ line-height: 17px;
   top: 50%;
   transform: translateY(-50%);
 }
+
+.MuiTypography-root.tab-title {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19px;
+  text-align: center;
+  color: #000000;
+  text-transform: inherit;
+}

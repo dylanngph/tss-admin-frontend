@@ -4,8 +4,9 @@ import { Box, Typography, Tabs, Tab } from '@mui/material';
 import axios from "axios";
 
 function ProfileInformation(props) {
-    const { children, value, index, ...other } = props;
-    const [data, setData] = useState();
+    const { data, children, value, index, ...other } = props;
+
+    console.log('data ProfileInformation==>', data);
 
     return (
         <Box role="tabpanel" className="application"

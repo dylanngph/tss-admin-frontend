@@ -50,7 +50,6 @@ const TableSection = (props) => {
   };
 
   const handleClickItem = (item) => {
-    console.log('item===>', item);
     localStorage.setItem('itemWaitingForApproval', JSON.stringify(item));
   }
 

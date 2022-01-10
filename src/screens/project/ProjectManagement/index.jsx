@@ -1,20 +1,37 @@
-import React from 'react'
+import React, { useEffect, useState } from "react";
 import styled from '@emotion/styled'
 import { Box } from '@mui/material'
 import { Page } from 'components/Page/Page';
 import PageTitle from 'components/PageTitle/PageTitle'
 import Filter from '../components/Filter/Filter';
 import TableSection from '../components/Table/TableSection';
-import ProfileVerification from '../../../components/display/ProfileVerification'
-import { Route, Switch, useRouteMatch } from "react-router-dom";
+import axios from "axios";
 
 function ProjectManagement({ match }) {
+    const [data, setData] = useState()
+
+    useEffect(() => {
+        getData();
+      }, []);
+
+    const getData = async () => {
+        try {
+          const res = await axios.get('https://dev-api.tss.org.vn/project/all');
+          if (res.data) {
+            const items = res.data.data;
+            setData(items);
+          }
+        } catch (error) {
+          console.log('error===>', error);
+        }
+      };
+
     return (
         <Box>
             <PageTitle text={'Quản lý dự án'} />
             <Col>
                 <Filter/>
-                <TableSection/>
+                <TableSection data={data}/>
             </Col>
         </Box>
     );
