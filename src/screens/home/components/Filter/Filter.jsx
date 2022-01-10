@@ -11,22 +11,11 @@ import styled from '@emotion/styled'
 import {ReactComponent as SearchIcon} from 'assets/icons/search.svg'
 
 
-const Filter = () => {
-    const [poject, setPoject] = useState({
-        projectName: '',
-        projectType: '',
-        statusDocument: '',
-        date: '',
-    });
-
-    const handleChange = (prop) => (event) => {
-        setPoject({ ...poject, [prop]: event.target.value });
-    }
-
+const Filter = ({ handleChange, project }) => {
     const projectTypes = [
         {
             label: 'Loại hồ sơ',
-            value: ''
+            value: null
         },
         {
             label: 'Tổ chức',
@@ -45,7 +34,7 @@ const Filter = () => {
     const statusDocument = [
         {
             label: 'Loại đơn',
-            value: ''
+            value: null
         },
         {
             label: 'Xác thực dự án',
@@ -60,7 +49,7 @@ const Filter = () => {
     const documentDate = [
         {
             label: 'Ngày gửi đơn',
-            value: ''
+            value: null
         },
         {
             label: 'Hôm nay',
@@ -101,13 +90,14 @@ const Filter = () => {
             }}>
                 <SearchField 
                     placeholder="Tên dự án" 
+                    onChange={handleChange('projectName')}
                     InputProps={{
                         startAdornment: <SearchIcon/>,
                       }}
                 />
                 <SelectField
                     sx={styleSelect}
-                    value={poject.projectType}
+                    value={project?.projectType}
                     onChange={handleChange('projectType')}
                     displayEmpty
                     inputProps={{ 'aria-label': 'Without label' }}
@@ -118,7 +108,7 @@ const Filter = () => {
                 </SelectField>
                 <SelectField
                     sx={styleSelect}
-                    value={poject.statusDocument}
+                    value={project?.statusDocument}
                     onChange={handleChange('statusDocument')}
                     displayEmpty
                     inputProps={{ 'aria-label': 'Without label' }}
@@ -129,7 +119,7 @@ const Filter = () => {
                 </SelectField>
                 <SelectField
                     sx={styleSelect}
-                    value={poject.date}
+                    value={project?.date}
                     onChange={handleChange('date')}
                     displayEmpty
                     inputProps={{ 'aria-label': 'Without label' }}

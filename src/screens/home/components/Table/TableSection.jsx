@@ -17,33 +17,17 @@ function createData(index, name, projectType, mailType, date, id) {
   return {index, name, projectType, mailType, date, id};
 }
 
-const TableSection = (props) => {
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [page, setPage] = React.useState(0);
-  const [data, setData] = React.useState([]);
+const TableSection = ({ data }) => {
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [page, setPage] = useState(0);
+  const [row, setRow] = useState([]);
 
   useEffect(() => {
-    handleSubmit();
-  }, []);
-
-  const handleSubmit = async () => {
-    try {
-      const res = await axios.get('https://dev-api.tss.org.vn/project/application/pending/all');
-      if (res.data) {
-        const items = res.data.data;
-        inintData(items);
-      }
-    } catch (error) {
-      console.log('error===>', error);
-    }
-  };
-
-  const inintData = (items) => {
-    items?.map((item, index) => {
-      console.log('item==>', item);
-      setData(data => [...data, createData(index + 1, item.projectName, item.projectType, item.applicationType, item.updatedAt, item._id)])
+    setRow([]);
+    data?.map((item, index) => {
+      setRow(data => [...data, createData(index + 1, item.projectName, item.projectType, item.applicationType, item.updatedAt, item._id)])
     })
-  }
+  }, [data]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -64,7 +48,7 @@ const TableSection = (props) => {
         rowsPerPageOptions={[5, 10, 25]}
         labelRowsPerPage="Hiển thị"
         component="div"
-        count={data.length}
+        count={row.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
@@ -83,7 +67,7 @@ const TableSection = (props) => {
             </StyledTableRow>
           </TableHead>
           <TableBody>
-            {data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, i) => (
+            {row.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, i) => (
               <StyledTableRow key={row.name + row.index} onClick={() => handleClickItem(row)} component={Link} sx={{ textDecoration: "none" }} to={`/project-under-review-detail`}>
                 <StyledTableCell scope="row">
                   {row.index}
@@ -109,7 +93,7 @@ const TableSection = (props) => {
         rowsPerPageOptions={[5, 10, 25]}
         labelRowsPerPage="Hiển thị"
         component="div"
-        count={data.length}
+        count={row.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}

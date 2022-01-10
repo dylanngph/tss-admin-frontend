@@ -66,7 +66,7 @@ const TableSection = ({ data }) => {
             </StyledTableRow>
           </TableHead>
           <TableBody>
-            {row.map((row, i) => (
+            {row.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, i) => (
               <StyledTableRow key={row.id + row.name} component={Link} onClick={() => handleClickItem(row)}
                               sx={{ textDecoration: "none" }} to={`/project-detail`}>
                 <StyledTableCell scope="row">

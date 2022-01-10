@@ -18,7 +18,7 @@ const SubmitAChangeRequest = ({data}) => {
                 projectId: data._id,
                 message: 'abc',
                 flags: {
-
+                    
                 }
             }
             const res = await axios.post('https://dev-api.tss.org.vn/project/require-change', value);

@@ -5,16 +5,59 @@ import PageTitle from 'components/PageTitle/PageTitle'
 import Filter from '../components/Filter/Filter';
 import TableSection from '../components/Table/TableSection';
 import axios from "axios";
-
+import Loading from '../../../components/display/Loading'
 
 function ProjectUnderReview({ match }) {
+    const [data, setData] = useState()
+    const [loading, setLoading] = useState(true);
+    const [project, setProject] = useState({
+        projectName: null,
+        projectType: null,
+        statusDocument: null,
+        date: null,
+      });
+
+    useEffect(() => {
+        getData();
+    }, []);
+
+    const getData = async (projectName = null, projectTypeId = null, applicationTypeId = null, submittedAt = null) => {
+        try {
+            setLoading(true);
+            const param = {
+                projectName: projectName,
+                projectTypeId: projectTypeId,
+                applicationTypeId: applicationTypeId,
+                submittedAt: submittedAt
+            }
+            const res = await axios.get('https://dev-api.tss.org.vn/project/application/pending/all', { params: param });
+            if (res.data) {
+                const items = res.data.data;
+                setData(items);
+            }
+            setLoading(false);
+        } catch (error) {
+            console.log('error===>', error);
+        }
+    };
+
+    const handleChange = (prop) => (event) => {
+        setProject({ ...project, [prop]: event.target.value });
+        getData(project.projectName, project.projectType, project.statusDocument, project.date);
+      }
+
     return (
         <Box>
             <PageTitle text={'Dự án đang duyệt'} />
-            <Col>
-                <Filter />
-                <TableSection/>
-            </Col>
+            {
+                loading ?
+                    <Loading />
+                    :
+                    <Col>
+                        <Filter handleChange={handleChange} project={project} />
+                        <TableSection data={data} />
+                    </Col>
+            }
         </Box>
     );
 }

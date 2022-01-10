@@ -42,7 +42,6 @@ function ProjectManagement({ match }) {
   };
 
   const handleChange = (prop) => (event) => {
-    console.log('abc')
     setProject({ ...project, [prop]: event.target.value });
     getData(project.projectName, project.projectType, project.status, project.date);
   }

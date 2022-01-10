@@ -1,47 +1,15 @@
 import React, { useState } from "react";
 import { Box, Button, Modal, Typography, FormControl, Select, MenuItem, TextField } from '@mui/material';
+import SuccessNotify from '../SuccessNotify'
+import axios from "axios";
 
-
-const ConfirmDenial = (props) => {
-    const defaultValues = {
-        schedule: '',
-        time: '',
-    }
-
-    const types = [
-        {
-            value: 1,
-            label: 'Công bố ngay',
-        },
-        {
-            value: 2,
-            label: 'Lên lịch',
-        }
-    ]
-
-    const [activeStep, setActiveStep] = useState(0);
+const ConfirmDenial = ({ data }) => {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
-    const [formValues, setFormValues] = useState(defaultValues)
+    const [openModelSuccess, setOpenModelSuccess] = useState(false)
 
     const handleClose = () => {
-        setActiveStep(0)
         setOpen(false)
-    };
-
-    const handleDatePickerChange = (newValue) => {
-        setFormValues({
-            ...formValues,
-            ["acceptDate"]: newValue,
-        });
-    };
-
-    const handleSelectChange = (e) => {
-        const { name, value } = e.target;
-        setFormValues({
-            ...formValues,
-            [name]: value,
-        });
     };
 
     const style = {
@@ -70,6 +38,21 @@ const ConfirmDenial = (props) => {
         margin: "auto"
     }
 
+    const handleConfirmDenial = async () => {
+        try {
+            const value = {
+                applicationId: data._id,
+            }
+            const res = await axios.post('https://dev-api.tss.org.vn/project/application/reject', value);
+            if (res.data) {
+                setOpen(false);
+                setOpenModelSuccess(true);
+            }
+        } catch (error) {
+            console.log('error===>', error);
+        }
+    }
+
     return (
         <div>
             <Button sx={{width: '100% !important'}} className="button confirm-denial" onClick={handleOpen}>Từ chối</Button>
@@ -88,11 +71,11 @@ const ConfirmDenial = (props) => {
                     <Typography align="center" mb={3} variant="body1">Sau khi từ chối, hồ sơ dự án sẽ không được lưu trữ, tổ chức sẽ phải thực hiện lại từ đầu</Typography>
                     <Box sx={contentWrap}>
                         <Button className="button disable" onClick={handleClose}>Xem lại</Button>
-                        <Button className="button cancel" onClick={handleClose}>Từ chối</Button>
+                        <Button className="button cancel" onClick={handleConfirmDenial}>Từ chối</Button>
                     </Box>
-
                 </Box>
             </Modal>
+            <SuccessNotify title='Từ Chối Hồ Sơ' content='Người dùng sẽ nhận được thông báo từ chối hồ sơ' openStatus={openModelSuccess} />
         </div>
     )
 }
