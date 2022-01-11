@@ -15,8 +15,8 @@ import ProjectDetail from "./screens/project/ProjectDetail"
 import Users from "./screens/Users"
 import Staffs from "./screens/Staffs"
 import NFTSeal from "./screens/NFTSeal"
-import TabPanel from "screens/Decentralization/Edit/Edit"
-import Decentralization from "screens/Decentralization"
+import TabPanel from "./screens/decentralization/Edit/Edit"
+import Decentralization from "./screens/decentralization"
 import NFTSealDetail from "./screens/NFTSealDetail"
 import Container from "components/Container/Container";
 import {adminData} from 'screens/admin/config'
