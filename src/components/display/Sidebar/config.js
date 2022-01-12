@@ -24,24 +24,24 @@ export const projectNav = [
         href: '/nft-seal',
         icon: Judgeicon
     },
-    {
-        label: 'Người dùng',
-        href: '/users',
-        icon: UserOctagonIcon
-    }
+    // {
+    //     label: 'Người dùng',
+    //     href: '/users',
+    //     icon: UserOctagonIcon
+    // }
 ]
 
 export const ruleNav = [
-    {
-        label : 'Nhóm quyền',
-        href: '/decentralization',
-        icon: RuleIcon
-    },
-    {
-        label: 'Nhân viên',
-        href: '/staffs',
-        icon: UserCircleIcon
-    }
+    // {
+    //     label : 'Nhóm quyền',
+    //     href: '/decentralization',
+    //     icon: RuleIcon
+    // },
+    // {
+    //     label: 'Nhân viên',
+    //     href: '/staffs',
+    //     icon: UserCircleIcon
+    // }
 ]
 
 export const themeNav = [

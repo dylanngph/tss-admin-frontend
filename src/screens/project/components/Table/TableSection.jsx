@@ -70,7 +70,7 @@ const TableSection = ({ data }) => {
               <StyledTableRow key={row.id + row.name} component={Link} onClick={() => handleClickItem(row)}
                               sx={{ textDecoration: "none" }} to={`/project-detail`}>
                 <StyledTableCell scope="row">
-                  {i + 1}
+                  {row.index}
                 </StyledTableCell>
                 <StyledTableCell scope="row">
                   {row.name}

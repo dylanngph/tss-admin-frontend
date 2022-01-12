@@ -157,7 +157,7 @@ function EditDecentralizationScreen({item}) {
                         <Grid container alignItems="center" pt={1} pb={1}>
                             <Grid md={3} sx={{ color : '#58667E'}}>Quản lý dự án</Grid>
                             <Grid md={9} sx={{ '& .MuiTypography-root': {color: '#11142D'} }}>
-                                <FormControlLabel control={<Checkbox defaultChecked sx={{'&.Mui-checked': {color: '#446DFF'}}} />} label="Xem danh sách" />
+                                <FormControlLabel control={<Checkbox defaultChecked sx={{'&.Mui-checked': {color: '#446DFF'}}} />} value="1" label="Xem danh sách" />
                                 <FormControlLabel control={<Checkbox defaultChecked sx={{'&.Mui-checked': {color: '#446DFF'}}} />} label="Yêu cầu chỉnh sửa" />
                                 <FormControlLabel control={<Checkbox defaultChecked sx={{'&.Mui-checked': {color: '#446DFF'}}} />} label="Sửa thông tin" />
                                 <FormControlLabel control={<Checkbox defaultChecked sx={{'&.Mui-checked': {color: '#446DFF'}}} />} label="Tạm ẩn dự án" />

@@ -11,83 +11,36 @@ import { TablePagination, Box, Button, Tooltip, Typography, tooltipClasses } fro
 import { Route, Link, useRouteMatch } from "react-router-dom";
 
 
-function createData(project, typeProject, typeNFT, date) {
-  return { project, typeProject, typeNFT, date };
+function createData(index, project, typeProject, typeNFT, date, id) {
+  let d = new Date(date);
+  date = d.getDate() + "/"+ parseInt(d.getMonth()+1) +"/"+d.getFullYear();
+  return { index, project, typeProject, typeNFT, date, id };
 }
 
-const rows = [
-  createData('JadeLabs', 'Doanh nghiệp', 'Passport of Blockchain', '27/11/2021'),
-  createData('JadeLabs', 'Doanh nghiệp', 'Tài sản nền', '27/11/2021'),
-  createData('JadeLabs', 'Doanh nghiệp', 'Tài sản số', '27/11/2021'),
-  createData('JadeLabs', 'Doanh nghiệp', 'Passport of Blockchain', '27/11/2021'),
-  createData('JadeLabs', 'Doanh nghiệp', 'Passport of Blockchain', '27/11/2021'),
-  createData('JadeLabs', 'Doanh nghiệp', 'Passport of Blockchain', '27/11/2021'),
-];
+const TableSection = ({ data }) => {
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [page, setPage] = useState(0);
+  const [row, setRow] = useState([]);
 
-
-const TableSection = () => {
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [page, setPage] = React.useState(0);
+  useEffect(() => {
+    setRow([]);
+    data?.map((item, index) => {
+      setRow(data => [...data, createData(index + 1, item?.project?.projectName, item?.project?.projectType, item?.typeId, item.updatedAt, item._id)])
+    })
+  }, [data]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
 
+  const handleClickItem = (item) => {
+    localStorage.setItem('NFTSeal', JSON.stringify(item));
+  }
+
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-
-  const deleteButton = {
-    fontWeight: "500",
-    fontSize: "14px",
-    lineHeight: "22px",
-    color: "#EA3943",
-    textTransform: "none",
-    width: "100%",
-    justifyContent: "flex-start",
-
-    "img": {
-      marginRight: "10px"
-    }
-  }
-
-  const wrapMore = {
-    position: "absolute",
-    background: "#FFFFFF",
-    boxShadow: "0px 4px 6px rgb(0 0 0 / 10%), 0px 2px 4px rgb(0 0 0 / 6%)",
-    borderRadius: "8px",
-    padding: "16px 0",
-    zIndex: "100",
-    left: "-60px",
-
-  }
-
-  const addButton = {
-    fontWeight: "500",
-    fontSize: "14px",
-    lineHeight: "22px",
-    color: "#111827",
-    textTransform: "none",
-
-    "img": {
-      marginRight: "10px"
-    }
-  }
-
-  const HtmlTooltip = styled(({ className, ...props }) => (
-    <Tooltip {...props} classes={{ popper: className }} />
-  ))(({ theme }) => ({
-    [`& .${tooltipClasses.tooltip}`]: {
-      backgroundColor: '#FFFFFF',
-      maxWidth: 332,
-      width: '332px',
-      border: 'none',
-      boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.05)',
-      borderRadius: '12px',
-      padding: '20px 15px 15px',
-    },
-  }));
 
   return (
     <Paper sx={{ position: "relative", }}>
@@ -95,7 +48,7 @@ const TableSection = () => {
         rowsPerPageOptions={[5, 10, 25]}
         labelRowsPerPage="Hiển thị"
         component="div"
-        count={rows.length}
+        count={row.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
@@ -114,10 +67,11 @@ const TableSection = () => {
             </StyledTableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row, i) => (
-              <StyledTableRow key={row.name} component={Link} sx={{ textDecoration: "none" }} to={`/nft-seal-detail`}>
+            {row.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, i) => (
+              <StyledTableRow key={row.name} component={Link} onClick={() => handleClickItem(row)}
+                              sx={{ textDecoration: "none" }} to={`/nft-seal-detail`}>
                 <StyledTableCell scope="row">
-                  {i + 1}
+                  {row.index}
                 </StyledTableCell>
                 <StyledTableCell scope="row">
                   {row.project}
@@ -129,18 +83,26 @@ const TableSection = () => {
                   <Box sx={{ display: 'inline-flex'}}>
                     <Box mr={1}>
                       {
-                        row.typeNFT == 'Tài sản nền'
+                        row.typeNFT == '1'
                         ?
-                        <img src="./assets/images/IOTA1.png" alt="IOTA" />
+                        <>
+                          <img src="./assets/images/IOTA1.png" alt="IOTA" />
+                          Passport of Blockchain
+                        </>
                         :
-                        row.typeNFT == 'Tài sản số'
+                        row.typeNFT == '2'
                         ?
-                        <img src="./assets/images/IOTA2.png" alt="IOTA" />
+                        <>
+                          <img src="./assets/images/IOTA2.png" alt="IOTA" />
+                          Tài sản số
+                        </>
                         :
-                        <img src="./assets/images/IOTA3.png" alt="IOTA" />
+                        <>
+                          <img src="./assets/images/IOTA3.png" alt="IOTA" />
+                          Tài sản nền
+                        </>
                       }
                     </Box>
-                    {row.typeNFT}
                   </Box>
                 </StyledTableCell>
                 <StyledTableCell>
@@ -155,7 +117,7 @@ const TableSection = () => {
         rowsPerPageOptions={[5, 10, 25]}
         labelRowsPerPage="Hiển thị"
         component="div"
-        count={rows.length}
+        count={row.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}

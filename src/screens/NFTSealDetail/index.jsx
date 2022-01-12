@@ -1,100 +1,137 @@
-import React from 'react'
+import React, { useEffect, useState } from "react";
 import styled from '@emotion/styled'
 import { Box, Accordion, AccordionSummary, Typography, AccordionDetails, FormControl, RadioGroup, FormControlLabel, Radio, Grid, Button } from '@mui/material'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Route, Switch, useRouteMatch } from "react-router-dom";
 import PageTitle from 'components/PageTitle/PageTitle'
-
+import axios from "axios";
+import Loading from '../../components/display/Loading'
+import moment from 'moment'
+import { useHistory } from 'react-router-dom'
 
 function NFTSealDetail(props) {
     const match = useRouteMatch();
+    const [data, setData] = useState()
+    const [loading, setLoading] = useState(true);
+    const history = useHistory();
+
+
+    const [nft, setNft] = React.useState({
+        legalId: data?.legalId ? data?.legalId : "1",
+        techLevelId: data?.legalId ? data?.legalId : "1",
+        socialValueId: data?.legalId ? data?.legalId : "1",
+        communRepuId: data?.communRepuId ? data?.communRepuId : "1",
+    })
 
     const sealInfor = [
         {
             title: "Pháp lý",
+            name: "legalId",
             items: [
                 {
-                    value: 1,
+                    value: '1',
                     label: "Rủi ro thấp"
                 },
                 {
-                    value: 2,
+                    value: '2',
                     label: "Rủi ro cao"
                 },
                 {
-                    value: 3,
+                    value: '3',
                     label: "Chưa thấy rủi ro"
                 },
                 {
-                    value: 4,
+                    value: '4',
                     label: "Không có thông tin"
                 }
             ]
         },
         {
             title: "Mức độ công nghệ",
+            name: "techLevelId",
             items: [
                 {
-                    value: 1,
+                    value: '1',
                     label: "Có khả năng ứng dụng cao"
                 },
                 {
-                    value: 2,
+                    value: '2',
                     label: "Có khả năng ứng dụng"
                 },
                 {
-                    value: 3,
+                    value: '3',
                     label: "Chưa nhận thấy khả năng ứng dụng"
                 },
                 {
-                    value: 4,
+                    value: '4',
                     label: "Không có thông tin"
                 }
             ]
         },
         {
             title: "Giá trị xã hội",
+            name: "socialValueId",
             items: [
                 {
-                    value: 1,
+                    value: '1',
                     label: "Có tiềm năng đóng góp cao cho xã hội"
                 },
                 {
-                    value: 2,
+                    value: '2',
                     label: "Có tiềm năng đóng góp cho xã hội"
                 },
                 {
-                    value: 3,
+                    value: '3',
                     label: "Chưa nhận thấy tiềm năng đóng góp cao cho xã hội"
                 },
                 {
-                    value: 4,
+                    value: '4',
                     label: "Không có thông tin"
                 }
             ]
         },
         {
             title: "Uy tín cộng đồng",
+            name: "communRepuId",
             items: [
                 {
-                    value: 1,
+                    value: '1',
                     label: "Có nhiều thông tin tích cực"
                 },
                 {
-                    value: 2,
+                    value: '2',
                     label: "Có một số thông tin tiêu cực"
                 },
                 {
-                    value: 3,
+                    value: '3',
                     label: "Chưa tìm thấy thông tin tiêu cực"
                 },
                 {
-                    value: 4,
+                    value: '4',
                     label: "Không có thông tin"
                 }
             ]
         },
     ]
+
+    useEffect(() => {
+        initData();
+    }, []);
+
+    const initData = async () => {
+        setLoading(true);
+        const dataString = localStorage.getItem('NFTSeal');
+        const nftData = JSON.parse(dataString);
+        try {
+            const res = await axios.get('https://dev-api.tss.org.vn/nft/detail', { params: { nftId: nftData.id } });
+            if (res.data) {
+                setData(res.data.data);
+            }
+            setLoading(false);
+        } catch (error) {
+            console.log('error===>', error);
+        }
+    }
 
     const abc = {
         borderBottom: "1px solid #EFF2F5",
@@ -111,67 +148,124 @@ function NFTSealDetail(props) {
         }
     }
 
+    const formatString = (string) => {
+        let firtString = string?.substring(0, 8);
+        let secondString = string?.substr(string.length - 4, string.length);
+        return firtString + '...' + secondString;
+    }
+
+    const handleChange = (event) => {
+        setNft({ ...nft, [event.target.name]: event.target.value });
+    };
+
+    const handleUpdateNft = async () => {
+        setLoading(true);
+        try {
+            const nftData = {
+                nftId: data._id,
+                legalId: nft.legalId,
+                techLevelId: nft.techLevelId,
+                socialValueId: nft.socialValueId,
+                communRepuId: nft.communRepuId,
+            }
+            const res = await axios.post('https://dev-api.tss.org.vn/nft/update', nftData);
+            setLoading(false);
+        } catch (error) {
+            setLoading(false);
+            console.log(error);
+        }
+    }
+
+    const handleRevokeNft = async () => {
+        setLoading(true);
+        try {
+            const nftData = {
+                nftId: data._id,
+            }
+            const res = await axios.post('https://dev-api.tss.org.vn/nft/revoke', nftData);
+            if (res.data) {
+                history('/nft-seal');
+            }
+            setLoading(false);
+        } catch (error) {
+            setLoading(false);
+            console.log(error);
+        }
+    }
+
     return (
         <Box>
-            <PageTitle text={'Quản lý con dấu NFT / JadeLabs'} />
-            <Col>
-                <Box>
-                    <Grid container spacing={2}>
-                        <Grid item xs={1}>
-                            <img src="./assets/images/IOTA.png" alt="IOTA" />
-                        </Grid>
-                        <Grid item xs={7}>
+            {
+                loading ?
+                    <Loading />
+                    :
+                    <>
+                        <PageTitle text={`Quản lý con dấu NFT / ${data?.project?.projectName}`} />
+                        <Col>
                             <Box>
-                                <Typography variant='h4'>NFT Passport of Blockchain</Typography>
+                                <Grid container spacing={2}>
+                                    <Grid item xs={1}>
+                                        <img src="./assets/images/IOTA.png" alt="IOTA" />
+                                    </Grid>
+                                    <Grid item xs={7}>
+                                        <Box>
+                                            <Typography variant='h4'>NFT Passport of Blockchain</Typography>
+                                        </Box>
+                                        <Box sx={{ display: "flex" }}>
+                                            <BoxMoreInfo>
+                                                <span>Ngày cấp</span>
+                                                <span>{moment(data?.issuedAt).format('DD/MM/YYYY')}</span>
+                                            </BoxMoreInfo>
+                                            <BoxMoreInfo>
+                                                <span className="block-copy">Token ID</span>
+                                                <span>{data?.tokenId}</span>
+                                            </BoxMoreInfo>
+                                            <BoxMoreInfo>
+                                                <span className="block-copy">Contract ID</span>
+                                                <span>{formatString('0xD0e366Ae42Ba7CE1a27c4Eab7b63524F1fBEA023')}</span>
+                                            </BoxMoreInfo>
+                                        </Box>
+                                    </Grid>
+                                    <Grid item xs={4}>
+                                        <Box sx={{ display: "flex", justifyContent: "flex-end", }}>
+                                            <Button sx={{ marginRight: "16px", display: "inline-block" }} onClick={handleRevokeNft} className="button cancel">
+                                                Thu hồi con dấu
+                                            </Button>
+                                            <Button className="button" onClick={handleUpdateNft}>Cập nhật</Button>
+                                        </Box>
+                                    </Grid>
+                                </Grid>
                             </Box>
-                            <Box sx={{ display: "flex" }}>
-                                <BoxMoreInfo>
-                                    <span>Ngày cấp</span>
-                                    <span>06/05/2022</span>
-                                </BoxMoreInfo>
-                                <BoxMoreInfo>
-                                    <span className="block-copy">NFT ID</span>
-                                    <span>153979</span>
-                                </BoxMoreInfo>
-                                <BoxMoreInfo>
-                                    <span className="block-copy">Contract ID</span>
-                                    <span>0xE1D7CB...647278</span>
-                                </BoxMoreInfo>
-                            </Box>
-                        </Grid>
-                        <Grid item xs={4}>
-                            <Box sx={{ display: "flex", justifyContent: "flex-end", }}>
-                                <Button sx={{ marginRight: "16px", display: "inline-block" }} className="button cancel">Thu hồi con dấu</Button>
-                                <Button className="button">Xác nhận</Button>
-                            </Box>
-                        </Grid>
-                    </Grid>
-                </Box>
-                {sealInfor.map((item, index) => (
-                    <Accordion className='AccordionSummary'>
-                        <AccordionSummary
-                            sx={{ background: "#FFFFFF", boxShadow: "0px 4px 15px rgb(0 0 0 / 5%)", borderRadius: "12px" }}
-                            expandIcon={<ExpandMoreIcon />}
-                            aria-controls={`panel-header-${index + 1}`}
-                            id={`panel-header-${index + 1}`}
-                        >
-                            <Typography variant='h3'>{`${index + 1}. ${item.title}`}</Typography>
-                        </AccordionSummary>
-                        <AccordionDetails sx={{ background: "#FFFFFF", boxShadow: "0px 4px 15px rgb(0 0 0 / 5%)", borderRadius: "12px", marginTop: "12px" }}>
-                            <FormControl sx={{ width: "100%" }}>
-                                <RadioGroup
-                                    aria-label={item.title}
-                                    name="radio-buttons-group"
-                                >
-                                    {item.items.map((i, j) => (
-                                        <FormControlLabel sx={abc} value={i.value} control={<Radio />} label={i.label} />
-                                    ))}
-                                </RadioGroup>
-                            </FormControl>
-                        </AccordionDetails>
-                    </Accordion>
-                ))}
-            </Col>
+                            {sealInfor.map((item, index) => (
+                                <Accordion key={item.title} className='AccordionSummary'>
+                                    <AccordionSummary
+                                        sx={{ background: "#FFFFFF", boxShadow: "0px 4px 15px rgb(0 0 0 / 5%)", borderRadius: "12px" }}
+                                        expandIcon={<ExpandMoreIcon />}
+                                        aria-controls={`panel-header-${index + 1}`}
+                                        id={`panel-header-${index + 1}`}
+                                    >
+                                        <Typography variant='h3'>{`${index + 1}. ${item.title}`}</Typography>
+                                    </AccordionSummary>
+                                    <AccordionDetails sx={{ background: "#FFFFFF", boxShadow: "0px 4px 15px rgb(0 0 0 / 5%)", borderRadius: "12px", marginTop: "12px" }}>
+                                        <FormControl sx={{ width: "100%" }}>
+                                            <RadioGroup
+                                                aria-label={item.title}
+                                                name={item.name}
+                                                value={nft[item.name]}
+                                                onChange={handleChange}
+                                            >
+                                                {item.items.map((i, j) => (
+                                                    <FormControlLabel key={i.value + i.label} sx={abc} value={i.value} control={<Radio />} label={i.label} />
+                                                ))}
+                                            </RadioGroup>
+                                        </FormControl>
+                                    </AccordionDetails>
+                                </Accordion>
+                            ))}
+                        </Col>
+                    </>
+            }
+
         </Box>
     );
 }
