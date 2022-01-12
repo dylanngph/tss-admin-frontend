@@ -8,6 +8,35 @@ import { ReactComponent as MoreCircleIcon } from 'icon/more-circle.svg'
 const Information = ({ project }) => {
     const [fieldUpdate, setFieldUpdate] = useState({});
     const [stateEditInput, setStateEditInput] = useState({});
+    const [flags, setFlags] = useState({
+        incorporationName: '',
+        transactionName: '',
+        incorporationAddress: '',
+        businessAreas: '',
+        companyCode: '',
+        acceptDate: '',
+        businessLicense: '',
+        projectName: '',
+        logo: '',
+        description: '',
+        whitepaper: '',
+        developmentTeam: '',
+        developmentPartner: '',
+        websites: '',
+        tokenName: '',
+        symbol: '',
+        standards: '',
+        communications: '',
+        smartContractAddress: '',
+        tokenAllocations: '',
+        name: '',
+        dob: '',
+        position: '',
+        identity: '',
+        address: '',
+        phone: '',
+        email: '',
+    });
 
     const inforItem = {
         display: "flex",
@@ -83,7 +112,7 @@ const Information = ({ project }) => {
         console.log('>> stateEditInput: ', stateEditInput);
     }
 
-    console.log('>> project ', project);
+    // console.log('>> project ', project);
 
     // const [onEdit, setOnEdit] = useState(false)
 
@@ -101,7 +130,17 @@ const Information = ({ project }) => {
         },
     }));
 
-    const renderNote = (() => {
+    const handleInputChange = (e) => {
+        if (!e.target) return;
+        const { name, value } = e.target;
+        setFlags({
+            ...flags,
+            [name]: value,
+        });
+        localStorage.setItem('flags', JSON.stringify(flags));
+    };
+
+    const renderNote = ((nameFlag) => {
         return (
             <HtmlTooltip
                 title={
@@ -111,7 +150,10 @@ const Information = ({ project }) => {
                             minRows={5}
                             maxRows={5}
                             placeholder="Note..."
+                            value={flags[nameFlag]}
                             style={contentTextareaTooltip}
+                            name={nameFlag}
+                            onChange={handleInputChange}
                         />
                     </React.Fragment>
                 }
@@ -124,7 +166,6 @@ const Information = ({ project }) => {
 
     const renderItem = ({ item }) => {
         let valueItem;
-        console.log('project==>', project);
         if (project && project.detail) {
             // get from api
             switch (item.key) {
@@ -155,8 +196,10 @@ const Information = ({ project }) => {
                     valueItem = project?.detail.legalRepresentative[item.key].id ? project?.detail.legalRepresentative[item.key].id.substring(0, 3) + '******' : '*********';
                     break;
                 case 'logo':
-                case 'whitepaper':
                     valueItem = `data:image/png;base64,${project[item.key]}`;
+                    break;
+                case 'whitepaper':
+                    valueItem = `data:application/pdf;base64,${project?.[item.key]}`;
                     break;
                 case 'smartContractAddress':
                     valueItem = project.smartContractAddress.substring(0, 8) + "..." + project.smartContractAddress.substring(project.smartContractAddress.length - 4, project.smartContractAddress.length);
@@ -210,23 +253,23 @@ const Information = ({ project }) => {
             if (item.key === "identity") valueItem = project["idAuth"];
         }
 
-        if (item.key === 'businessLicense') {
+        if (['businessLicense', 'whitepaper'].includes(item.key)) {
             return (
                 <>
                     <Typography sx={labelInforItem}>{item.title}</Typography>
                     <Box sx={wrapperBoxValue}>
                         <a download="Download" href={valueItem} title='Giấy phép đăng ký kinh doanh' >Chi tiết</a>
-                        {renderNote()}
+                        {renderNote(item.key)}
                     </Box>
                 </>
             )
-        } else if (['logo', 'whitepaper'].includes(item.key)) {
+        } else if (['logo'].includes(item.key)) {
             return (
                 <>
                     <Typography sx={labelInforItem}>{item.title}</Typography>
                     <Box sx={wrapperBoxValue}>
                         <img src={valueItem} alt="img" width="20px" height="20px" />
-                        {renderNote()}
+                        {renderNote(item.key)}
                     </Box>
                 </>
             )
@@ -238,7 +281,7 @@ const Information = ({ project }) => {
                         {
                             <>
                                 {valueItem}
-                                {renderNote()}
+                                {renderNote(item.key)}
                             </>
                         }
                     </Box>

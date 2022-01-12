@@ -3,10 +3,11 @@ import { Box, Button, Modal, Typography, FormControl, TextareaAutosize } from '@
 import axios from "axios";
 import SuccessNotify from '../SuccessNotify'
 
-const SubmitAChangeRequest = ({data}) => {
+const SubmitAChangeRequest = ({data, requestType}) => {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const [openModelSuccess, setOpenModelSuccess] = useState(false)
+    const [message, setMessage] = useState("");
 
     const handleClose = () => {
         setOpen(false)
@@ -14,14 +15,33 @@ const SubmitAChangeRequest = ({data}) => {
 
     const handleSubmitAChangeRequest = async () => {
         try {
-            const value = {
-                projectId: data._id,
-                message: 'abc',
-                flags: {
-                    
+            let flags = JSON.parse(localStorage.getItem('flags'));
+
+            Object.keys(flags).map(function(key) {
+                if (!flags[key]) {
+                    delete flags[key]
                 }
+            });
+
+            let res;
+
+            if (requestType === 'application') {
+                let value = {
+                    applicationId: data._id,
+                    message: message,
+                    flags: flags,
+                }
+                res = await axios.post('https://dev-api.tss.org.vn/project/application/require-change', value);
+            } 
+            else if (requestType === 'project') {
+                let value = {
+                    projectId: data._id,
+                    message: message,
+                    flags: flags,
+                }
+                res = await axios.post('https://dev-api.tss.org.vn/project/require-change', value);
             }
-            const res = await axios.post('https://dev-api.tss.org.vn/project/require-change', value);
+            
             if (res.data) {
                 setOpen(false);
                 setOpenModelSuccess(true);
@@ -30,6 +50,12 @@ const SubmitAChangeRequest = ({data}) => {
             console.log('error===>', error);
         }
     }
+
+    const handleInputChange = (e) => {
+        if (!e.target) return;
+        const { name, value } = e.target;
+        setMessage(value);
+    };
 
     const style = {
         position: 'absolute',
@@ -77,6 +103,9 @@ const SubmitAChangeRequest = ({data}) => {
                             minRows={5}
                             placeholder="Lời nhắn...."
                             style={{ width: '100%' }}
+                            value={message}
+                            name="message"
+                            onChange={handleInputChange}
                         />
                     </Box>
                     <Box sx={contentWrap}>

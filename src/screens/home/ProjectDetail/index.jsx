@@ -35,7 +35,6 @@ function ProjectDetail(props) {
             const res = await axios.get('https://dev-api.tss.org.vn/project/application', { params: { applicationId: userData.id } });
             if (res.data) {
                 setData(res.data.data);
-                console.log('res.data.data)===>', res.data.data);
             }
             setLoading(false);
         } catch (error) {

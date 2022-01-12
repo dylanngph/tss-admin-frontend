@@ -24,7 +24,7 @@ const ProfileVerification = ({ data }) => {
                     <ConfirmDenial data={data} />
                 </Box>
                 <Box sx={{ maxWidth: '143px', width: '100%' }}>
-                    <SubmitAChangeRequest />
+                    <SubmitAChangeRequest data={data} requestType="application" />
                 </Box>
             </Box>
             <ConfirmApproval data={data} />
