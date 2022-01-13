@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import { Box, Button, Modal, Typography, FormControl, TextareaAutosize } from '@mui/material';
 import axios from "axios";
 import SuccessNotify from '../SuccessNotify'
+import useToken from 'components/hook/useToken';
 
 const SubmitAChangeRequest = ({data, requestType}) => {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const [openModelSuccess, setOpenModelSuccess] = useState(false)
     const [message, setMessage] = useState("");
+    const {token, setToken} = useToken();
 
     const handleClose = () => {
         setOpen(false)
@@ -31,7 +33,7 @@ const SubmitAChangeRequest = ({data, requestType}) => {
                     message: message,
                     flags: flags,
                 }
-                res = await axios.post('https://dev-api.tss.org.vn/project/application/require-change', value);
+                res = await axios.post('https://dev-api.tss.org.vn/project/application/require-change', value, { headers: {"Authorization" : `Bearer ${token}`} });
             } 
             else if (requestType === 'project') {
                 let value = {
@@ -39,7 +41,7 @@ const SubmitAChangeRequest = ({data, requestType}) => {
                     message: message,
                     flags: flags,
                 }
-                res = await axios.post('https://dev-api.tss.org.vn/project/require-change', value);
+                res = await axios.post('https://dev-api.tss.org.vn/project/require-change', value, { headers: {"Authorization" : `Bearer ${token}`} });
             }
             
             if (res.data) {

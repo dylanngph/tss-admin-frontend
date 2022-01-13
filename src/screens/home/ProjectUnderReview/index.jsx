@@ -6,6 +6,7 @@ import Filter from '../components/Filter/Filter';
 import TableSection from '../components/Table/TableSection';
 import axios from "axios";
 import Loading from '../../../components/display/Loading'
+import useToken from 'components/hook/useToken';
 
 function ProjectUnderReview({ match }) {
     const [data, setData] = useState()
@@ -16,6 +17,7 @@ function ProjectUnderReview({ match }) {
         statusDocument: null,
         date: null,
       });
+    const { token, setToken } = useToken();
 
     useEffect(() => {
         getData();
@@ -30,7 +32,7 @@ function ProjectUnderReview({ match }) {
                 applicationTypeId: applicationTypeId,
                 submittedAt: submittedAt
             }
-            const res = await axios.get('https://dev-api.tss.org.vn/project/application/pending/all', { params: param });
+            const res = await axios.get('https://dev-api.tss.org.vn/project/application/pending/all', { params: param, headers: { "Authorization": `Bearer ${token}` } });
             if (res.data) {
                 const items = res.data.data;
                 setData(items);

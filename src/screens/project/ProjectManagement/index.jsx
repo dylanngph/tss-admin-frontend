@@ -6,6 +6,7 @@ import Filter from '../components/Filter/Filter';
 import TableSection from '../components/Table/TableSection';
 import axios from "axios";
 import Loading from '../../../components/display/Loading'
+import useToken from 'components/hook/useToken';
 
 function ProjectManagement({ match }) {
   const [data, setData] = useState()
@@ -16,6 +17,7 @@ function ProjectManagement({ match }) {
     date: null,
   });
   const [loading, setLoading] = useState(true);
+  const { token, setToken } = useToken();
 
   useEffect(() => {
     getData();
@@ -30,7 +32,7 @@ function ProjectManagement({ match }) {
         isActive: isActive,
         verifiedAt: verifiedAt
       }
-      const res = await axios.get('https://dev-api.tss.org.vn/project/all', { params: param });
+      const res = await axios.get('https://dev-api.tss.org.vn/project/all', { params: param, headers: { "Authorization": `Bearer ${token}` } });
       if (res.data) {
         const items = res.data.data;
         setData(items);

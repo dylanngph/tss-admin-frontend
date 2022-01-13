@@ -8,6 +8,7 @@ import TableSection from './components/Table/TableSection';
 import CreateNFTSealModal from '../../components/Modals/NFTSealModal/Create'
 import axios from "axios";
 import Loading from '../../components/display/Loading'
+import useToken from 'components/hook/useToken';
 
 function NFTSeal(props) {
     const [data, setData] = useState()
@@ -19,6 +20,7 @@ function NFTSeal(props) {
     });
     const [product, setProduct] = useState();
     const [loading, setLoading] = useState(true);
+    const { token, setToken } = useToken();
 
     useEffect(() => {
         getData();
@@ -34,7 +36,7 @@ function NFTSeal(props) {
                 issuedAt: issuedAt
             }
 
-            const res = await axios.get('https://dev-api.tss.org.vn/nft/all', { params: param });
+            const res = await axios.get('https://dev-api.tss.org.vn/nft/all', { params: param, headers: { "Authorization": `Bearer ${token}` } });
             if (res.data) {
                 const items = res.data.data;
                 setData(items);
@@ -43,7 +45,7 @@ function NFTSeal(props) {
             const paramProject = {
                 isSimple: true
             }
-            const resProduct = await axios.get('https://dev-api.tss.org.vn/project/all', { params: paramProject });
+            const resProduct = await axios.get('https://dev-api.tss.org.vn/project/all', { params: paramProject, headers: { "Authorization": `Bearer ${token}` } });
             if (resProduct.data) {
                 setProduct(resProduct.data.data);
             }

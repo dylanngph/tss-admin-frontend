@@ -1,12 +1,14 @@
 import React, { useState } from "react";
-import { Box, Button, Modal, Typography, FormControl, Select, MenuItem, TextField } from '@mui/material';
+import { Box, Button, Modal, Typography } from '@mui/material';
 import SuccessNotify from '../SuccessNotify'
 import axios from "axios";
+import useToken from 'components/hook/useToken';
 
 const ConfirmDenial = ({ data }) => {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
-    const [openModelSuccess, setOpenModelSuccess] = useState(false)
+    const [openModelSuccess, setOpenModelSuccess] = useState(false);
+    const {token, setToken} = useToken();
 
     const handleClose = () => {
         setOpen(false)
@@ -43,7 +45,7 @@ const ConfirmDenial = ({ data }) => {
             const value = {
                 applicationId: data._id,
             }
-            const res = await axios.post('https://dev-api.tss.org.vn/project/application/reject', value);
+            const res = await axios.post('https://dev-api.tss.org.vn/project/application/reject', value, { headers: {"Authorization" : `Bearer ${token}`} });
             if (res.data) {
                 setOpen(false);
                 setOpenModelSuccess(true);

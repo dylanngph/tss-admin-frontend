@@ -8,13 +8,14 @@ import axios from "axios";
 import Loading from '../../components/display/Loading'
 import moment from 'moment'
 import { useHistory } from 'react-router-dom'
+import useToken from 'components/hook/useToken';
 
 function NFTSealDetail(props) {
     const match = useRouteMatch();
     const [data, setData] = useState()
     const [loading, setLoading] = useState(true);
     const history = useHistory();
-
+    const { token, setToken } = useToken();
 
     const [nft, setNft] = React.useState({
         legalId: data?.legalId ? data?.legalId : "1",
@@ -123,7 +124,7 @@ function NFTSealDetail(props) {
         const dataString = localStorage.getItem('NFTSeal');
         const nftData = JSON.parse(dataString);
         try {
-            const res = await axios.get('https://dev-api.tss.org.vn/nft/detail', { params: { nftId: nftData.id } });
+            const res = await axios.get('https://dev-api.tss.org.vn/nft/detail', { params: { nftId: nftData.id }, headers: { "Authorization": `Bearer ${token}` } });
             if (res.data) {
                 setData(res.data.data);
             }
@@ -168,7 +169,7 @@ function NFTSealDetail(props) {
                 socialValueId: nft.socialValueId,
                 communRepuId: nft.communRepuId,
             }
-            const res = await axios.post('https://dev-api.tss.org.vn/nft/update', nftData);
+            const res = await axios.post('https://dev-api.tss.org.vn/nft/update', nftData, { headers: {"Authorization" : `Bearer ${token}`} });
             setLoading(false);
         } catch (error) {
             setLoading(false);
@@ -182,7 +183,7 @@ function NFTSealDetail(props) {
             const nftData = {
                 nftId: data._id,
             }
-            const res = await axios.post('https://dev-api.tss.org.vn/nft/revoke', nftData);
+            const res = await axios.post('https://dev-api.tss.org.vn/nft/revoke', nftData, { headers: {"Authorization" : `Bearer ${token}`} });
             if (res.data) {
                 history('/nft-seal');
             }

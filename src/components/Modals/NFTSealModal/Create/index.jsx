@@ -6,6 +6,7 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import axios from "axios";
 import moment from "moment";
 import { useHistory } from 'react-router-dom'
+import useToken from 'components/hook/useToken';
 
 const CreateNFTSealModal = ({ product }) => {
     const [values, setValues] = useState({
@@ -21,6 +22,7 @@ const CreateNFTSealModal = ({ product }) => {
     const handleOpen = () => setOpen(true);
     const [projects, setProjects] = useState([])
     const history = useHistory();
+    const {token, setToken} = useToken();
 
     const sealTypes = [
         {
@@ -156,7 +158,7 @@ const CreateNFTSealModal = ({ product }) => {
                 communRepuId: values.communRepuId,
             }
 
-            const res = await axios.post('https://dev-api.tss.org.vn/nft/issue', param);
+            const res = await axios.post('https://dev-api.tss.org.vn/nft/issue', param, { headers: {"Authorization" : `Bearer ${token}`} });
             if (res.data) {
                 setOpen(false);
                 history('/nft-seal');

@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import { Box, Button, Modal, Typography, TextareaAutosize } from '@mui/material';
 import SuccessNotify from '../SuccessNotify'
 import axios from "axios";
+import useToken from 'components/hook/useToken';
 
 const RemoveRequest = ({data}) => {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
-    const [openModelSuccess, setOpenModelSuccess] = useState(false)
+    const [openModelSuccess, setOpenModelSuccess] = useState(false);
+    const {token, setToken} = useToken();
 
     const handleClose = () => {
         setOpen(false)
@@ -43,7 +45,7 @@ const RemoveRequest = ({data}) => {
             const value = {
                 projectId: data._id,
             }
-            const res = await axios.post('https://dev-api.tss.org.vn/project/hide', value);
+            const res = await axios.post('https://dev-api.tss.org.vn/project/hide', value, { headers: {"Authorization" : `Bearer ${token}`} });
             if (res.data) {
                 setOpen(false);
                 setOpenModelSuccess(true);

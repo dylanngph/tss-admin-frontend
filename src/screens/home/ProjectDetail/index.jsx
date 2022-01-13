@@ -6,6 +6,7 @@ import ProfileInformation from '../../../components/display/ProfileInformation'
 import Status from '../../../components/custom/Status'
 import axios from "axios";
 import Loading from '../../../components/display/Loading'
+import useToken from 'components/hook/useToken';
 
 function a11yProps(index) {
     return {
@@ -18,6 +19,7 @@ function ProjectDetail(props) {
     const [value, setValue] = React.useState(0);
     const [data, setData] = useState()
     const [loading, setLoading] = useState(true);
+    const { token, setToken } = useToken();
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -32,7 +34,7 @@ function ProjectDetail(props) {
         const dataString = localStorage.getItem('itemWaitingForApproval');
         const userData = JSON.parse(dataString);
         try {
-            const res = await axios.get('https://dev-api.tss.org.vn/project/application', { params: { applicationId: userData.id } });
+            const res = await axios.get('https://dev-api.tss.org.vn/project/application', { params: { applicationId: userData.id }, headers: { "Authorization": `Bearer ${token}` } });
             if (res.data) {
                 setData(res.data.data);
             }

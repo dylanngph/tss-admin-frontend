@@ -4,8 +4,11 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import { Box, Button, Modal, Typography, FormControl, Select, MenuItem, TextField } from '@mui/material';
 import axios from "axios";
+import useToken from 'components/hook/useToken';
 
 const ConfirmApproval = (props) => {
+    const {token, setToken} = useToken();
+
     const defaultValues = {
         schedule: '',
         acceptDate: '',
@@ -46,7 +49,7 @@ const ConfirmApproval = (props) => {
                     publicationDate: formValues.acceptDate,
                 }
             }
-            const res = await axios.post('https://dev-api.tss.org.vn/project/application/verify', value);
+            const res = await axios.post('https://dev-api.tss.org.vn/project/application/verify', value, { headers: {"Authorization" : `Bearer ${token}`} });
             if (res.data) {
                 console.log(res.data);
                 setActiveStep(0)

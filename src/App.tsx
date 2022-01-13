@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import './App.css';
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, useHistory } from "react-router-dom";
 import { ThemeProvider, createMuiTheme, createTheme } from '@mui/material/styles';
 import Footer from "./components/display/Footer";
 import Header from "./components/display/Header";
@@ -30,6 +30,7 @@ interface LoginProps {
 }
 
 function App() {
+  let history = useHistory();
 
   const theme = createTheme({
     typography: {
@@ -71,47 +72,16 @@ function App() {
   const [user , setUser] = useState({email:""})
   const {token, setToken} = useToken();
 
-  const readCookies = () => {
-    const userCookies = Cookies.get("user")
-    if(userCookies){
-      setAuth(true)
-    }
-  }
-
-  useEffect(() => {
-    readCookies()
-  }, [])
-
-  const handleLogin = (values:LoginProps) => {
-    for(let i = 0; i < adminData.length ; i++) {
-        if(values.email === adminData[i].email){
-            if(values.password === adminData[i].password){
-              setUser({
-                email: values.email
-              })
-              setError(false)
-              setAuth(true)
-              Cookies.set("user","loginTrue")
-              return
-            }
-        }
-    }
-    setError(true)
-    return auth
-  }
-
   const handleLogout = () => {
-    setUser({email:""})
-    setAuth(false)
-    Cookies.remove("user")
+    setUser({ email: "" });
+    setToken(null);
+    history.push("/login");
   }
-
-  console.log(user)
 
   return (
     <ThemeProvider theme={theme}>
         {
-          auth ? 
+          token ? 
           <>
           <Header drawerWidth={drawerWidth} handleLogout={handleLogout} />
           <Sidebar drawerWidth={drawerWidth}/>
@@ -134,7 +104,7 @@ function App() {
           </Container>
           </>
           :
-          <LoginScreen handleLogin={handleLogin} error={error}/>
+          <LoginScreen setToken={setToken}  error={error}/>
         }
     </ThemeProvider>
   );

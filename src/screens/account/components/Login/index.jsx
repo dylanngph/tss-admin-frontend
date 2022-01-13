@@ -2,7 +2,6 @@ import React , {useState} from 'react';
 import styled from '@emotion/styled'
 import {
     Box,
-    Link,
     Button,
     TextField,
     InputAdornment,
@@ -11,9 +10,12 @@ import {
 import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import {ReactComponent as LogoFullIcon} from 'icon/tss-logo-full.svg'
+import { Link, useHistory } from 'react-router-dom'
+import axios from "axios";
 
+function LoginAccount({setToken , error}) {
+    let history = useHistory();
 
-function LoginAccount({handleLogin , error}) {
     const [values, setValues] = useState({
         email: '',
         password: '',
@@ -25,6 +27,18 @@ function LoginAccount({handleLogin , error}) {
     setValues({ ...values, [prop]: event.target.value });
     }
 
+    const handleLogin = async (event) => {
+        try {
+            const res = await axios.post('https://dev-api.tss.org.vn/admin/sign-in', values);
+            if(res.data) {
+                setToken(res.data.data.accessToken);
+                history.push('/')
+            }
+        } catch (error) {
+            console.log('error===>', error);
+        }
+    };
+
     const handleClickShowPassword = () => {
         setValues({
           ...values,
@@ -34,8 +48,6 @@ function LoginAccount({handleLogin , error}) {
     const handleMouseDownPassword = (event) => {
     event.preventDefault();
     }
-
-    
 
     return (
         <Wrapper>
@@ -80,7 +92,7 @@ function LoginAccount({handleLogin , error}) {
                     />
                </FieldBox>
                
-               <Box sx={{
+               {/* <Box sx={{
                    width: '100%',
                    textAlign: 'right'
                }}>
@@ -89,7 +101,7 @@ function LoginAccount({handleLogin , error}) {
                     >
                         Quên mật khẩu?
                     </LinkText>
-               </Box>
+               </Box> */}
 
                {
                 error ? <Box
@@ -108,7 +120,7 @@ function LoginAccount({handleLogin , error}) {
                >
                    Đăng nhập
                 </LoginButton>
-                <Box sx={{
+                {/* <Box sx={{
                    width: '100%',
                    textAlign: 'center'
                }}>
@@ -117,7 +129,7 @@ function LoginAccount({handleLogin , error}) {
                     >
                         Tạo tài khoản mới
                     </LinkText>
-               </Box>
+               </Box> */}
            </LoginBox>
         </Wrapper>
     );
