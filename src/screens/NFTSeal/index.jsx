@@ -36,7 +36,7 @@ function NFTSeal(props) {
                 issuedAt: issuedAt
             }
 
-            const res = await axios.get('https://dev-api.tss.org.vn/nft/all', { params: param, headers: { "Authorization": `Bearer ${token}` } });
+            const res = await axios.get(`${process.env.REACT_APP_URL_API}/nft/all`, { params: param, headers: { "Authorization": `Bearer ${token}` } });
             if (res.data) {
                 const items = res.data.data;
                 setData(items);
@@ -45,7 +45,7 @@ function NFTSeal(props) {
             const paramProject = {
                 isSimple: true
             }
-            const resProduct = await axios.get('https://dev-api.tss.org.vn/project/all', { params: paramProject, headers: { "Authorization": `Bearer ${token}` } });
+            const resProduct = await axios.get(`${process.env.REACT_APP_URL_API}/project/all`, { params: paramProject, headers: { "Authorization": `Bearer ${token}` } });
             if (resProduct.data) {
                 setProduct(resProduct.data.data);
             }

@@ -32,7 +32,7 @@ function ProjectUnderReview({ match }) {
                 applicationTypeId: applicationTypeId,
                 submittedAt: submittedAt
             }
-            const res = await axios.get('https://dev-api.tss.org.vn/project/application/pending/all', { params: param, headers: { "Authorization": `Bearer ${token}` } });
+            const res = await axios.get(`${process.env.REACT_APP_URL_API}/project/application/pending/all`, { params: param, headers: { "Authorization": `Bearer ${token}` } });
             if (res.data) {
                 const items = res.data.data;
                 setData(items);

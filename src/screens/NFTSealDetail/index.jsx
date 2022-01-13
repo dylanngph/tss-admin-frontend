@@ -124,7 +124,7 @@ function NFTSealDetail(props) {
         const dataString = localStorage.getItem('NFTSeal');
         const nftData = JSON.parse(dataString);
         try {
-            const res = await axios.get('https://dev-api.tss.org.vn/nft/detail', { params: { nftId: nftData.id }, headers: { "Authorization": `Bearer ${token}` } });
+            const res = await axios.get(`${process.env.REACT_APP_URL_API}/nft/detail`, { params: { nftId: nftData.id }, headers: { "Authorization": `Bearer ${token}` } });
             if (res.data) {
                 setData(res.data.data);
             }
@@ -169,7 +169,7 @@ function NFTSealDetail(props) {
                 socialValueId: nft.socialValueId,
                 communRepuId: nft.communRepuId,
             }
-            const res = await axios.post('https://dev-api.tss.org.vn/nft/update', nftData, { headers: {"Authorization" : `Bearer ${token}`} });
+            const res = await axios.post(`${process.env.REACT_APP_URL_API}/nft/update`, nftData, { headers: {"Authorization" : `Bearer ${token}`} });
             setLoading(false);
         } catch (error) {
             setLoading(false);
@@ -183,7 +183,7 @@ function NFTSealDetail(props) {
             const nftData = {
                 nftId: data._id,
             }
-            const res = await axios.post('https://dev-api.tss.org.vn/nft/revoke', nftData, { headers: {"Authorization" : `Bearer ${token}`} });
+            const res = await axios.post(`${process.env.REACT_APP_URL_API}/nft/revoke`, nftData, { headers: {"Authorization" : `Bearer ${token}`} });
             if (res.data) {
                 history('/nft-seal');
             }

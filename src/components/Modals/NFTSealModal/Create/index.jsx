@@ -158,7 +158,7 @@ const CreateNFTSealModal = ({ product }) => {
                 communRepuId: values.communRepuId,
             }
 
-            const res = await axios.post('https://dev-api.tss.org.vn/nft/issue', param, { headers: {"Authorization" : `Bearer ${token}`} });
+            const res = await axios.post(`${process.env.REACT_APP_URL_API}/nft/issue`, param, { headers: {"Authorization" : `Bearer ${token}`} });
             if (res.data) {
                 setOpen(false);
                 history('/nft-seal');

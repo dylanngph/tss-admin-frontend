@@ -49,7 +49,7 @@ const ConfirmApproval = (props) => {
                     publicationDate: formValues.acceptDate,
                 }
             }
-            const res = await axios.post('https://dev-api.tss.org.vn/project/application/verify', value, { headers: {"Authorization" : `Bearer ${token}`} });
+            const res = await axios.post(`${process.env.REACT_APP_URL_API}/project/application/verify`, value, { headers: {"Authorization" : `Bearer ${token}`} });
             if (res.data) {
                 console.log(res.data);
                 setActiveStep(0)

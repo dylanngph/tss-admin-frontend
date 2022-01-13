@@ -32,7 +32,7 @@ function ProjectManagement({ match }) {
         isActive: isActive,
         verifiedAt: verifiedAt
       }
-      const res = await axios.get('https://dev-api.tss.org.vn/project/all', { params: param, headers: { "Authorization": `Bearer ${token}` } });
+      const res = await axios.get(`${process.env.REACT_APP_URL_API}/project/all`, { params: param, headers: { "Authorization": `Bearer ${token}` } });
       if (res.data) {
         const items = res.data.data;
         setData(items);

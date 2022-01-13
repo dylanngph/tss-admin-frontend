@@ -46,7 +46,7 @@ const HiddenRequest = ({data}) => {
                 projectId: data._id,
                 isHide: true
             }
-            const res = await axios.post('https://dev-api.tss.org.vn/project/hide', value, { headers: {"Authorization" : `Bearer ${token}`} });
+            const res = await axios.post(`${process.env.REACT_APP_URL_API}/project/hide`, value, { headers: {"Authorization" : `Bearer ${token}`} });
             if (res.data) {
                 setOpen(false);
                 setOpenModelSuccess(true);

@@ -34,7 +34,7 @@ function ProjectDetail() {
         const dataString = localStorage.getItem('itemApproval');
         const userData = JSON.parse(dataString);
         try {
-            const res = await axios.get('https://dev-api.tss.org.vn/project', { params: { projectId: userData.id }, headers: { "Authorization": `Bearer ${token}` } });
+            const res = await axios.get(`${process.env.REACT_APP_URL_API}/project`, { params: { projectId: userData.id }, headers: { "Authorization": `Bearer ${token}` } });
             if (res.data) {
                 setData(res.data.data);
             }

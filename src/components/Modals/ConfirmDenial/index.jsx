@@ -45,7 +45,7 @@ const ConfirmDenial = ({ data }) => {
             const value = {
                 applicationId: data._id,
             }
-            const res = await axios.post('https://dev-api.tss.org.vn/project/application/reject', value, { headers: {"Authorization" : `Bearer ${token}`} });
+            const res = await axios.post(`${process.env.REACT_APP_URL_API}/project/application/reject`, value, { headers: {"Authorization" : `Bearer ${token}`} });
             if (res.data) {
                 setOpen(false);
                 setOpenModelSuccess(true);

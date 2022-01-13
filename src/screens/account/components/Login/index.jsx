@@ -29,7 +29,7 @@ function LoginAccount({setToken , error}) {
 
     const handleLogin = async (event) => {
         try {
-            const res = await axios.post('https://dev-api.tss.org.vn/admin/sign-in', values);
+            const res = await axios.post(`${process.env.REACT_APP_URL_API}/admin/sign-in`, values);
             if(res.data) {
                 setToken(res.data.data.accessToken);
                 history.push('/')

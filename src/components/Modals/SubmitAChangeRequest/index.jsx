@@ -33,7 +33,7 @@ const SubmitAChangeRequest = ({data, requestType}) => {
                     message: message,
                     flags: flags,
                 }
-                res = await axios.post('https://dev-api.tss.org.vn/project/application/require-change', value, { headers: {"Authorization" : `Bearer ${token}`} });
+                res = await axios.post(`${process.env.REACT_APP_URL_API}/project/application/require-change`, value, { headers: {"Authorization" : `Bearer ${token}`} });
             } 
             else if (requestType === 'project') {
                 let value = {
@@ -41,7 +41,7 @@ const SubmitAChangeRequest = ({data, requestType}) => {
                     message: message,
                     flags: flags,
                 }
-                res = await axios.post('https://dev-api.tss.org.vn/project/require-change', value, { headers: {"Authorization" : `Bearer ${token}`} });
+                res = await axios.post(`${process.env.REACT_APP_URL_API}/project/require-change`, value, { headers: {"Authorization" : `Bearer ${token}`} });
             }
             
             if (res.data) {
