@@ -5,9 +5,11 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import { Box, Button, Modal, Typography, FormControl, Select, MenuItem, TextField } from '@mui/material';
 import axios from "axios";
 import useToken from 'components/hook/useToken';
+import SuccessNotify from '../SuccessNotify'
 
 const ConfirmApproval = (props) => {
     const {token, setToken} = useToken();
+    const [openModelSuccess, setOpenModelSuccess] = useState(false)
 
     const defaultValues = {
         schedule: '',
@@ -56,8 +58,8 @@ const ConfirmApproval = (props) => {
             }
             const res = await axios.post(`${process.env.REACT_APP_URL_API}/project/application/verify`, value, { headers: {"Authorization" : `Bearer ${token}`} });
             if (res.data) {
-                setActiveStep(0)
-                setOpen(false)
+                setOpen(false);
+                setOpenModelSuccess(true);
             }
         } catch (error) {
             console.log('error===>', error);
@@ -154,9 +156,9 @@ const ConfirmApproval = (props) => {
                         }
                         <Button className="button" onClick={handleApprove}>Xác nhận</Button>
                     </Box>
-
                 </Box>
             </Modal>
+            <SuccessNotify title='Phê Duyệt Thành Công' content='Bạn đã phê duyệt thành công hồ sơ này.' openStatus={openModelSuccess} />
         </div>
     )
 }
