@@ -135,16 +135,22 @@ const Information = ({ project }) => {
     const handleInputChange = (e) => {
         if (!e.target) return;
         const { name, value } = e.target;
-        setFlags({
-            ...flags,
-            [name]: value,
-        });
+        // setFlags({
+        //     ...flags,
+        //     [name]: value,
+        // });
+        flags[name] = value;
         localStorage.setItem('flags', JSON.stringify(flags));
     };
+
+    const handleOnClose = ()=> {
+        setFlags({...flags});
+    }
 
     const renderNote = ((nameFlag) => {
         return (
             <HtmlTooltip
+                onClose={handleOnClose}
                 title={
                     <React.Fragment>
                         <Typography mb={2} sx={titleTooltip}>Admin</Typography>
@@ -152,7 +158,8 @@ const Information = ({ project }) => {
                             minRows={5}
                             maxRows={5}
                             placeholder="Note..."
-                            value={flags[nameFlag]}
+                            // value={flags[nameFlag]}
+                            defaultValue={flags[nameFlag]}
                             style={contentTextareaTooltip}
                             name={nameFlag}
                             onChange={handleInputChange}
