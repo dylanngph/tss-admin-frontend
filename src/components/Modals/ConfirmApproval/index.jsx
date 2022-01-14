@@ -30,7 +30,12 @@ const ConfirmApproval = (props) => {
     const handleOpen = () => setOpen(true);
     const [formValues, setFormValues] = useState(defaultValues)
 
-    const handleClose = async () => {
+    const handleClose = () => {
+        setActiveStep(0)
+        setOpen(false)
+    };
+
+    const handleApprove = async () => {
         try {
             const dataString = localStorage.getItem('itemWaitingForApproval');
             const userData = JSON.parse(dataString);
@@ -51,14 +56,13 @@ const ConfirmApproval = (props) => {
             }
             const res = await axios.post(`${process.env.REACT_APP_URL_API}/project/application/verify`, value, { headers: {"Authorization" : `Bearer ${token}`} });
             if (res.data) {
-                console.log(res.data);
                 setActiveStep(0)
                 setOpen(false)
             }
         } catch (error) {
             console.log('error===>', error);
         }
-    };
+    }
 
     const handleDatePickerChange = (newValue) => {
         setFormValues({
@@ -148,7 +152,7 @@ const ConfirmApproval = (props) => {
                                 :
                                 null
                         }
-                        <Button className="button" onClick={handleClose}>Xác nhận</Button>
+                        <Button className="button" onClick={handleApprove}>Xác nhận</Button>
                     </Box>
 
                 </Box>

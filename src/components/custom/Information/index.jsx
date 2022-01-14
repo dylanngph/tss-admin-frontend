@@ -3,7 +3,9 @@ import { listTitle } from './config';
 import { styled } from '@mui/material/styles';
 import { Box, Button, FormControl, Tooltip, tooltipClasses, TextareaAutosize, TextField, Typography } from '@mui/material';
 import { ReactComponent as MoreCircleIcon } from 'icon/more-circle.svg'
-
+import DevelopmentTeam from 'components/Modals/DevelopmentTeam';
+import DevelopmentPartner from 'components/Modals/DevelopmentPartner';
+import TokenAllocationRate from 'components/Modals/TokenAllocationRate';
 
 const Information = ({ project }) => {
     const [fieldUpdate, setFieldUpdate] = useState({});
@@ -196,16 +198,16 @@ const Information = ({ project }) => {
                     valueItem = project?.detail.legalRepresentative[item.key].id ? project?.detail.legalRepresentative[item.key].id.substring(0, 3) + '******' : '*********';
                     break;
                 case 'logo':
-                    valueItem = `data:image/png;base64,${project[item.key]}`;
+                    valueItem = `${project[item.key]}`;
                     break;
                 case 'whitepaper':
-                    valueItem = `data:application/pdf;base64,${project?.[item.key]}`;
+                    valueItem = `${project?.[item.key]}`;
                     break;
                 case 'smartContractAddress':
                     valueItem = project.smartContractAddress.substring(0, 8) + "..." + project.smartContractAddress.substring(project.smartContractAddress.length - 4, project.smartContractAddress.length);
                     break;
                 case 'businessLicense':
-                    valueItem = `data:application/pdf;base64,${project?.detail[item.key]}`;
+                    valueItem = `${project?.detail[item.key]}`;
                     break;
                 case 'developmentTeam':
                 case 'developmentPartner':
