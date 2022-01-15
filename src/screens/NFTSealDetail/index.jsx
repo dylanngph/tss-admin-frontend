@@ -9,6 +9,7 @@ import Loading from '../../components/display/Loading'
 import moment from 'moment'
 import { useHistory } from 'react-router-dom'
 import useToken from 'components/hook/useToken';
+import SuccessNotify from 'components/Modals/SuccessNotify'
 
 function NFTSealDetail(props) {
     const match = useRouteMatch();
@@ -16,6 +17,7 @@ function NFTSealDetail(props) {
     const [loading, setLoading] = useState(true);
     const history = useHistory();
     const { token, setToken } = useToken();
+    const [openModelSuccess, setOpenModelSuccess] = useState(false)
 
     const [nft, setNft] = React.useState({
         legalId: data?.legalId ? data?.legalId : "1",
@@ -126,6 +128,10 @@ function NFTSealDetail(props) {
         try {
             const res = await axios.get(`${process.env.REACT_APP_URL_API}/nft/detail`, { params: { nftId: nftData.id }, headers: { "Authorization": `Bearer ${token}` } });
             if (res.data) {
+                setNft({ ...nft, ['legalId']:  res.data.data.legalId});
+                setNft({ ...nft, ['techLevelId']:  res.data.data.techLevelId});
+                setNft({ ...nft, ['socialValueId']:  res.data.data.socialValueId});
+                setNft({ ...nft, ['communRepuId']:  res.data.data.communRepuId});
                 setData(res.data.data);
             }
             setLoading(false);
@@ -186,7 +192,7 @@ function NFTSealDetail(props) {
             }
             const res = await axios.post(`${process.env.REACT_APP_URL_API}/nft/revoke`, nftData, { headers: {"Authorization" : `Bearer ${token}`} });
             if (res.data) {
-                history('/nft-seal');
+                setOpenModelSuccess(true);
             }
             setLoading(false);
         } catch (error) {
@@ -239,7 +245,7 @@ function NFTSealDetail(props) {
                                 </Grid>
                             </Box>
                             {sealInfor.map((item, index) => (
-                                <Accordion key={item.title} className='AccordionSummary'>
+                                <Accordion key={item.title + index} className='AccordionSummary'>
                                     <AccordionSummary
                                         sx={{ background: "#FFFFFF", boxShadow: "0px 4px 15px rgb(0 0 0 / 5%)", borderRadius: "12px" }}
                                         expandIcon={<ExpandMoreIcon />}
@@ -265,6 +271,7 @@ function NFTSealDetail(props) {
                                 </Accordion>
                             ))}
                         </Col>
+                        <SuccessNotify title='Thu Hồi Con Dấu Thành Công' content='Bạn đã thu hồi con dấu thành công cho dự án này.' openStatus={openModelSuccess} />
                     </>
             }
 
