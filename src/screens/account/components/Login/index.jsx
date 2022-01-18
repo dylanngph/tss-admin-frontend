@@ -148,6 +148,7 @@ const LoginBox = styled(Box)`
     background: #fff;
     min-height: 500px;
     width: 540px;
+    max-width: 100%;
     border-radius: 12px;
     display: flex;
     flex-direction: column;

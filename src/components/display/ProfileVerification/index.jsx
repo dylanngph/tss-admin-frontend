@@ -20,10 +20,10 @@ const ProfileVerification = ({ data }) => {
             <Typography variant="h3">Xác thực hồ sơ</Typography>
             <Divider sx={{ margin: "14px 0 !important" }} />
             <Box mb={1} sx={{ display: "flex", justifyContent: "space-between" }}>
-                <Box sx={{ maxWidth: '143px', width: '100%' }}>
+                <Box sx={{ maxWidth: '143px', width: '100%' }} mr={1}>
                     <ConfirmDenial data={data} />
                 </Box>
-                <Box sx={{ maxWidth: '143px', width: '100%' }}>
+                <Box sx={{ maxWidth: '143px', width: '100%' }} ml={1}>
                     <SubmitAChangeRequest data={data} requestType="application" />
                 </Box>
             </Box>

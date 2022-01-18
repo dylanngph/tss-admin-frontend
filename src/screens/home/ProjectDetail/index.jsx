@@ -73,7 +73,7 @@ function ProjectDetail(props) {
                             <Status value='0' />
                         </Box>
                         <Grid sx={{ paddingLeft: "24px", paddingRight: "24px" }} container spacing={3}>
-                            <Grid item xs={9} md={8} xl={9}>
+                            <Grid item xs={12} sm={12} md={8} xl={8}>
                                 <Box>
                                     <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
                                         <Tab sx={tabStyle} className="tab-title" label="Thông tin hồ sơ" {...a11yProps(0)} />
@@ -85,8 +85,8 @@ function ProjectDetail(props) {
                                     {/* <EditingForm value={value} index={1} /> */}
                                 </Box>
                             </Grid>
-                            <Grid item xs={3} md={4} xl={3}>
-                                <Box sx={{ background: "#EFF2F5", borderRadius: "8px", padding: "16px", marginTop: "125px" }}>
+                            <Grid item xs={12} sm={12} md={4} xl={4}>
+                                <Box sx={{ background: "#EFF2F5", borderRadius: "8px", padding: "16px", marginTop: "110px" }}>
                                     <ProfileVerification data={data} />
                                 </Box>
                             </Grid>

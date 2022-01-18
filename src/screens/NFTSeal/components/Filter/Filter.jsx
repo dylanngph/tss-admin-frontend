@@ -35,6 +35,7 @@ const Filter = () => {
             <FormControl sx={{
                 flexDirection: 'row',
                 gap: '20px',
+                flexWrap: 'wrap',
             }}>
                 <SearchField 
                     placeholder="Tên dự án" 
@@ -104,13 +105,17 @@ const Filter = () => {
 const Flex = styled(Box)`
     display: flex;
     align-items: center;
-    gap: 20px;
+    flex-wrap: wrap;
+    max-width: calc(100% - 200px);
 `
 const SearchField = muiStyled(TextField)({
     width: '283px',
     borderRadius: '8px',
     border: '1px solid #EAEAEA',
     background: '#EFF2F5',
+    '&.MuiFormControl-root.MuiTextField-root': {
+        width: '283px',
+    },
 
     '& svg': {
         marginRight: '10px'

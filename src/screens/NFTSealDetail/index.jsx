@@ -9,6 +9,7 @@ import Loading from '../../components/display/Loading'
 import moment from 'moment'
 import { useHistory } from 'react-router-dom'
 import useToken from 'components/hook/useToken';
+import { height } from "@mui/system";
 
 function NFTSealDetail(props) {
     const match = useRouteMatch();
@@ -205,10 +206,10 @@ function NFTSealDetail(props) {
                         <Col>
                             <Box>
                                 <Grid container spacing={2}>
-                                    <Grid item xs={1}>
+                                    <Grid item xs={12} md={1}>
                                         <img src="./assets/images/IOTA.png" alt="IOTA" />
                                     </Grid>
-                                    <Grid item xs={7}>
+                                    <Grid item xs={12} md={7}>
                                         <Box>
                                             <Typography variant='h4'>NFT Passport of Blockchain</Typography>
                                         </Box>
@@ -227,7 +228,7 @@ function NFTSealDetail(props) {
                                             </BoxMoreInfo>
                                         </Box>
                                     </Grid>
-                                    <Grid item xs={4}>
+                                    <Grid item xs={12} md={4}>
                                         <Box sx={{ display: "flex", justifyContent: "flex-end", }}>
                                             <Button sx={{ marginRight: "16px", display: "inline-block" }} onClick={handleRevokeNft} className="button cancel">
                                                 Thu hồi con dấu
