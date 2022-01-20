@@ -232,7 +232,7 @@ const CreateNFTSealModal = ({ product }) => {
                                 value={values.project}
                                 onChange={handleChange('project')}
                             >
-                                {projects.map((item, index) => (
+                                {projects?.map((item, index) => (
                                     <MenuItem value={item._id}>{item.projectName}</MenuItem>
                                 ))}
                             </Select>
