@@ -11,6 +11,7 @@ import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import moment from "moment";
+import InvestmentPortfolio from "components/display/InvestmentPortfolio"
 
 function InvestmentFundDetail() {
     const [data, setData] = useState()
@@ -139,7 +140,7 @@ function InvestmentFundDetail() {
                 loading ?
                     <Loading />
                     :
-                    <>
+                    <Box sx={{background: "#FCFCFD"}}>
                         <PageTitle text={`Dự án gọi vốn / ${data?.name}`} />
                         <WrapInvestmentProjectDetail>
                             <Box sx={{ marginLeft: "24px" }}>
@@ -264,7 +265,8 @@ function InvestmentFundDetail() {
                                 </Box>
                             </Box>
                         </WrapInvestmentProjectDetail>
-                    </>
+                        <InvestmentPortfolio data={data} />
+                    </Box>
             }
         </Box>
     );

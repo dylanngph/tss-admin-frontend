@@ -61,11 +61,20 @@ function App() {
         fontSize: "16px",
         lineHeight: "19px",
       },
+      
       body1: {
         fontSize: "14px",
         fontWeight: "normal",
         lineHeight: "17px",
         color: "#58667E",
+      },
+
+      body2: {
+        fontStyle: "normal",
+        fontWeight: "bold",
+        fontSize: "18px",
+        lineHeight: "22px",
+        color: "#11142D",
       }
     }
   });

@@ -336,3 +336,14 @@ export const status = [
 		label: "Tạm dừng"
 	},
 ]
+
+export const rounds = [
+	{
+		value: 'PRIVATE',
+		label: "Private"
+	},
+	{
+		value: 'SEED',
+		label: "Seed"
+	},
+]
