@@ -162,7 +162,7 @@ const CreateInvestmentFundModal = ({ product }) => {
                                 name="logo"
                                 type="file"
                                 placeholder="Tải lên (Tối đa 5mb)"
-                                inputProps={{ accept: ".png,.svg,.jpeg" }}
+                                inputProps={{ accept: ".png,.jpeg" }}
                                 onChange={handleChange('logo')}
                             />
                         </FormControl>

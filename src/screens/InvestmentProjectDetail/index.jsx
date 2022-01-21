@@ -135,7 +135,7 @@ function InvestmentProjectDetail() {
                                         name="logo"
                                         type="file"
                                         placeholder="logo"
-                                        inputProps={{ accept: ".png,.svg,.jpeg" }}
+                                        inputProps={{ accept: ".png,.jpeg" }}
                                         onChange={handleChange('logo')}
                                     />
                                 </FormControl>

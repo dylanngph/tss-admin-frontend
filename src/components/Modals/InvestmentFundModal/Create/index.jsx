@@ -228,7 +228,7 @@ const CreateInvestmentProjectModal = ({ product }) => {
                                 name="logo"
                                 type="file"
                                 placeholder="Logo quỹ đầu tư"
-                                inputProps={{ accept: ".png,.svg,.jpeg" }}
+                                inputProps={{ accept: ".png,.jpeg" }}
                                 onChange={handleChange('logo')}
                             />
                         </FormControl>
