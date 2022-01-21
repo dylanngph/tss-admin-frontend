@@ -12,7 +12,9 @@ import Loading from '../../components/display/Loading'
 import useToken from 'components/hook/useToken';
 
 function InvestmentProjects(props) {
-    const [data, setData] = useState()
+    const [data, setData] = useState();
+    const [dataSearch, setDataSearch] = useState();
+    const [searchIpt, setSearchIpt] = useState('');
     const [investmentProjects, setInvestmentProjects] = useState({
         investmenttName: null,
     });
@@ -43,9 +45,14 @@ function InvestmentProjects(props) {
     };
 
     const handleChange = (prop) => (event) => {
-        setInvestmentProjects({ ...investmentProjects, [prop]: event.target.value });
-        getData(investmentProjects.investmenttName);
-      }
+        // setInvestmentProjects({ ...investmentProjects, [prop]: event.target.value });
+        // getData(investmentProjects.investmenttName);
+        setSearchIpt(event.target.value);
+        if (searchIpt) {
+            const tpm = data.filter((item) => (item?.name.toLowerCase().search(searchIpt) !== -1));
+            setDataSearch(tpm);
+        }
+    }
 
     return (
         <Box>
@@ -60,7 +67,16 @@ function InvestmentProjects(props) {
                         </Box>
                         <Col>
                             <Filter handleChange={handleChange} project={investmentProjects} />
-                            <TableSection data={data} />
+                            {
+                                searchIpt ?
+                                (
+                                    <TableSection data={dataSearch} />
+                                )
+                                :
+                                (
+                                    <TableSection data={data} />
+                                )
+                            }
                         </Col>
                     </>
             }

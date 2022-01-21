@@ -20,7 +20,7 @@ const Filter = ({ handleChange, project }) => {
                 gap: '20px',
             }}>
                 <SearchField
-                    placeholder="Tìm kiếm dự án"
+                    placeholder="Tìm kiếm dự án2"
                     value={project?.investmenttName}
                     onChange={handleChange('investmenttName')}
                     InputProps={{

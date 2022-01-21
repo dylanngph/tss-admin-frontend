@@ -12,7 +12,9 @@ import Loading from '../../components/display/Loading'
 import useToken from 'components/hook/useToken';
 
 function InvestmentFunds(props) {
-    const [data, setData] = useState()
+    const [data, setData] = useState();
+    const [dataSearch, setDataSearch] = useState();
+    const [searchIpt, setSearchIpt] = useState('');
     const [fund, setFund] = useState({
         fundName: null,
     });
@@ -47,9 +49,12 @@ function InvestmentFunds(props) {
     };
 
     const handleChange = (prop) => (event) => {
-        setFund({ ...fund, [prop]: event.target.value });
-        getData(fund.fundName);
-      }
+        setSearchIpt(event.target.value);
+        if (searchIpt) {
+            const tpm = data.filter((item) => (item?.name.toLowerCase().search(searchIpt) !== -1));
+            setDataSearch(tpm);
+        }
+    }
 
     return (
         <Box>
@@ -64,7 +69,16 @@ function InvestmentFunds(props) {
                         </Box>
                         <Col>
                             <Filter handleChange={handleChange} project={fund} />
-                            <TableSection data={data} />
+                            {
+                                searchIpt ?
+                                (
+                                    <TableSection data={dataSearch} />
+                                )
+                                :
+                                (
+                                    <TableSection data={data} />
+                                )
+                            }
                         </Col>
                     </>
             }
