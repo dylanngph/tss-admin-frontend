@@ -141,7 +141,7 @@ function InvestmentFundDetail() {
                     <Loading />
                     :
                     <Box sx={{background: "#FCFCFD"}}>
-                        <PageTitle text={`Dự án gọi vốn / ${data?.name}`} />
+                        <PageTitle text={`Quỹ đầu tư / ${data?.name}`} />
                         <WrapInvestmentProjectDetail>
                             <Box sx={{ marginLeft: "24px" }}>
                                 <img className='avarta-invest-detail' src={data?.logo} alt={data?.name} />
