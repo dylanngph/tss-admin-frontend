@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, Button, Modal, Typography, FormControl, FormLabel, Select, MenuItem, TextField } from '@mui/material';
+import { Box, Button, Modal, Typography, FormControl, FormLabel, Select, MenuItem, TextField, Alert, AlertTitle } from '@mui/material';
 import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
@@ -22,6 +22,7 @@ const CreateNFTSealModal = ({ product }) => {
     const handleOpen = () => setOpen(true);
     const [projects, setProjects] = useState([])
     const history = useHistory();
+    const [errors, setErrors] = useState([])
     const {token, setToken} = useToken();
 
     const sealTypes = [
@@ -135,7 +136,8 @@ const CreateNFTSealModal = ({ product }) => {
     }, []);
 
     const handleClose = () => {
-        setOpen(false)
+        setOpen(false);
+        setErrors([]);
     };
 
     const handleDatePickerChange = (newValue) => {
@@ -146,25 +148,49 @@ const CreateNFTSealModal = ({ product }) => {
     };
 
     const handleCreateNftSeal = async () => {
-        try {
-            let now = moment(values.acceptDate).format('YYYY-MM-DD');
-            const param = {
-                projectId: values.project,
-                typeId: values.sealType,
-                issuedAt: now,
-                legalId: values.legalId,
-                techLevelId: values.techLevelId,
-                socialValueId: values.socialValueId,
-                communRepuId: values.communRepuId,
+        setErrors([]);
+        if (!values.project) {
+            setErrors(errors => [...errors, 'Dự án không được để trống']);
+        }
+        else if (!values.sealType) {
+            setErrors(errors => [...errors, 'Loại con dấu không được để trống']);
+        }
+        else if (!values.acceptDate) {
+            setErrors(errors => [...errors, 'Ngày cấp không được để trống']);
+        }
+        else if (!values.legalId) {
+            setErrors(errors => [...errors, 'Pháp lý không được để trống']);
+        }
+        else if (!values.techLevelId) {
+            setErrors(errors => [...errors, 'Mức độ công nghệ không được để trống']);
+        }
+        else if (!values.socialValueId) {
+            setErrors(errors => [...errors, 'Giá trị xã hội không được để trống']);
+        }
+        else if (!values.communRepuId) {
+            setErrors(errors => [...errors, 'Uy tín cộng đồng không được để trống']);
+        }
+        else {
+            try {
+                let now = moment(values.acceptDate).format('YYYY-MM-DD');
+                const param = {
+                    projectId: values.project,
+                    typeId: values.sealType,
+                    issuedAt: now,
+                    legalId: values.legalId,
+                    techLevelId: values.techLevelId,
+                    socialValueId: values.socialValueId,
+                    communRepuId: values.communRepuId,
+                }
+    
+                const res = await axios.post(`${process.env.REACT_APP_URL_API}/nft/issue`, param, { headers: {"Authorization" : `Bearer ${token}`} });
+                if (res.data) {
+                    setOpen(false);
+                    window.location.reload(false);
+                }
+            } catch (error) {
+                console.log(error);
             }
-
-            const res = await axios.post(`${process.env.REACT_APP_URL_API}/nft/issue`, param, { headers: {"Authorization" : `Bearer ${token}`} });
-            if (res.data) {
-                setOpen(false);
-                window.location.reload(false);
-            }
-        } catch (error) {
-            console.log(error);
         }
     }
 
@@ -221,6 +247,18 @@ const CreateNFTSealModal = ({ product }) => {
             >
                 <Box sx={style}>
                     <Typography align="left" mb={5} variant="h3">Cấp con dấu</Typography>
+                    {
+                        errors.length
+                            ?
+                            <Alert sx={{marginBottom: "10px"}} severity="error">
+                                <AlertTitle>Error</AlertTitle>
+                                {errors?.map((item, index) => (
+                                    item
+                                ))}
+                            </Alert>
+                            :
+                            null
+                    }
                     <Box>
                         <FormControl sx={{ width: "100%" }} className="form-control mb-16">
                             <FormLabel className="label">Dự án</FormLabel>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, Button, Modal, Typography, FormControl, FormLabel, TextareaAutosize, OutlinedInput, TextField } from '@mui/material';
+import { Box, Button, Modal, Typography, FormControl, FormLabel, TextareaAutosize, OutlinedInput, Alert, AlertTitle } from '@mui/material';
 import axios from "axios";
 import moment from "moment";
 import { useHistory } from 'react-router-dom'
@@ -18,12 +18,14 @@ const CreateInvestmentFundModal = ({ product }) => {
     const [projects, setProjects] = useState([])
     const history = useHistory();
     const { token, setToken } = useToken();
+    const [errors, setErrors] = useState([])
 
     useEffect(() => {
         setProjects(product);
     }, []);
 
     const handleClose = () => {
+        setErrors([]);
         setOpen(false)
     };
 
@@ -40,22 +42,31 @@ const CreateInvestmentFundModal = ({ product }) => {
     }
 
     const handleInvestmentProject = async () => {
-        try {
-            const param = {
-                name: values.name,
-                logo: values.logo,
-                description: values.description,
-                round: values.round,
-                website: values.website,
+        setErrors([]);
+        if (!values.name) {
+            setErrors(errors => [...errors, 'Tên dự án không được để trống']);
+        }
+        else if (!values.logo) {
+            setErrors(errors => [...errors, 'Logo dự án không được để trống']);
+        }
+        else {
+            try {
+                const param = {
+                    name: values.name,
+                    logo: values.logo,
+                    description: values.description,
+                    round: values.round,
+                    website: values.website,
+                }
+    
+                const res = await axios.post(`${process.env.REACT_APP_URL_API}/fund/invested-project`, param, { headers: { "Authorization": `Bearer ${token}` } });
+                if (res.data) {
+                    setOpen(false);
+                    window.location.reload(false);
+                }
+            } catch (error) {
+                setErrors(error?.response?.data?.message)
             }
-
-            const res = await axios.post(`${process.env.REACT_APP_URL_API}/fund/invested-project`, param, { headers: { "Authorization": `Bearer ${token}` } });
-            if (res.data) {
-                setOpen(false);
-                window.location.reload(false);
-            }
-        } catch (error) {
-            console.log(error);
         }
     }
 
@@ -63,10 +74,10 @@ const CreateInvestmentFundModal = ({ product }) => {
         const typeFile = ["logo"];
         if (typeFile.includes(prop)) {
             convertFile(event.target.files[0])
-            .then(res => {
-                setValues({ ...values, [prop]: res });
-            })
-            .catch(error => console.log(error));
+                .then(res => {
+                    setValues({ ...values, [prop]: res });
+                })
+                .catch(error => console.log(error));
         } else {
             setValues({ ...values, [prop]: event.target.value });
         }
@@ -118,10 +129,24 @@ const CreateInvestmentFundModal = ({ product }) => {
             >
                 <Box sx={style}>
                     <Typography align="left" mb={5} variant="h3">Tạo mới dự án gọi vốn</Typography>
+                    {
+                        errors.length
+                            ?
+                            <Alert sx={{marginBottom: "10px"}} severity="error">
+                                <AlertTitle>Error</AlertTitle>
+                                {errors?.map((item, index) => (
+                                    item
+                                ))}
+                            </Alert>
+                            :
+                            null
+                    }
+
                     <Box>
                         <FormControl sx={{ width: "100%" }} className="form-control mb-16">
                             <FormLabel className="label">Tên dự án</FormLabel>
                             <OutlinedInput
+                                required
                                 id="name"
                                 name="name"
                                 type="text"
