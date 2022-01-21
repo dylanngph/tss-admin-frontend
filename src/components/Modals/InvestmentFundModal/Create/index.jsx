@@ -165,7 +165,7 @@ const CreateInvestmentProjectModal = ({ product }) => {
         border: "1px solid #ffffff",
         maxHeight: "807px",
         overflow: "auto",
-        height: "auto",
+        height: "100%",
     };
 
     const contentWrap = {
