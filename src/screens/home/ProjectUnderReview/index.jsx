@@ -7,11 +7,12 @@ import TableSection from '../components/Table/TableSection';
 import axios from "axios";
 import Loading from '../../../components/display/Loading'
 import useToken from 'components/hook/useToken';
-import { useThrottle } from 'utils/hooks';
+import { useDebounce } from 'utils/hooks';
 
 function ProjectUnderReview({ match }) {
     const [data, setData] = useState()
     const [loading, setLoading] = useState(true);
+    const [searchInput, setSearchInput] = useState('');
     const [project, setProject] = useState({
         projectName: null,
         projectType: null,
@@ -45,13 +46,22 @@ function ProjectUnderReview({ match }) {
         }
     };
 
-    useThrottle(() => getData(project.projectName, project.projectType, project.statusDocument, project.date), 1000, [project]);
+    const [debouncedState, setDebouncedState] = useDebounce(searchInput);
+    useEffect(
+        () => {
+            getData(searchInput, project.projectType, project.statusDocument, project.date)
+        },
+        [debouncedState] // Only call effect if debounced search term changes
+    );
 
     const handleChange = (prop) => (event) => {
+        if (prop === 'projectName') {
+            setSearchInput(event.target.value);
+            setDebouncedState(event.target.value);
+        }
         const tpm = {...project};
         tpm[prop] = event.target.value;
         setProject(tpm);
-        if (prop === 'projectName' && !event.target.value) getData(tpm.projectName, tpm.projectType, tpm.statusDocument, tpm.date);
     }
 
     return (
