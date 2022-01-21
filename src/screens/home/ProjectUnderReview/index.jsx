@@ -32,7 +32,7 @@ function ProjectUnderReview({ match }) {
                 projectName: projectName,
                 projectTypeId: projectTypeId,
                 applicationTypeId: applicationTypeId,
-                submittedAt: submittedAt?new Date(submittedAt).toISOString():null
+                submittedAt: submittedAt,
             }
             const res = await axios.get(`${process.env.REACT_APP_URL_API}/project/application/pending/all`, { params: param, headers: { "Authorization": `Bearer ${token}` } });
             if (res.data) {

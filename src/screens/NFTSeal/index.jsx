@@ -26,7 +26,7 @@ function NFTSeal(props) {
 
     useEffect(() => {
         getData();
-        fetchProjectData();
+        // fetchProjectData();
     }, []);
 
     const getData = async (projectName = null, projectTypeId = null, typeId = null, issuedAt = null) => {
@@ -43,6 +43,14 @@ function NFTSeal(props) {
             if (res.data) {
                 const items = res.data.data;
                 setData(items);
+            }
+
+            const paramProject = {
+                isSimple: true
+            }
+            const resProduct = await axios.get(`${process.env.REACT_APP_URL_API}/project/all`, { params: paramProject, headers: { "Authorization": `Bearer ${token}` } });
+            if (resProduct.data) {
+                setProduct(resProduct.data.data);
             }
 
             setLoading(false);
