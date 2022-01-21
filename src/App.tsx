@@ -18,6 +18,11 @@ import NFTSeal from "./screens/NFTSeal"
 import TabPanel from "./screens/decentralization/Edit/Edit"
 import Decentralization from "./screens/decentralization"
 import NFTSealDetail from "./screens/NFTSealDetail"
+import InvestmentProjects from "./screens/InvestmentProjects"
+import InvestmentProjectDetail from "./screens/InvestmentProjectDetail"
+import InvestmentFunds from "./screens/InvestmentFunds"
+import InvestmentFundDetail from "./screens/InvestmentFundDetail"
+
 import Container from "components/Container/Container";
 import {adminData} from 'screens/admin/config'
 import Cookies from 'js-cookie'
@@ -56,11 +61,20 @@ function App() {
         fontSize: "16px",
         lineHeight: "19px",
       },
+      
       body1: {
         fontSize: "14px",
         fontWeight: "normal",
         lineHeight: "17px",
         color: "#58667E",
+      },
+
+      body2: {
+        fontStyle: "normal",
+        fontWeight: "bold",
+        fontSize: "18px",
+        lineHeight: "22px",
+        color: "#11142D",
       }
     }
   });
@@ -98,6 +112,10 @@ function App() {
               <Route path="/staffs" exact component={Staffs} />
               <Route path="/decentralization" exact component={Decentralization} />
               <Route path="/decentralization-detail" exact component={TabPanel} />
+              <Route path="/investment-projects" exact component={InvestmentProjects} />
+              <Route path="/investment-project-detail" exact component={InvestmentProjectDetail} />
+              <Route path="/investment-funds" exact component={InvestmentFunds} />
+              <Route path="/investment-fund-detail" exact component={InvestmentFundDetail} />
               
               <Route component={NotFound} />
             </Switch>

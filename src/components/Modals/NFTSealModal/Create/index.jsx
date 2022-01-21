@@ -187,6 +187,9 @@ const CreateNFTSealModal = ({ product }) => {
         boxShadow: "0px 4px 17px rgba(0, 0, 0, 0.05)",
         borderRadius: "12px",
         border: "1px solid #ffffff",
+        maxHeight: "807px",
+        overflow: "auto",
+        height: "100%",
     };
 
     const contentWrap = {
@@ -229,7 +232,7 @@ const CreateNFTSealModal = ({ product }) => {
                                 value={values.project}
                                 onChange={handleChange('project')}
                             >
-                                {projects.map((item, index) => (
+                                {projects?.map((item, index) => (
                                     <MenuItem value={item._id}>{item.projectName}</MenuItem>
                                 ))}
                             </Select>

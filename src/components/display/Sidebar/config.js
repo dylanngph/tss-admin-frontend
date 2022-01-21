@@ -6,6 +6,8 @@ import {ReactComponent as UserCircleIcon} from 'icon/user-cirlce-add.svg'
 import {ReactComponent as UserOctagonIcon} from 'icon/user-octagon.svg'
 import {ReactComponent as ThemeIcon} from 'icon/theme.svg'
 import {ReactComponent as FilterListIcon} from 'icon/user-filter-list.svg'
+import {ReactComponent as InvestmentProjectsIcon} from 'icon/3d-cube-scan.svg'
+import {ReactComponent as InvestmentFundsIcon} from 'icon/profile-2user.svg'
 
 
 export const projectNav = [
@@ -23,6 +25,16 @@ export const projectNav = [
         label: 'Con dấu NFT',
         href: '/nft-seal',
         icon: Judgeicon
+    },
+    {
+        label: 'Quỹ đầu tư',
+        href: '/investment-funds',
+        icon: InvestmentFundsIcon
+    },
+    {
+        label: 'Dự án đầu tư',
+        href: '/investment-projects',
+        icon: InvestmentProjectsIcon
     },
     // {
     //     label: 'Người dùng',

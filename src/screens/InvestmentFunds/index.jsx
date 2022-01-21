@@ -6,19 +6,16 @@ import PageTitle from 'components/PageTitle/PageTitle'
 import Filter from './components/Filter/Filter';
 import TableSection from './components/Table/TableSection';
 import CreateNFTSealModal from '../../components/Modals/NFTSealModal/Create'
+import CreateInvestmentFundModal from '../../components/Modals/InvestmentFundModal/Create'
 import axios from "axios";
 import Loading from '../../components/display/Loading'
 import useToken from 'components/hook/useToken';
 
-function NFTSeal(props) {
+function InvestmentFunds(props) {
     const [data, setData] = useState()
-    const [project, setProject] = useState({
-        projectName: null,
-        projectTypeId: null,
-        typeId: null,
-        issuedAt: null,
+    const [fund, setFund] = useState({
+        fundName: null,
     });
-    const [product, setProduct] = useState();
     const [loading, setLoading] = useState(true);
     const { token, setToken } = useToken();
 
@@ -26,28 +23,20 @@ function NFTSeal(props) {
         getData();
     }, []);
 
-    const getData = async (projectName = null, projectTypeId = null, typeId = null, issuedAt = null) => {
+    const getData = async (fundName = null) => {
         try {
             setLoading(true);
             const param = {
-                projectName: projectName,
-                projectTypeId: projectTypeId,
-                typeId: typeId,
-                issuedAt: issuedAt
+                keyword: fundName,
             }
 
-            const res = await axios.get(`${process.env.REACT_APP_URL_API}/nft/all`, { params: param, headers: { "Authorization": `Bearer ${token}` } });
+            const res = await axios.get(`${process.env.REACT_APP_URL_API}/fund/all`, { params: param, headers: { "Authorization": `Bearer ${token}` } });
+
+            console.log('res===>', res);
+
             if (res.data) {
                 const items = res.data.data;
                 setData(items);
-            }
-
-            const paramProject = {
-                isSimple: true
-            }
-            const resProduct = await axios.get(`${process.env.REACT_APP_URL_API}/project/all`, { params: paramProject, headers: { "Authorization": `Bearer ${token}` } });
-            if (resProduct.data) {
-                setProduct(resProduct.data.data);
             }
 
             setLoading(false);
@@ -57,19 +46,24 @@ function NFTSeal(props) {
         }
     };
 
+    const handleChange = (prop) => (event) => {
+        setFund({ ...fund, [prop]: event.target.value });
+        getData(fund.fundName);
+      }
+
     return (
         <Box>
-            <PageTitle text={'Quản lý con dấu NFT'} />
+            <PageTitle text={'Dự án gọi vốn'} />
             {
                 loading ?
                     <Loading />
                     :
                     <>
                         <Box sx={{ position: "absolute", top: "11px", zIndex: "1100", right: "80px", }}>
-                            <CreateNFTSealModal product={product}  />
+                            <CreateInvestmentFundModal  />
                         </Box>
                         <Col>
-                            <Filter />
+                            <Filter handleChange={handleChange} project={fund} />
                             <TableSection data={data} />
                         </Col>
                     </>
@@ -87,4 +81,4 @@ const Col = styled(Box)`
     margin-right: 24px;
 `
 
-export default NFTSeal;
+export default InvestmentFunds;

@@ -143,8 +143,8 @@ const Information = ({ project }) => {
         localStorage.setItem('flags', JSON.stringify(flags));
     };
 
-    const handleOnClose = () => {
-        setFlags({ ...flags });
+    const handleOnClose = ()=> {
+        setFlags({...flags});
     }
 
     const renderNote = ((nameFlag) => {
@@ -256,6 +256,9 @@ const Information = ({ project }) => {
                     }
                 }
             }
+            if (item.key === "developmentTeam" || item.key === "developmentPartner" || item.key === "developmentPartner") {
+                valueItem = 'Click to see more'
+            }
             if (item.key === "identity") valueItem = project["idAuth"];
         }
 
@@ -279,40 +282,7 @@ const Information = ({ project }) => {
                     </Box>
                 </>
             )
-        } else if (['developmentTeam'].includes(item.key)) {
-            return (
-                <>
-                    <Typography sx={labelInforItem}>{item.title}</Typography>
-                    <Box sx={wrapperBoxValue}>
-                        <DevelopmentTeam defaultValues={project} view={true} />
-                        {renderNote(item.key)}
-                    </Box>
-                </>
-            )
-        }
-        else if (['developmentPartner'].includes(item.key)) {
-            return (
-                <>
-                    <Typography sx={labelInforItem}>{item.title}</Typography>
-                    <Box sx={wrapperBoxValue}>
-                        <DevelopmentPartner defaultValues={project} view={true} />
-                        {renderNote(item.key)}
-                    </Box>
-                </>
-            )
-        }
-        else if (['tokenAllocations'].includes(item.key)) {
-            return (
-                <>
-                    <Typography sx={labelInforItem}>{item.title}</Typography>
-                    <Box sx={wrapperBoxValue}>
-                        <TokenAllocationRate defaultValues={project} view={true} />
-                        {renderNote(item.key)}
-                    </Box>
-                </>
-            )
-        }
-        else {
+        } else {
             return (
                 <>
                     <Typography sx={labelInforItem}>{item.title}</Typography>

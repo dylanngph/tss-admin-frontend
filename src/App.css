@@ -233,3 +233,15 @@ line-height: 17px;
   color: #000000;
   text-transform: inherit;
 }
+
+.avarta-invest {
+  max-width: 60px;
+  width: 100%;
+  margin-right: 8px
+}
+
+.avarta-invest-detail {
+  max-width: 150px;
+  width: 100%;
+  margin-bottom: 20px;
+}

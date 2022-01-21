@@ -7,7 +7,7 @@ import { styled } from '@mui/material/styles';
 function Loading(props) {
     return (
         <Wrap>
-            <div class="lds-ripple"><div></div><div></div></div>
+            <div className="lds-ripple"><div></div><div></div></div>
         </Wrap>
     );
 }
