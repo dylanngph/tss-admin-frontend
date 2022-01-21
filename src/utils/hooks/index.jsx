@@ -37,16 +37,33 @@ export const useWindowDimensions = () => {
 };
 
 
-export const useThrottle = (cb, delay, additionalDeps) => {
-  const options = { leading: true, trailing: false }; // pass custom lodash options
-  const cbRef = useRef(cb);
-  const throttledCb = useCallback(
-    _.throttle((...args) => cbRef.current(...args), delay, options),
-    [delay]
+// export const useThrottle = (cb, delay, additionalDeps) => {
+//   const options = { leading: true, trailing: false }; // pass custom lodash options
+//   const cbRef = useRef(cb);
+//   const throttledCb = useCallback(
+//     _.throttle((...args) => cbRef.current(...args), delay, options),
+//     [delay]
+//   );
+//   useEffect(() => {
+//     cbRef.current = cb;
+//   });
+//   // set additionalDeps to execute effect, when other values change (not only on delay change)
+//   useEffect(throttledCb, [throttledCb, ...additionalDeps]);
+// }
+
+export const useDebounce = (obj, wait = 1000) => {
+  const [state, setState] = useState(obj);
+
+  const setDebouncedState = (_val) => {
+    debounce(_val);
+  };
+
+  const debounce = useCallback(
+    _.debounce((_prop) => {
+      setState(_prop);
+    }, wait),
+    []
   );
-  useEffect(() => {
-    cbRef.current = cb;
-  });
-  // set additionalDeps to execute effect, when other values change (not only on delay change)
-  useEffect(throttledCb, [throttledCb, ...additionalDeps]);
-}
+
+  return [state, setDebouncedState];
+};
