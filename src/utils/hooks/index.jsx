@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
+import _ from "lodash";
 
 export const useIsMount = () => {
   const isMountRef = useRef(false);
@@ -34,3 +35,18 @@ export const useWindowDimensions = () => {
 
   return windowDimensions;
 };
+
+
+export const useThrottle = (cb, delay, additionalDeps) => {
+  const options = { leading: true, trailing: false }; // pass custom lodash options
+  const cbRef = useRef(cb);
+  const throttledCb = useCallback(
+    _.throttle((...args) => cbRef.current(...args), delay, options),
+    [delay]
+  );
+  useEffect(() => {
+    cbRef.current = cb;
+  });
+  // set additionalDeps to execute effect, when other values change (not only on delay change)
+  useEffect(throttledCb, [throttledCb, ...additionalDeps]);
+}

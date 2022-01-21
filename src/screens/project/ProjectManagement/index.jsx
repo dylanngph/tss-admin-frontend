@@ -7,21 +7,7 @@ import TableSection from '../components/Table/TableSection';
 import axios from "axios";
 import Loading from '../../../components/display/Loading'
 import useToken from 'components/hook/useToken';
-import _ from "lodash";
-
-function useThrottle(cb, delay, additionalDeps) {
-  const options = { leading: true, trailing: false }; // pass custom lodash options
-  const cbRef = useRef(cb);
-  const throttledCb = useCallback(
-    _.throttle((...args) => cbRef.current(...args), delay, options),
-    [delay]
-  );
-  useEffect(() => {
-    cbRef.current = cb;
-  });
-  // set additionalDeps to execute effect, when other values change (not only on delay change)
-  useEffect(throttledCb, [throttledCb, ...additionalDeps]);
-}
+import { useThrottle } from 'utils/hooks';
 
 function ProjectManagement({ match }) {
   const [data, setData] = useState();
@@ -33,7 +19,6 @@ function ProjectManagement({ match }) {
   });
   const [loading, setLoading] = useState(true);
   const { token, setToken } = useToken();
-  // const [valueSearch, setValueSearch] = useState();
 
   useEffect(() => {
     getData();
