@@ -21,13 +21,6 @@ function NFTSealDetail(props) {
     const [openModelSuccess, setOpenModelSuccess] = useState(false)
     new ClipboardJS('.block-copy');
 
-    const [nft, setNft] = React.useState({
-        legalId: data?.legalId ? data?.legalId : "2",
-        techLevelId: data?.legalId ? data?.legalId : "1",
-        socialValueId: data?.legalId ? data?.legalId : "1",
-        communRepuId: data?.communRepuId ? data?.communRepuId : "1",
-    })
-
     const sealInfor = [
         {
             title: "Pháp lý",
@@ -130,11 +123,6 @@ function NFTSealDetail(props) {
         try {
             const res = await axios.get(`${process.env.REACT_APP_URL_API}/nft/detail`, { params: { nftId: nftData.id }, headers: { "Authorization": `Bearer ${token}` } });
             if (res.data) {
-                setNft({ ...nft, ['legalId']: res.data.data.legalId });
-                setNft({ ...nft, ['techLevelId']: res.data.data.techLevelId });
-                setNft({ ...nft, ['socialValueId']: res.data.data.socialValueId });
-                setNft({ ...nft, ['communRepuId']: res.data.data.communRepuId });
-                console.log('nft===>', nft);
                 setData(res.data.data);
             }
             setLoading(false);
@@ -166,7 +154,7 @@ function NFTSealDetail(props) {
     }
 
     const handleChange = (event) => {
-        setNft({ ...nft, [event.target.name]: event.target.value });
+        setData({ ...data, [event.target.name]: event.target.value });
     };
 
     const handleUpdateNft = async () => {
@@ -174,10 +162,10 @@ function NFTSealDetail(props) {
         try {
             const nftData = {
                 nftId: data._id,
-                legalId: nft.legalId,
-                techLevelId: nft.techLevelId,
-                socialValueId: nft.socialValueId,
-                communRepuId: nft.communRepuId,
+                legalId: data.legalId,
+                techLevelId: data.techLevelId,
+                socialValueId: data.socialValueId,
+                communRepuId: data.communRepuId,
             }
             const res = await axios.post(`${process.env.REACT_APP_URL_API}/nft/update`, nftData, { headers: { "Authorization": `Bearer ${token}` } });
             setLoading(false);
@@ -268,7 +256,7 @@ function NFTSealDetail(props) {
                                             <RadioGroup
                                                 aria-label={item.title}
                                                 name={item.name}
-                                                value={nft[item.name]}
+                                                value={data[item.name]}
                                                 onChange={handleChange}
                                             >
                                                 {item.items.map((i, j) => (
