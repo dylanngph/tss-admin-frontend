@@ -137,7 +137,7 @@ function InvestmentFundDetail() {
             
             const res = await axios.patch(`${process.env.REACT_APP_URL_API}/fund`, param, { headers: { "Authorization": `Bearer ${token}` } });
             if (res.data) {
-                // window.location.reload(false);
+                window.location.reload(false);
             }
             setLoading(false);
         } catch (error) {
