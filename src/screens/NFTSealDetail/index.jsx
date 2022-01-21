@@ -22,7 +22,7 @@ function NFTSealDetail(props) {
     new ClipboardJS('.block-copy');
 
     const [nft, setNft] = React.useState({
-        legalId: data?.legalId ? data?.legalId : "1",
+        legalId: data?.legalId ? data?.legalId : "2",
         techLevelId: data?.legalId ? data?.legalId : "1",
         socialValueId: data?.legalId ? data?.legalId : "1",
         communRepuId: data?.communRepuId ? data?.communRepuId : "1",
@@ -134,6 +134,7 @@ function NFTSealDetail(props) {
                 setNft({ ...nft, ['techLevelId']: res.data.data.techLevelId });
                 setNft({ ...nft, ['socialValueId']: res.data.data.socialValueId });
                 setNft({ ...nft, ['communRepuId']: res.data.data.communRepuId });
+                console.log('nft===>', nft);
                 setData(res.data.data);
             }
             setLoading(false);
