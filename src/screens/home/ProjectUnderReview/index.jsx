@@ -7,6 +7,7 @@ import TableSection from '../components/Table/TableSection';
 import axios from "axios";
 import Loading from '../../../components/display/Loading'
 import useToken from 'components/hook/useToken';
+import { useThrottle } from 'utils/hooks';
 
 function ProjectUnderReview({ match }) {
     const [data, setData] = useState()
@@ -25,12 +26,12 @@ function ProjectUnderReview({ match }) {
 
     const getData = async (projectName = null, projectTypeId = null, applicationTypeId = null, submittedAt = null) => {
         try {
-            setLoading(true);
+            // setLoading(true);
             const param = {
                 projectName: projectName,
                 projectTypeId: projectTypeId,
                 applicationTypeId: applicationTypeId,
-                submittedAt: submittedAt
+                submittedAt: submittedAt?new Date(submittedAt).toISOString():null
             }
             const res = await axios.get(`${process.env.REACT_APP_URL_API}/project/application/pending/all`, { params: param, headers: { "Authorization": `Bearer ${token}` } });
             if (res.data) {
@@ -44,10 +45,14 @@ function ProjectUnderReview({ match }) {
         }
     };
 
+    useThrottle(() => getData(project.projectName, project.projectType, project.statusDocument, project.date), 1000, [project]);
+
     const handleChange = (prop) => (event) => {
-        setProject({ ...project, [prop]: event.target.value });
-        getData(project.projectName, project.projectType, project.statusDocument, project.date);
-      }
+        const tpm = {...project};
+        tpm[prop] = event.target.value;
+        setProject(tpm);
+        if (prop === 'projectName' && !event.target.value) getData(tpm.projectName, tpm.projectType, tpm.statusDocument, tpm.date);
+    }
 
     return (
         <Box>

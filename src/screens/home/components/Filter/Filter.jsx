@@ -18,16 +18,16 @@ const Filter = ({ handleChange, project }) => {
             value: null
         },
         {
-            label: 'Tổ chức',
-            value: 'tổ chức'
+            label: 'Doanh nghiệp',
+            value: 1
         },
         {
             label: 'Cá nhân',
-            value: 'cá nhân'
+            value: 2
         },
         {
             label: 'Quỹ',
-            value: 'quỹ'
+            value: 3
         },
     ]
 
@@ -38,11 +38,11 @@ const Filter = ({ handleChange, project }) => {
         },
         {
             label: 'Xác thực dự án',
-            value: 'xác thực dự án'
+            value: 1
         },
         {
             label: 'Chỉnh sửa thông tin',
-            value: 'chỉnh sửa thông tin'
+            value: 2
         },
     ]
 
