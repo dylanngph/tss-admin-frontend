@@ -48,14 +48,14 @@ const CreateInvestmentProjectModal = ({ product }) => {
     const handleCreateInvestmentFund = async () => {
         try {
             let now = moment(values.establishedDate).format('YYYY-MM-DD');
+            let socials = (values.socialWebs[0].name && values.socialWebs[0].link) ? values.socialWebs : [];
             const param = {
                 name: values.name,
                 logo: values.logo,
                 establishedDate: now,
                 area: values.area,
                 description: values.description,
-                socialValueId: values.socialValueId,
-                socialWebs: values.socialWebs,
+                socialWebs: socials,
                 statusId: values.statusId
             }
 

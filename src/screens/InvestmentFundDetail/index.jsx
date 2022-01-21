@@ -112,14 +112,14 @@ function InvestmentFundDetail() {
         setLoading(true);
         try {
             let now = moment(data?.establishedDate).format('YYYY-MM-DD');
+            let socials = (data?.socialWebs[0]?.name && data?.socialWebs[0]?.link) ? data?.socialWebs : [];
             const param = {
                 name: data?.name,
                 logo: data?.logo,
                 establishedDate: now,
                 area: data?.area,
                 description: data?.description,
-                socialValueId: data?.socialValueId,
-                socialWebs: data?.socialWebs,
+                socialWebs: socials,
                 statusId: data?.statusId,
                 fundId: data?._id,
             }
