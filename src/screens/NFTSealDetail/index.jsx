@@ -128,10 +128,10 @@ function NFTSealDetail(props) {
         try {
             const res = await axios.get(`${process.env.REACT_APP_URL_API}/nft/detail`, { params: { nftId: nftData.id }, headers: { "Authorization": `Bearer ${token}` } });
             if (res.data) {
-                setNft({ ...nft, ['legalId']:  res.data.data.legalId});
-                setNft({ ...nft, ['techLevelId']:  res.data.data.techLevelId});
-                setNft({ ...nft, ['socialValueId']:  res.data.data.socialValueId});
-                setNft({ ...nft, ['communRepuId']:  res.data.data.communRepuId});
+                setNft({ ...nft, ['legalId']: res.data.data.legalId });
+                setNft({ ...nft, ['techLevelId']: res.data.data.techLevelId });
+                setNft({ ...nft, ['socialValueId']: res.data.data.socialValueId });
+                setNft({ ...nft, ['communRepuId']: res.data.data.communRepuId });
                 setData(res.data.data);
             }
             setLoading(false);
@@ -176,7 +176,7 @@ function NFTSealDetail(props) {
                 socialValueId: nft.socialValueId,
                 communRepuId: nft.communRepuId,
             }
-            const res = await axios.post(`${process.env.REACT_APP_URL_API}/nft/update`, nftData, { headers: {"Authorization" : `Bearer ${token}`} });
+            const res = await axios.post(`${process.env.REACT_APP_URL_API}/nft/update`, nftData, { headers: { "Authorization": `Bearer ${token}` } });
             setLoading(false);
         } catch (error) {
             setLoading(false);
@@ -190,7 +190,7 @@ function NFTSealDetail(props) {
             const nftData = {
                 nftId: data._id,
             }
-            const res = await axios.post(`${process.env.REACT_APP_URL_API}/nft/revoke`, nftData, { headers: {"Authorization" : `Bearer ${token}`} });
+            const res = await axios.post(`${process.env.REACT_APP_URL_API}/nft/revoke`, nftData, { headers: { "Authorization": `Bearer ${token}` } });
             if (res.data) {
                 setOpenModelSuccess(true);
             }
@@ -200,6 +200,40 @@ function NFTSealDetail(props) {
             console.log(error);
         }
     }
+
+    const $ = document.querySelector.bind(document);
+    const contentCopyElm = $("#content-copy"),
+        buttonCopyElm = $("#button-copy");
+
+    const isSupported = (cmd) => {
+        return document.queryCommandSupported(cmd);
+    };
+
+    buttonCopyElm?.addEventListener("click", () => {
+        // Khai báo đối tượng range và selection.
+        const range = document.createRange(),
+            selection = window.getSelection();
+
+        // Xoá bỏ các vùng chọn hiện tại
+        selection.removeAllRanges();
+
+        // Mô phỏng việc select - bôi đen nội dung của phần tử contentCopyElm
+        range.selectNodeContents(contentCopyElm);
+
+        // Thêm range trên vào selection
+        selection.addRange(range);
+
+        // Thử lệnh copy
+        try {
+            if (isSupported("copy")) document.execCommand("copy");
+            else alert(`execCommand("copy") is not supported in your browser.`);
+        } catch (e) {
+            console.log(e);
+        }
+
+        // Sau khi copy dữ liệu xong thì xoá bỏ các vùng chọn hiện tại
+        selection.removeAllRanges();
+    });
 
     return (
         <Box>
@@ -229,7 +263,8 @@ function NFTSealDetail(props) {
                                                 <span>{data?.tokenId}</span>
                                             </BoxMoreInfo>
                                             <BoxMoreInfo>
-                                                <span className="block-copy">Contract ID</span>
+                                                <span id="button-copy" className="block-copy">Contract ID</span>
+                                                <span id="content-copy" hidden>0xD0e366Ae42Ba7CE1a27c4Eab7b63524F1fBEA023</span>
                                                 <span>{formatString('0xD0e366Ae42Ba7CE1a27c4Eab7b63524F1fBEA023')}</span>
                                             </BoxMoreInfo>
                                         </Box>
