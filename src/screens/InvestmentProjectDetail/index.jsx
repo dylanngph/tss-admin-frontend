@@ -87,9 +87,10 @@ function InvestmentProjectDetail() {
             const param = {
                 projectId: data._id,
             }
-            const res = await axios.delete(`${process.env.REACT_APP_URL_API}/fund/invested-project/remove-for-fund`, param, { headers: { "Authorization": `Bearer ${token}` } });
+            const res = await axios.delete(`${process.env.REACT_APP_URL_API}/fund/invested-project`, { data: param}, { headers: { "Authorization": `Bearer ${token}` } });
+            console.log(res);
             if (res.data) {
-                history('/nft-seal');
+                history.push('/investment-projects');
             }
             setLoading(false);
         } catch (error) {
