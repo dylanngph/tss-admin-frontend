@@ -11,12 +11,12 @@ import styled from '@emotion/styled'
 import {ReactComponent as SearchIcon} from 'assets/icons/search.svg'
 
 
-const Filter = () => {
+const Filter = ({handleChange}) => {
     const [age, setAge] = useState('');
 
-    const handleChange = (event) => {
-        setAge(event.target.value);
-    }
+    // const handleChange = (event) => {
+    //     setAge(event.target.value);
+    // }
 
     const styleSelect = {
         '.MuiSelect-select': {
@@ -38,47 +38,12 @@ const Filter = () => {
                 flexWrap: 'wrap',
             }}>
                 <SearchField 
-                    placeholder="Tên dự án" 
+                    placeholder="Tên con dấu" 
+                    onChange={handleChange('projectName')}
                     InputProps={{
                         startAdornment: <SearchIcon/>,
                       }}
                 />
-                <SelectField
-                    sx={styleSelect}
-                    value={age}
-                    onChange={handleChange}
-                    displayEmpty
-                    inputProps={{ 'aria-label': 'Without label' }}
-                    >
-                    <MenuItem disabled value="">Loại dự án</MenuItem>
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
-                </SelectField>
-                <SelectField
-                    sx={styleSelect}
-                    value={age}
-                    onChange={handleChange}
-                    displayEmpty
-                    inputProps={{ 'aria-label': 'Without label' }}
-                    >
-                    <MenuItem disabled value="">Loại đơn</MenuItem>
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
-                </SelectField>
-                <SelectField
-                    sx={styleSelect}
-                    value={age}
-                    onChange={handleChange}
-                    displayEmpty
-                    inputProps={{ 'aria-label': 'Without label' }}
-                    >
-                    <MenuItem disabled value="">Ngày gửi đơn</MenuItem>
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
-                </SelectField>
             </FormControl>
             <FormControl sx={{
                 flexDirection: 'row',

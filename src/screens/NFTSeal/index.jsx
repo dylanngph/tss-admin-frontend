@@ -11,24 +11,27 @@ import Loading from '../../components/display/Loading'
 import useToken from 'components/hook/useToken';
 
 function NFTSeal(props) {
-    const [data, setData] = useState()
-    const [project, setProject] = useState({
-        projectName: null,
-        projectTypeId: null,
-        typeId: null,
-        issuedAt: null,
-    });
+    const [data, setData] = useState();
+    const [dataSearch, setDataSearch] = useState();
+    const [searchIpt, setSearchIpt] = useState('');
+    // const [project, setProject] = useState({
+    //     projectName: null,
+    //     projectTypeId: null,
+    //     typeId: null,
+    //     issuedAt: null,
+    // });
     const [product, setProduct] = useState();
     const [loading, setLoading] = useState(true);
     const { token, setToken } = useToken();
 
     useEffect(() => {
         getData();
+        fetchProjectData();
     }, []);
 
     const getData = async (projectName = null, projectTypeId = null, typeId = null, issuedAt = null) => {
         try {
-            setLoading(true);
+            // setLoading(true);
             const param = {
                 projectName: projectName,
                 projectTypeId: projectTypeId,
@@ -42,6 +45,15 @@ function NFTSeal(props) {
                 setData(items);
             }
 
+            setLoading(false);
+        } catch (error) {
+            setLoading(false);
+            console.log('error===>', error);
+        }
+    };
+
+    const fetchProjectData = async () => {
+        try {
             const paramProject = {
                 isSimple: true
             }
@@ -49,11 +61,17 @@ function NFTSeal(props) {
             if (resProduct.data) {
                 setProduct(resProduct.data.data);
             }
-
-            setLoading(false);
-        } catch (error) {
+        }  catch (error) {
             setLoading(false);
             console.log('error===>', error);
+        }
+    }
+
+    const handleChange = (prop) => (event) => {
+        setSearchIpt(event.target.value);
+        if (searchIpt) {
+            const tpm = data.filter((item) => (item.project && item.project.projectName.toLowerCase().search(searchIpt) !== -1));
+            setDataSearch(tpm);
         }
     };
 
@@ -69,8 +87,18 @@ function NFTSeal(props) {
                             <CreateNFTSealModal product={product}  />
                         </Box>
                         <Col>
-                            <Filter />
-                            <TableSection data={data} />
+                            <Filter handleChange={handleChange} />
+                            {
+                                searchIpt ?
+                                (
+                                    <TableSection data={dataSearch} />
+                                )
+                                :
+                                (
+                                    <TableSection data={data} />
+                                )
+                            }
+                            
                         </Col>
                     </>
             }
