@@ -56,12 +56,14 @@ function ProjectManagement({ match }) {
   );
 
   const handleChange = (prop) => (event) => {
+    const tpm = {...project};
+    tpm[prop] = event.target.value;
     if (prop === 'projectName') {
       setSearchInput(event.target.value);
       setDebouncedState(event.target.value);
+    } else {
+      getData(tpm.projectName, tpm.projectType, tpm.status, tpm.date);
     }
-    const tpm = {...project};
-    tpm[prop] = event.target.value;
     setProject(tpm);
   };
 
