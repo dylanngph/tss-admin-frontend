@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Box, Button, Modal, Typography, FormControl, FormLabel, Select, MenuItem, TextField, Alert, AlertTitle } from '@mui/material';
+import LoadingButton from '@mui/lab/LoadingButton';
 import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
@@ -24,6 +25,7 @@ const CreateNFTSealModal = ({ product }) => {
     const history = useHistory();
     const [errors, setErrors] = useState([])
     const {token, setToken} = useToken();
+    const [loadingButton, setLoadingButton] = useState(false);
 
     const sealTypes = [
         {
@@ -172,6 +174,7 @@ const CreateNFTSealModal = ({ product }) => {
         }
         else {
             try {
+                setLoadingButton(true);
                 let now = moment(values.acceptDate).format('YYYY-MM-DD');
                 const param = {
                     projectId: values.project,
@@ -187,8 +190,10 @@ const CreateNFTSealModal = ({ product }) => {
                 if (res.data) {
                     setOpen(false);
                     window.location.reload(false);
+                    setLoadingButton(false);
                 }
             } catch (error) {
+                setLoadingButton(false);
                 console.log(error);
             }
         }
@@ -203,10 +208,7 @@ const CreateNFTSealModal = ({ product }) => {
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        width: 400,
         bgcolor: 'background.paper',
-        border: '2px solid #000',
-        boxShadow: 24,
         p: '25px',
         width: "100%",
         maxWidth: "438px",
@@ -320,7 +322,8 @@ const CreateNFTSealModal = ({ product }) => {
                         </FormControl>
                     </Box>
                     <Box mt={5} sx={contentWrap}>
-                        <Button className="button" onClick={handleCreateNftSeal}>Cấp con dấu</Button>
+                        <Button></Button>
+                        <LoadingButton loading={loadingButton} className="button" onClick={handleCreateNftSeal}>Cấp con dấu</LoadingButton>
                     </Box>
 
                 </Box>
