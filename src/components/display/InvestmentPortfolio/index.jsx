@@ -7,12 +7,17 @@ import emptyImage from 'assets/images/Group_21922.png';
 import moment from "moment";
 import { ReactComponent as MoreIcon } from 'icon/more.svg'
 import { ReactComponent as TrashIcon } from 'icon/trash.svg'
-import ProjectsForFundModel from 'components/Modals/ProjectsForFundModel'
+import ProjectsForFundModel from 'components/Modals/ProjectsForFundModel/Create'
+import EditProjectsForFundModel from 'components/Modals/ProjectsForFundModel/Edit'
 import useToken from 'components/hook/useToken';
+import { ReactComponent as AddIcon } from 'assets/icons/add-circle.svg'
+import { ReactComponent as EditIcon } from 'icon/edit.svg'
 
 function InvestmentPortfolio(props) {
     const { data, children, value, index, ...other } = props;
     const [openModelSuccess, setOpenModelSuccess] = useState(false)
+    const [openEditModal, setOpenEditModal] = useState(false)
+    const [dataForEdit, setDataForEdit] = useState({})
     const { token, setToken } = useToken();
 
     const deleteButton = {
@@ -30,6 +35,39 @@ function InvestmentPortfolio(props) {
         }
     }
 
+    const btnAdd = {
+        background: "#446DFF",
+        borderRadius: "8px",
+        padding: "12px 24px",
+        color: "#FFFFFF",
+        fontWeight: "600",
+        fontSize: "16px",
+        lineHeight: "19px",
+        textTransform: "inherit",
+        display: "block",
+        margin: "auto",
+
+        "&:hover": {
+            background: "transparent",
+            color: "#446DFF",
+        }
+    }
+
+    const addButton = {
+        fontWeight: "500",
+        fontSize: "14px",
+        lineHeight: "22px",
+        color: "#111827",
+        textTransform: "none",
+        width: '100%',
+        padding: '12px',
+        justifyContent: 'flex-start',
+
+        "svg": {
+            marginRight: "10px"
+        }
+    }
+
     console.log('data acb==>', data);
 
     const openModal = () => {
@@ -40,6 +78,10 @@ function InvestmentPortfolio(props) {
         setOpenModelSuccess(false);
     }
 
+    const closeEditModal = () => {
+        setOpenEditModal(false);
+    }
+
     const handleDeleteProject = async (projectId, fundId) => {
         try {
             const param = {
@@ -47,16 +89,18 @@ function InvestmentPortfolio(props) {
                 fundId: fundId,
             }
 
-            console.log('param==>', param);
-
-            // const res = await axios.delete(`${process.env.REACT_APP_URL_API}/fund/invested-project/remove-for-fund`, param, { headers: { "Authorization": `Bearer ${token}` } });
-            const res = await axios.delete(`${process.env.REACT_APP_URL_API}/fund/invested-project/remove-for-fund`, { headers: { "Authorization": `Bearer ${token}` }, params: param });
+            const res = await axios.delete(`${process.env.REACT_APP_URL_API}/fund/invested-project/remove-for-fund`, {data: param}, { headers: { "Authorization": `Bearer ${token}` } });
             if (res.data) {
                 window.location.reload(false);
             }
         } catch (error) {
             console.log(error);
         }
+    }
+
+    const handleUpdateProject = async (item) => {
+        setOpenEditModal(true);
+        setDataForEdit(item);
     }
 
     const HtmlTooltip = styled(({ className, ...props }) => (
@@ -80,7 +124,10 @@ function InvestmentPortfolio(props) {
                 {
                     data?.projects?.length
                         ?
-                        <Button onClick={openModal}>Thêm Dự án</Button>
+                            <Button onClick={openModal}>
+                                <AddIcon />
+                                Thêm Dự án
+                            </Button>
                         :
                         null
                 }
@@ -102,6 +149,10 @@ function InvestmentPortfolio(props) {
                                         <HtmlTooltip
                                             title={
                                                 <React.Fragment>
+                                                    <Button onClick={() => handleUpdateProject(item)} sx={addButton}>
+                                                        <EditIcon />
+                                                        Chỉnh sửa
+                                                    </Button>
                                                     <Button onClick={() => handleDeleteProject(item._id, data._id)} sx={deleteButton}>
                                                         <TrashIcon />
                                                         Xóa
@@ -129,12 +180,13 @@ function InvestmentPortfolio(props) {
                         <Box>
                             <img src={emptyImage} alt="fireSpot" />
                             <Typography variant="h5" mb={1}>Danh mục dự án đầu tư trống</Typography>
-                            <Button onClick={openModal}>Thêm Dự án đầu tư</Button>
+                            <Button sx={btnAdd} onClick={openModal}>Thêm Dự án đầu tư</Button>
                         </Box>
                     </EmptyBox>
             }
 
             <ProjectsForFundModel fundData={data} openStatus={openModelSuccess} handleClose={closeModal} />
+            <EditProjectsForFundModel setProjectData={setDataForEdit}  projectData={dataForEdit} fundData={data} openStatus={openEditModal} handleClose={closeEditModal} />
 
         </Box>
     );
