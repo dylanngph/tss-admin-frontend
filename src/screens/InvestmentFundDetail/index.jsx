@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, FormControl, OutlinedInput, FormLabel, Button, TextareaAutosize, MenuItem, Select, TextField, Typography } from '@mui/material'
+import { Box, FormControl, OutlinedInput, FormLabel, Button, TextareaAutosize, MenuItem, Select, TextField, Typography, Alert, AlertTitle } from '@mui/material'
 import PageTitle from 'components/PageTitle/PageTitle'
 import axios from "axios";
 import Loading from 'components/display/Loading'
@@ -17,6 +17,7 @@ function InvestmentFundDetail() {
     const [data, setData] = useState()
     const [loading, setLoading] = useState(false);
     const { token, setToken } = useToken();
+    const [errors, setErrors] = useState([]);
     const history = useHistory();
 
     const handleChange = (prop) => (event) => {
@@ -99,7 +100,6 @@ function InvestmentFundDetail() {
             const res = await axios.get(`${process.env.REACT_APP_URL_API}/fund/detail`, { params: { fundId: userData.id }, headers: { "Authorization": `Bearer ${token}` } });
             if (res.data) {
                 setData(res.data.data);
-                console.log(res.data.data);
             }
             setLoading(false);
         } catch (error) {
@@ -109,6 +109,17 @@ function InvestmentFundDetail() {
     }
 
     const handleUpdate = async () => {
+        setErrors([]);
+        if (!data.name) {
+            setErrors(errors => [...errors, 'Tên quỹ đầu tư không được để trống']);
+            return;
+        } else if (!data.area) {
+            setErrors(errors => [...errors, 'Dạng đầu tư không được để trống']);
+            return;
+        } else if (!data.establishedDate) {
+            setErrors(errors => [...errors, 'Ngày cấp không được để trống']);
+            return;
+        }
         setLoading(true);
         try {
             let now = moment(data?.establishedDate).format('YYYY-MM-DD');
@@ -129,6 +140,7 @@ function InvestmentFundDetail() {
             }
             setLoading(false);
         } catch (error) {
+            setErrors(error?.response?.data?.message);
             setLoading(false);
             console.log(error);
         }
@@ -174,8 +186,9 @@ function InvestmentFundDetail() {
                                         name="area"
                                         id="area"
                                         placeholder="Lĩnh vực đầu tư"
-                                        value={data?.area}
+                                        // value={data?.area}
                                         onChange={handleChange('area')}
+                                        defaultValue={'Đầu tư BlockChain'}
                                     >
                                         {investmentSectors.map((item, index) => (
                                             <MenuItem value={item.value}>{item.label}</MenuItem>
@@ -260,6 +273,18 @@ function InvestmentFundDetail() {
                                         </Typography>
                                     </Box>
                                 </Box>
+                                {
+                                    errors.length
+                                        ?
+                                        <Alert sx={{marginBottom: "10px"}} severity="error">
+                                            <AlertTitle>Error</AlertTitle>
+                                            {errors?.map((item, index) => (
+                                                item
+                                            ))}
+                                        </Alert>
+                                        :
+                                        null
+                                }
                                 <Box mt={2}>
                                     <Button sx={{ marginRight: "20px" }} className="button" onClick={handleUpdate} >Cập nhật</Button>
                                 </Box>

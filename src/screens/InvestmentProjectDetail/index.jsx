@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, FormControl, OutlinedInput, FormLabel, Button, TextareaAutosize, TextField } from '@mui/material'
+import { Box, FormControl, OutlinedInput, FormLabel, Button, TextareaAutosize, Alert, AlertTitle } from '@mui/material'
 import PageTitle from 'components/PageTitle/PageTitle'
 import axios from "axios";
 import Loading from 'components/display/Loading'
@@ -12,6 +12,7 @@ function InvestmentProjectDetail() {
     const [loading, setLoading] = useState(false);
     const { token, setToken } = useToken();
     const history = useHistory();
+    const [errors, setErrors] = useState([]);
 
     const handleChange = (prop) => (event) => {
         const typeFile = ["logo"];
@@ -60,6 +61,11 @@ function InvestmentProjectDetail() {
     }
 
     const handleUpdate = async () => {
+        setErrors([]);
+        if (!data.name) {
+            setErrors(errors => [...errors, 'Tên dự án không được để trống']);
+            return;
+        }
         setLoading(true);
         try {
             const param = {
@@ -77,6 +83,7 @@ function InvestmentProjectDetail() {
             setLoading(false);
         } catch (error) {
             setLoading(false);
+            setErrors(error?.response?.data?.message);
             console.log(error);
         }
     }
@@ -133,7 +140,7 @@ function InvestmentProjectDetail() {
                                     />
                                 </FormControl>
                                 <FormControl sx={{ width: "100%" }} className="form-control mb-16">
-                                    <FormLabel className="label">Website (không bắt buộc)</FormLabel>
+                                    <FormLabel className="label">Websitethapne (không bắt buộc)</FormLabel>
                                     <OutlinedInput
                                         id="website"
                                         name="website"
@@ -156,6 +163,18 @@ function InvestmentProjectDetail() {
                                         onChange={handleChange('description')}
                                     />
                                 </FormControl>
+                                {
+                                    errors.length
+                                        ?
+                                        <Alert sx={{marginBottom: "10px"}} severity="error">
+                                            <AlertTitle>Error</AlertTitle>
+                                            {errors?.map((item, index) => (
+                                                item
+                                            ))}
+                                        </Alert>
+                                        :
+                                        null
+                                }
                                 <Box mt={2}>
                                     <Button sx={{marginRight: "20px"}} className="button" onClick={handleUpdate} >Cập nhật</Button>
                                     <Button className="button" onClick={handleRemove}>Xóa</Button>
