@@ -32,7 +32,7 @@ function ProjectManagement({ match }) {
         projectName: projectName,
         projectTypeId: projectTypeId,
         isActive: isActive,
-        verifiedAt: verifiedAt?new Date(verifiedAt).toISOString():null
+        verifiedAt: verifiedAt,
       }
       const res = await axios.get(`${process.env.REACT_APP_URL_API}/project/all`, { params: param, headers: { "Authorization": `Bearer ${token}` } });
       if (res.data) {
@@ -57,7 +57,7 @@ function ProjectManagement({ match }) {
 
   const handleChange = (prop) => (event) => {
     const tpm = {...project};
-    tpm[prop] = event.target.value;
+    tpm[prop] = event.target.value;    
     if (prop === 'projectName') {
       setSearchInput(event.target.value);
       setDebouncedState(event.target.value);

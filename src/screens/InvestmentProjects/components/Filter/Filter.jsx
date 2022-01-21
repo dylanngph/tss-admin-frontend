@@ -7,7 +7,7 @@ import {
     MenuItem,
 } from '@mui/material'
 import { styled as muiStyled } from '@mui/material/styles';
-import styled from '@emotion/styled'
+import styled from '@emotion/styled';
 import { ReactComponent as SearchIcon } from 'assets/icons/search.svg'
 
 
@@ -20,7 +20,7 @@ const Filter = ({ handleChange, project }) => {
                 gap: '20px',
             }}>
                 <SearchField
-                    placeholder="Tìm kiếm dự án2"
+                    placeholder="Tìm kiếm dự án"
                     value={project?.investmenttName}
                     onChange={handleChange('investmenttName')}
                     InputProps={{

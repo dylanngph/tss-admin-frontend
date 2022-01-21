@@ -7,7 +7,8 @@ import {
     MenuItem,
 } from '@mui/material'
 import { styled as muiStyled } from '@mui/material/styles';
-import styled from '@emotion/styled'
+import styled from '@emotion/styled';
+import moment from "moment";
 import {ReactComponent as SearchIcon} from 'assets/icons/search.svg'
 
 
@@ -53,19 +54,19 @@ const Filter = ({ handleChange, project }) => {
         },
         {
             label: 'Hôm nay',
-            value: '1'
+            value: moment(new Date()).format("YYYY-MM-DD")
         },
         {
             label: 'Một tuần trước',
-            value: '2'
+            value: moment(new Date()).subtract(7, 'd').format("YYYY-MM-DD")
         },
         {
             label: 'Hai tuần trước',
-            value: '3'
+            value: moment(new Date()).subtract(14, 'd').format("YYYY-MM-DD")
         },
         {
             label: 'Tháng này',
-            value: '4'
+            value: moment(new Date()).subtract(30, 'd').format("YYYY-MM-DD")
         },
     ]
 
