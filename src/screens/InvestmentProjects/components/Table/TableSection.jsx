@@ -11,8 +11,8 @@ import { TablePagination } from '@mui/material'
 import { Route, Link, useRouteMatch } from "react-router-dom";
 import moment from 'moment'
 
-function createData(index, logo,  investmentName, round, date, id) {
-  return { index, logo, investmentName, round, date, id };
+function createData(index, logo,  investmentName, website, date, id) {
+  return { index, logo, investmentName, website, date, id };
 }
 
 const TableSection = ({ data }) => {
@@ -23,7 +23,7 @@ const TableSection = ({ data }) => {
   useEffect(() => {
     setRow([]);
     data?.map((item, index) => {
-      setRow(data => [...data, createData(index + 1, item?.logo, item?.name, item?.round, item?.fundedDate, item?._id)])
+      setRow(data => [...data, createData(index + 1, item?.logo, item?.name, item?.website, item?.fundedDate, item?._id)])
     })
   }, [data]);
 
@@ -59,8 +59,8 @@ const TableSection = ({ data }) => {
             <StyledTableRow>
               <StyledTableCell>#</StyledTableCell>
               <StyledTableCell>Dự án gọi vốn</StyledTableCell>
-              <StyledTableCell>Trạng thái gọi vốn</StyledTableCell>
               <StyledTableCell>Thời gian gọi vốn</StyledTableCell>
+              <StyledTableCell>Website</StyledTableCell>
             </StyledTableRow>
           </TableHead>
           <TableBody>
@@ -75,10 +75,10 @@ const TableSection = ({ data }) => {
                   {row.investmentName}
                 </StyledTableCell>
                 <StyledTableCell>
-                  {row.round}
+                  {moment(row?.date).format('DD/MM/YYYY')}
                 </StyledTableCell>
                 <StyledTableCell>
-                  {moment(row?.date).format('DD/MM/YYYY')}
+                  {row.website}
                 </StyledTableCell>
               </StyledTableRow>
             ))}
