@@ -10,6 +10,7 @@ import moment from 'moment'
 import { useHistory } from 'react-router-dom'
 import useToken from 'components/hook/useToken';
 import SuccessNotify from 'components/Modals/SuccessNotify'
+import ClipboardJS from 'clipboard'
 
 function NFTSealDetail(props) {
     const match = useRouteMatch();
@@ -18,6 +19,7 @@ function NFTSealDetail(props) {
     const history = useHistory();
     const { token, setToken } = useToken();
     const [openModelSuccess, setOpenModelSuccess] = useState(false)
+    new ClipboardJS('.block-copy');
 
     const [nft, setNft] = React.useState({
         legalId: data?.legalId ? data?.legalId : "1",
@@ -201,40 +203,6 @@ function NFTSealDetail(props) {
         }
     }
 
-    const $ = document.querySelector.bind(document);
-    const contentCopyElm = $("#content-copy"),
-        buttonCopyElm = $("#button-copy");
-
-    const isSupported = (cmd) => {
-        return document.queryCommandSupported(cmd);
-    };
-
-    buttonCopyElm?.addEventListener("click", () => {
-        // Khai báo đối tượng range và selection.
-        const range = document.createRange(),
-            selection = window.getSelection();
-
-        // Xoá bỏ các vùng chọn hiện tại
-        selection.removeAllRanges();
-
-        // Mô phỏng việc select - bôi đen nội dung của phần tử contentCopyElm
-        range.selectNodeContents(contentCopyElm);
-
-        // Thêm range trên vào selection
-        selection.addRange(range);
-
-        // Thử lệnh copy
-        try {
-            if (isSupported("copy")) document.execCommand("copy");
-            else alert(`execCommand("copy") is not supported in your browser.`);
-        } catch (e) {
-            console.log(e);
-        }
-
-        // Sau khi copy dữ liệu xong thì xoá bỏ các vùng chọn hiện tại
-        selection.removeAllRanges();
-    });
-
     return (
         <Box>
             {
@@ -259,12 +227,17 @@ function NFTSealDetail(props) {
                                                 <span>{moment(data?.issuedAt).format('DD/MM/YYYY')}</span>
                                             </BoxMoreInfo>
                                             <BoxMoreInfo>
-                                                <span className="block-copy">Token ID</span>
+                                                <span data-clipboard-text={data?.tokenId}
+                                                      className="block-copy">
+                                                    Token ID
+                                                </span>
                                                 <span>{data?.tokenId}</span>
                                             </BoxMoreInfo>
                                             <BoxMoreInfo>
-                                                <span id="button-copy" className="block-copy">Contract ID</span>
-                                                <span id="content-copy" hidden>0xD0e366Ae42Ba7CE1a27c4Eab7b63524F1fBEA023</span>
+                                                <span data-clipboard-text="0xD0e366Ae42Ba7CE1a27c4Eab7b63524F1fBEA023"
+                                                      className="block-copy">
+                                                    Contract ID
+                                                </span>
                                                 <span>{formatString('0xD0e366Ae42Ba7CE1a27c4Eab7b63524F1fBEA023')}</span>
                                             </BoxMoreInfo>
                                         </Box>
