@@ -145,7 +145,11 @@ const Information = ({ project }) => {
 
     const handleOnClose = () => {
         setFlags({ ...flags });
-    }
+    };
+
+    useEffect(() => {
+        localStorage.setItem('flags', null);
+    }, []);
 
     const renderNote = ((nameFlag) => {
         return (

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Button, Modal, Typography, FormControl, TextareaAutosize } from '@mui/material';
 import axios from "axios";
 import SuccessNotify from '../SuccessNotify'
@@ -6,13 +6,37 @@ import useToken from 'components/hook/useToken';
 
 const SubmitAChangeRequest = ({data, requestType}) => {
     const [open, setOpen] = useState(false);
-    const handleOpen = () => setOpen(true);
+    const [stateChange, setStateChange] = useState(false);
     const [openModelSuccess, setOpenModelSuccess] = useState(false)
     const [message, setMessage] = useState("");
     const {token, setToken} = useToken();
 
     const handleClose = () => {
         setOpen(false)
+    };
+
+    const handleOpen = () => {
+        handleFlag();
+        setOpen(true);
+    }
+
+    const handleFlag = () => {
+        let flags = JSON.parse(localStorage.getItem('flags'));
+        if (flags) {
+            let flag = false;
+            Object.keys(flags).map(function(key) {
+                if (!flags[key]) {
+                    delete flags[key]
+                } else {
+                    flag = true;
+                    return;
+                }
+            });
+            if (flag) setStateChange(false);
+            else setStateChange(true);
+        } else {
+            setStateChange(true);
+        }    
     };
 
     const handleSubmitAChangeRequest = async () => {
@@ -94,27 +118,41 @@ const SubmitAChangeRequest = ({data, requestType}) => {
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
-                <Box sx={style}>
-                    <Box mb={3} sx={{ textAlign: "center" }}>
-                        <img className="icon-history" src="/assets/icons/send.svg" alt="send" />
+                {
+                    !stateChange ?
+                    <Box sx={style}>
+                        <Box mb={3} sx={{ textAlign: "center" }}>
+                            <img className="icon-history" src="/assets/icons/send.svg" alt="send" />
+                        </Box>
+                        <Typography align="center" mb={2} variant="h4">Gửi yêu cầu thay đổi</Typography>
+                        <Typography align="center" mb={3} variant="body1">Tổ chức sẽ nhận được yêu cầu thay đổi các thông tin dự án đã đánh dấu</Typography>
+                        <Box align="center" className="form-control" mb={3} sx={{ maxWidth: "686px", width: "100%", marginLeft: "auto", marginRight: "auto" }}>
+                            <TextareaAutosize
+                                minRows={5}
+                                placeholder="Lời nhắn...."
+                                style={{ width: '100%' }}
+                                value={message}
+                                name="message"
+                                onChange={handleInputChange}
+                            />
+                        </Box>
+                        <Box sx={contentWrap}>
+                            <Button className="button disable" onClick={handleClose}>Xem lại</Button>
+                            <Button className="button" onClick={handleSubmitAChangeRequest}>Gửi yêu cầu</Button>
+                        </Box>
                     </Box>
-                    <Typography align="center" mb={2} variant="h4">Gửi yêu cầu thay đổi</Typography>
-                    <Typography align="center" mb={3} variant="body1">Tổ chức sẽ nhận được yêu cầu thay đổi các thông tin dự án đã đánh dấu</Typography>
-                    <Box align="center" className="form-control" mb={3} sx={{ maxWidth: "686px", width: "100%", marginLeft: "auto", marginRight: "auto" }}>
-                        <TextareaAutosize
-                            minRows={5}
-                            placeholder="Lời nhắn...."
-                            style={{ width: '100%' }}
-                            value={message}
-                            name="message"
-                            onChange={handleInputChange}
-                        />
+                    :
+                    <Box sx={style}>
+                        <Box mb={3} sx={{ textAlign: "center" }}>
+                            <img className="icon-history" src="/assets/icons/send.svg" alt="send" />
+                        </Box>
+                        <Typography align="center" mb={2} variant="h4">Bạn chưa có yêu cầu thay đổi nào</Typography>
+                        <Box sx={contentWrap}>
+                            <Button className="button disable" onClick={handleClose}>Quay lại</Button>
+                        </Box>
                     </Box>
-                    <Box sx={contentWrap}>
-                        <Button className="button disable" onClick={handleClose}>Xem lại</Button>
-                        <Button className="button" onClick={handleSubmitAChangeRequest}>Gửi yêu cầu</Button>
-                    </Box>
-                </Box>
+                }
+                
             </Modal>
             <SuccessNotify title='Yêu Cầu Thay Đổi Thành Công' content='Người dùng sẽ nhận được thông báo yêu cầu thay đổi' openStatus={openModelSuccess} />
         </div>
