@@ -21,9 +21,10 @@ const TableSection = ({ data }) => {
   const [row, setRow] = useState([]);
 
   useEffect(() => {
+    console.log('data abc===>', data);
     setRow([]);
     data?.map((item, index) => {
-      setRow(data => [...data, createData(index + 1, item?.logo, item?.name, item?.website, item?.fundedDate, item?._id)])
+      setRow(data => [...data, createData(index + 1, item?.logo, item?.name, item?.website, item?.createdAt, item?._id)])
     })
   }, [data]);
 
@@ -59,7 +60,7 @@ const TableSection = ({ data }) => {
             <StyledTableRow>
               <StyledTableCell>#</StyledTableCell>
               <StyledTableCell>Dự án gọi vốn</StyledTableCell>
-              <StyledTableCell>Thời gian gọi vốn</StyledTableCell>
+              <StyledTableCell>Thời gian tạo dự án đầu tư</StyledTableCell>
               <StyledTableCell>Website</StyledTableCell>
             </StyledTableRow>
           </TableHead>
