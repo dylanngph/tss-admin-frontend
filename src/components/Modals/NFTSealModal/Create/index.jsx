@@ -12,12 +12,12 @@ import useToken from 'components/hook/useToken';
 const CreateNFTSealModal = ({ product }) => {
     const [values, setValues] = useState({
         project: '',
-        sealType: '',
+        sealType: '1',
         acceptDate: '',
-        legalId: '',
-        techLevelId: '',
-        socialValueId: '',
-        communRepuId: ''
+        legalId: '1',
+        techLevelId: '1',
+        socialValueId: '1',
+        communRepuId: '1'
     })
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
@@ -284,7 +284,7 @@ const CreateNFTSealModal = ({ product }) => {
                                 name="sealType"
                                 id="sealType"
                                 placeholder="Chọn loại con dấu"
-                                value={values.role}
+                                value={values.sealType}
                                 onChange={handleChange('sealType')}
                             >
                                 {sealTypes.map((item, index) => (
@@ -299,7 +299,7 @@ const CreateNFTSealModal = ({ product }) => {
                                     labelId={item.name}
                                     name={item.name}
                                     id={item.name}
-                                    // value={values.role}
+                                    value={values[item.name]}
                                     onChange={handleChange(item.name)}
                                 >
                                     {item.items.map((i) => (

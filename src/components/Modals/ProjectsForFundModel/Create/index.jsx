@@ -17,7 +17,7 @@ const ProjectsForFundModel = ({fundData, openStatus, handleClose}) => {
         fundId: '',
         capAmount: 0,
         fundedDate: '',
-        round: '',
+        round: 'PRIVATE',
     })
     const history = useHistory();
     const [errors, setErrors] = useState([]);
