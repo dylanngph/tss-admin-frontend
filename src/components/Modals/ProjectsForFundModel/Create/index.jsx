@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, Button, Modal, Typography, FormControl, FormLabel, TextareaAutosize, OutlinedInput, Select, MenuItem, TextField } from '@mui/material';
+import { Box, Button, Modal, Typography, FormControl, FormLabel, Alert, OutlinedInput, Select, MenuItem, TextField, AlertTitle } from '@mui/material';
 import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
@@ -11,15 +11,16 @@ import { socialsListConstant, investmentSectors, rounds } from 'constants/config
 
 const ProjectsForFundModel = ({fundData, openStatus, handleClose}) => {
     const { token, setToken } = useToken();
-    const [data, setData] = useState()
+    const [data, setData] = useState();
     const [values, setValues] = useState({
         projectId: '',
         fundId: '',
         capAmount: 0,
         fundedDate: '',
-        round: '',
+        round: 'PRIVATE',
     })
     const history = useHistory();
+    const [errors, setErrors] = useState([]);
 
     const handleChange = (prop) => (event) => {
         setValues({ ...values, [prop]: event.target.value });
@@ -27,8 +28,8 @@ const ProjectsForFundModel = ({fundData, openStatus, handleClose}) => {
 
     useEffect(() => {
         getData();
-        console.log('fundData===>', fundData);
-    }, []);
+        setErrors([]);
+    }, [openStatus]);
 
     const getData = async (investmenttName = null) => {
         try {
@@ -36,10 +37,8 @@ const ProjectsForFundModel = ({fundData, openStatus, handleClose}) => {
                 keyword: investmenttName,
             }
             const res = await axios.get(`${process.env.REACT_APP_URL_API}/fund/invested-project/all`, { params: param, headers: { "Authorization": `Bearer ${token}` } });
-            console.log('res===>', res);
             if (res.data) {
                 const items = res.data.data;
-                console.log('items==>', items);
                 setData(items);
             }
         } catch (error) {
@@ -55,22 +54,37 @@ const ProjectsForFundModel = ({fundData, openStatus, handleClose}) => {
     };
 
     const handleProjectsForFund = async () => {
-        try {
-            let now = moment(values.fundedDate).format('YYYY-MM-DD');
-            const param = {
-                projectId: values.projectId,
-                fundId: fundData?._id,
-                capAmount: parseInt(values.capAmount),
-                fundedDate: now,
-                round: values.round,
+        setErrors([]);
+        if (!values.projectId) {
+            setErrors(errors => [...errors, 'Tên dự án đầu tư không được để trống']);
+        }
+        else if (!values.round) {
+            setErrors(errors => [...errors, 'Vòng gọi vốn không được để trống']);
+        }
+        else if (!values.fundedDate) {
+            setErrors(errors => [...errors, 'Ngày gọi vốn không được để trống']);
+        }
+        else if (!values.capAmount) {
+            setErrors(errors => [...errors, 'Số vốn đầu tư không được để trống']);
+        }
+        else {
+            try {
+                let now = moment(values.fundedDate).format('YYYY-MM-DD');
+                const param = {
+                    projectId: values.projectId,
+                    fundId: fundData?._id,
+                    capAmount: parseInt(values.capAmount),
+                    fundedDate: now,
+                    round: values.round,
+                }
+    
+                const res = await axios.post(`${process.env.REACT_APP_URL_API}/fund/invested-project/add-for-fund`, param, { headers: { "Authorization": `Bearer ${token}` } });
+                if (res.data) {
+                    window.location.reload(false);
+                }
+            } catch (error) {
+                console.log(error);
             }
-
-            const res = await axios.post(`${process.env.REACT_APP_URL_API}/fund/invested-project/add-for-fund`, param, { headers: { "Authorization": `Bearer ${token}` } });
-            if (res.data) {
-                window.location.reload(false);
-            }
-        } catch (error) {
-            console.log(error);
         }
     }
 
@@ -110,6 +124,18 @@ const ProjectsForFundModel = ({fundData, openStatus, handleClose}) => {
             >
                 <Box sx={style}>
                     <Typography align="left" mb={5} variant="h3">Thêm dự án đầu tư</Typography>
+                    {
+                        errors.length
+                            ?
+                            <Alert sx={{marginBottom: "10px"}} severity="error">
+                                <AlertTitle>Error</AlertTitle>
+                                {errors?.map((item, index) => (
+                                    item
+                                ))}
+                            </Alert>
+                            :
+                            null
+                    }
                     <Box>
                         <FormControl sx={{ width: "100%" }} className="form-control mb-16">
                             <FormLabel className="label">Tên dự án đầu tư</FormLabel>

@@ -11,6 +11,7 @@ const HiddenRequest = ({data}) => {
     const {token, setToken} = useToken();
 
     const handleClose = () => {
+        console.log('data===>', data);
         setOpen(false)
     };
 
@@ -19,10 +20,7 @@ const HiddenRequest = ({data}) => {
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        width: 400,
         bgcolor: 'background.paper',
-        border: '2px solid #000',
-        boxShadow: 24,
         p: '120px 32px',
         width: "100%",
         maxWidth: "846px",
@@ -42,10 +40,20 @@ const HiddenRequest = ({data}) => {
 
     const handleHideProject = async () => {
         try {
-            const value = {
-                projectId: data._id,
-                isHide: true
+            let value
+
+            if (data?.isActive) {
+                value = {
+                    projectId: data._id,
+                    isHide: true
+                }
+            } else {
+                value = {
+                    projectId: data._id,
+                    isHide: false
+                }
             }
+            
             const res = await axios.post(`${process.env.REACT_APP_URL_API}/project/hide`, value, { headers: {"Authorization" : `Bearer ${token}`} });
             if (res.data) {
                 setOpen(false);
@@ -58,7 +66,14 @@ const HiddenRequest = ({data}) => {
 
     return (
         <div>
-            <Button sx={{width: "100% !important"}} className="button confirm-hidden" onClick={handleOpen}>Tạm ẩn</Button>
+            {
+                data?.isActive
+                ?
+                <Button sx={{width: "100% !important"}} className="button confirm-hidden" onClick={handleOpen}>Tạm ẩn</Button>
+                :
+                <Button sx={{width: "100% !important"}} className="button confirm-hidden" onClick={handleOpen}>Khôi phục</Button>
+            }
+
             <Modal
                 open={open}
                 onClose={handleClose}
@@ -69,8 +84,8 @@ const HiddenRequest = ({data}) => {
                     <Box mb={3} sx={{ textAlign: "center" }}>
                         <img className="icon-history" src="/assets/icons/send.svg" alt="send" />
                     </Box>
-                    <Typography align="center" mb={2} variant="h4">Tạm ẩn Dự án</Typography>
-                    <Typography align="center" mb={3} variant="body1">Người dùng sẽ nhận được thông báo ẩn dự án</Typography>
+                    <Typography align="center" mb={2} variant="h4">{ data?.isActive ? "Tạm ẩn Dự án" : "Khôi phục Dự án" }</Typography>
+                    <Typography align="center" mb={3} variant="body1">Người dùng sẽ nhận được thông báo { data?.isActive ? "ẩn dự án" : "khôi phục dự án" }</Typography>
                     <Box align="center" className="form-control" mb={3} sx={{ maxWidth: "686px", width: "100%", marginLeft: "auto", marginRight: "auto" }}>
                         <TextareaAutosize
                             minRows={5}
@@ -84,7 +99,14 @@ const HiddenRequest = ({data}) => {
                     </Box>
                 </Box>
             </Modal>
-            <SuccessNotify title='Tạm ẩn Dự án thành công' content='Người dùng sẽ nhận được thông báo ẩn dự án' openStatus={openModelSuccess} />
+            {
+                data?.isActive
+                ?
+                <SuccessNotify title='Tạm ẩn Dự án thành công' content='Người dùng sẽ nhận được thông báo ẩn dự án' openStatus={openModelSuccess} />
+                :
+                <SuccessNotify title='Khôi phục Dự án thành công' content='Người dùng sẽ nhận được thông báo khôi phục dự án' openStatus={openModelSuccess} />
+            }
+            
         </div>
     )
 }

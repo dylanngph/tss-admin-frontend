@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, Button, Modal, Typography, FormControl, FormLabel, TextareaAutosize, OutlinedInput, Select, MenuItem, TextField } from '@mui/material';
+import { Box, Button, Modal, Typography, FormControl, FormLabel, Alert, OutlinedInput, Select, MenuItem, TextField, AlertTitle } from '@mui/material';
 import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
@@ -13,6 +13,7 @@ const EditProjectsForFundModel = ({fundData, openStatus, handleClose, projectDat
     const { token, setToken } = useToken();
     const [data, setData] = useState()
     const history = useHistory();
+    const [errors, setErrors] = useState([]);
 
     const handleChange = (prop) => (event) => {
         setProjectData({ ...projectData, [prop]: event.target.value });
@@ -20,7 +21,8 @@ const EditProjectsForFundModel = ({fundData, openStatus, handleClose, projectDat
 
     useEffect(() => {
         getData();
-    }, []);
+        setErrors([]);
+    }, [openStatus]);
 
     const getData = async (investmenttName = null) => {
         try {
@@ -28,10 +30,8 @@ const EditProjectsForFundModel = ({fundData, openStatus, handleClose, projectDat
                 keyword: investmenttName,
             }
             const res = await axios.get(`${process.env.REACT_APP_URL_API}/fund/invested-project/all`, { params: param, headers: { "Authorization": `Bearer ${token}` } });
-            console.log('res===>', res);
             if (res.data) {
                 const items = res.data.data;
-                console.log('items==>', items);
                 setData(items);
             }
         } catch (error) {
@@ -47,6 +47,19 @@ const EditProjectsForFundModel = ({fundData, openStatus, handleClose, projectDat
     };
 
     const handleProjectsForFund = async () => {
+        setErrors([]);
+        if (!projectData._id) {
+            setErrors(errors => [...errors, 'Tên dự án đầu tư không được để trống']);
+        }
+        else if (!projectData.round) {
+            setErrors(errors => [...errors, 'Vòng gọi vốn không được để trống']);
+        }
+        else if (!projectData.fundedDate) {
+            setErrors(errors => [...errors, 'Ngày gọi vốn không được để trống']);
+        }
+        else if (!projectData.capAmount) {
+            setErrors(errors => [...errors, 'Số vốn đầu tư không được để trống']);
+        }
         try {
             let now = moment(projectData.fundedDate).format('YYYY-MM-DD');
             const param = {
@@ -102,6 +115,18 @@ const EditProjectsForFundModel = ({fundData, openStatus, handleClose, projectDat
             >
                 <Box sx={style}>
                     <Typography align="left" mb={5} variant="h3">Chỉnh sửa dự án đầu tư</Typography>
+                    {
+                        errors.length
+                            ?
+                            <Alert sx={{marginBottom: "10px"}} severity="error">
+                                <AlertTitle>Error</AlertTitle>
+                                {errors?.map((item, index) => (
+                                    item
+                                ))}
+                            </Alert>
+                            :
+                            null
+                    }
                     <Box>
                         <FormControl sx={{ width: "100%" }} className="form-control mb-16">
                             <FormLabel className="label">Vòng gọi vốn</FormLabel>

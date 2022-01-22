@@ -134,6 +134,7 @@ function InvestmentFundDetail() {
                 statusId: data?.statusId,
                 fundId: data?._id,
             }
+            
             const res = await axios.patch(`${process.env.REACT_APP_URL_API}/fund`, param, { headers: { "Authorization": `Bearer ${token}` } });
             if (res.data) {
                 window.location.reload(false);
@@ -175,7 +176,7 @@ function InvestmentFundDetail() {
                                         name="logo"
                                         type="file"
                                         placeholder="logo"
-                                        inputProps={{ accept: ".png,.svg,.jpeg" }}
+                                        inputProps={{ accept: ".png,.jpeg" }}
                                         onChange={handleChange('logo')}
                                     />
                                 </FormControl>

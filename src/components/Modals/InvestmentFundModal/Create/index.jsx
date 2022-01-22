@@ -13,10 +13,10 @@ const CreateInvestmentProjectModal = ({ product }) => {
     const [values, setValues] = useState({
         name: '',
         logo: '',
-        area: '',
+        area: 'Đầu tư BlockChain',
         establishedDate: '',
         description: '',
-        statusId: '',
+        statusId: '1',
         socialWebs: [
             {
                 name: '',
@@ -49,8 +49,21 @@ const CreateInvestmentProjectModal = ({ product }) => {
     };
 
     const handleCreateInvestmentFund = async () => {
+        setErrors([]);
         if (!values.name) {
             setErrors(errors => [...errors, 'Tên quỹ không được để trống']);
+        }
+        else if (!values.logo) {
+            setErrors(errors => [...errors, 'Logo quỹ đầu tư không được để trống']);
+        }
+        else if (!values.area) {
+            setErrors(errors => [...errors, 'Dạng đầu tư không được để trống']);
+        }
+        else if (!values.statusId) {
+            setErrors(errors => [...errors, 'Trạng thái không được để trống']);
+        }
+        else if (!values.establishedDate) {
+            setErrors(errors => [...errors, 'Ngày cấp không được để trống']);
         }
         else {
             try {
@@ -152,7 +165,7 @@ const CreateInvestmentProjectModal = ({ product }) => {
         border: "1px solid #ffffff",
         maxHeight: "807px",
         overflow: "auto",
-        height: "auto",
+        height: "100%",
     };
 
     const contentWrap = {
@@ -215,7 +228,7 @@ const CreateInvestmentProjectModal = ({ product }) => {
                                 name="logo"
                                 type="file"
                                 placeholder="Logo quỹ đầu tư"
-                                inputProps={{ accept: ".png,.svg,.jpeg" }}
+                                inputProps={{ accept: ".png,.jpeg" }}
                                 onChange={handleChange('logo')}
                             />
                         </FormControl>

@@ -135,12 +135,12 @@ function InvestmentProjectDetail() {
                                         name="logo"
                                         type="file"
                                         placeholder="logo"
-                                        inputProps={{ accept: ".png,.svg,.jpeg" }}
+                                        inputProps={{ accept: ".png,.jpeg" }}
                                         onChange={handleChange('logo')}
                                     />
                                 </FormControl>
                                 <FormControl sx={{ width: "100%" }} className="form-control mb-16">
-                                    <FormLabel className="label">Websitethapne (không bắt buộc)</FormLabel>
+                                    <FormLabel className="label">Website (không bắt buộc)</FormLabel>
                                     <OutlinedInput
                                         id="website"
                                         name="website"

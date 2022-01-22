@@ -12,7 +12,7 @@ const ConfirmApproval = (props) => {
     const [openModelSuccess, setOpenModelSuccess] = useState(false)
 
     const defaultValues = {
-        schedule: '',
+        schedule: 1,
         acceptDate: '',
     }
 
