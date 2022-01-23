@@ -94,7 +94,7 @@ function InvestmentProjectDetail() {
             const param = {
                 projectId: data._id,
             }
-            const res = await axios.delete(`${process.env.REACT_APP_URL_API}/fund/invested-project`, { data: param}, { headers: { "Authorization": `Bearer ${token}` } });
+            const res = await axios.delete(`${process.env.REACT_APP_URL_API}/fund/invested-project`, { data: param, headers: { "Authorization": `Bearer ${token}` } });;
             console.log(res);
             if (res.data) {
                 history.push('/investment-projects');

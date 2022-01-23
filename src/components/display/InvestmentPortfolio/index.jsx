@@ -89,7 +89,7 @@ function InvestmentPortfolio(props) {
                 fundId: fundId,
             }
 
-            const res = await axios.delete(`${process.env.REACT_APP_URL_API}/fund/invested-project/remove-for-fund`, {data: param}, { headers: { "Authorization": `Bearer ${token}` } });
+            const res = await axios.delete(`${process.env.REACT_APP_URL_API}/fund/invested-project/remove-for-fund`, { data: param, headers: { "Authorization": `Bearer ${token}` } });;
             if (res.data) {
                 window.location.reload(false);
             }
