@@ -51,10 +51,10 @@ const CreateInvestmentProjectModal = ({ product }) => {
     const handleCreateInvestmentFund = async () => {
         setErrors([]);
         if (!values.name) {
-            setErrors(errors => [...errors, 'Tên quỹ không được để trống']);
+            setErrors(errors => [...errors, 'Tên đơn vị/tổ chức không được để trống']);
         }
         else if (!values.logo) {
-            setErrors(errors => [...errors, 'Logo quỹ đầu tư không được để trống']);
+            setErrors(errors => [...errors, 'Logo đơn vị/tổ chức đầu tư không được để trống']);
         }
         else if (!values.area) {
             setErrors(errors => [...errors, 'Dạng đầu tư không được để trống']);
@@ -63,7 +63,7 @@ const CreateInvestmentProjectModal = ({ product }) => {
             setErrors(errors => [...errors, 'Trạng thái không được để trống']);
         }
         else if (!values.establishedDate) {
-            setErrors(errors => [...errors, 'Ngày cấp không được để trống']);
+            setErrors(errors => [...errors, 'Ngày phát hành không được để trống']);
         }
         else {
             try {
@@ -196,7 +196,7 @@ const CreateInvestmentProjectModal = ({ product }) => {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
-                    <Typography align="left" mb={5} variant="h3">Tạo mới Quỹ đầu tư</Typography>
+                    <Typography align="left" mb={5} variant="h3">Tạo mới Đơn vị/Tổ chức đầu tư</Typography>
                     {
                         errors.length
                             ?
@@ -211,23 +211,23 @@ const CreateInvestmentProjectModal = ({ product }) => {
                     }
                     <Box>
                         <FormControl sx={{ width: "100%" }} className="form-control mb-16">
-                            <FormLabel className="label">Tên quỹ</FormLabel>
+                            <FormLabel className="label">Tên đơn vị/tổ chức</FormLabel>
                             <OutlinedInput
                                 id="name"
                                 name="name"
                                 type="text"
-                                placeholder="Tên quỹ"
+                                placeholder="Tên đơn vị/tổ chức"
                                 value={values.name}
                                 onChange={handleChange('name')}
                             />
                         </FormControl>
                         <FormControl sx={{ width: "100%" }} className="form-control mb-16">
-                            <FormLabel className="label">Logo quỹ đầu tư</FormLabel>
+                            <FormLabel className="label">Logo đơn vị/tổ chức đầu tư</FormLabel>
                             <OutlinedInput
                                 id="logo"
                                 name="logo"
                                 type="file"
-                                placeholder="Logo quỹ đầu tư"
+                                placeholder="Logo đơn vị/tổ chức đầu tư"
                                 inputProps={{ accept: ".png,.jpeg" }}
                                 onChange={handleChange('logo')}
                             />
@@ -263,7 +263,7 @@ const CreateInvestmentProjectModal = ({ product }) => {
                             </Select>
                         </FormControl>
                         <FormControl sx={{ width: "100%" }} className="form-control mb-16 datePicker">
-                            <FormLabel className="label">Ngày cấp</FormLabel>
+                            <FormLabel className="label">Ngày phát hành</FormLabel>
                             <LocalizationProvider dateAdapter={AdapterDateFns}>
                                 <DesktopDatePicker
                                     className="abc"

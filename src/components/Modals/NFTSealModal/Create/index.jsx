@@ -158,7 +158,7 @@ const CreateNFTSealModal = ({ product }) => {
             setErrors(errors => [...errors, 'Loại con dấu không được để trống']);
         }
         else if (!values.acceptDate) {
-            setErrors(errors => [...errors, 'Ngày cấp không được để trống']);
+            setErrors(errors => [...errors, 'Ngày phát hành không được để trống']);
         }
         else if (!values.legalId) {
             setErrors(errors => [...errors, 'Pháp lý không được để trống']);
@@ -248,7 +248,7 @@ const CreateNFTSealModal = ({ product }) => {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
-                    <Typography align="left" mb={5} variant="h3">Cấp con dấu</Typography>
+                    <Typography align="left" mb={5} variant="h3">Phát hành con dấu</Typography>
                     {
                         errors.length
                             ?
@@ -309,7 +309,7 @@ const CreateNFTSealModal = ({ product }) => {
                             </FormControl>
                         ))}
                         <FormControl sx={{ width: "100%" }} className="form-control mb-16 datePicker">
-                            <FormLabel className="label">Ngày cấp</FormLabel>
+                            <FormLabel className="label">Ngày phát hành</FormLabel>
                             <LocalizationProvider dateAdapter={AdapterDateFns}>
                                 <DesktopDatePicker
                                     className="abc"
@@ -323,7 +323,7 @@ const CreateNFTSealModal = ({ product }) => {
                     </Box>
                     <Box mt={5} sx={contentWrap}>
                         <Button></Button>
-                        <LoadingButton loading={loadingButton} className="button" onClick={handleCreateNftSeal}>Cấp con dấu</LoadingButton>
+                        <LoadingButton loading={loadingButton} className="button" onClick={handleCreateNftSeal}>Phát hành con dấu</LoadingButton>
                     </Box>
 
                 </Box>

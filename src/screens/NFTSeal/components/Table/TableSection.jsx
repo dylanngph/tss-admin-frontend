@@ -63,7 +63,7 @@ const TableSection = ({ data }) => {
               <StyledTableCell>Dự án</StyledTableCell>
               <StyledTableCell>Loại dự án</StyledTableCell>
               <StyledTableCell>Loại con dấu NFT</StyledTableCell>
-              <StyledTableCell>Ngày cấp</StyledTableCell>
+              <StyledTableCell>Ngày phát hành</StyledTableCell>
             </StyledTableRow>
           </TableHead>
           <TableBody>

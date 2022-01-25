@@ -27,7 +27,7 @@ export const projectNav = [
         icon: Judgeicon
     },
     {
-        label: 'Quỹ đầu tư',
+        label: 'Đơn vị/Tổ chức đầu tư',
         href: '/investment-funds',
         icon: InvestmentFundsIcon
     },

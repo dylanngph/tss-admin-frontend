@@ -62,7 +62,7 @@ const TableSection = ({ data }) => {
               <StyledTableCell>Tên dự án</StyledTableCell>
               <StyledTableCell>Trạng thái</StyledTableCell>
               <StyledTableCell>Loại dự án</StyledTableCell>
-              <StyledTableCell>Ngày xác thực</StyledTableCell>
+              <StyledTableCell>Ngày xác nhận</StyledTableCell>
             </StyledTableRow>
           </TableHead>
           <TableBody>

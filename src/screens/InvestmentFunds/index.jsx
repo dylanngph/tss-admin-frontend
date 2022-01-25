@@ -58,7 +58,7 @@ function InvestmentFunds(props) {
 
     return (
         <Box>
-            <PageTitle text={'Quỹ đầu tư'} />
+            <PageTitle text={'Đơn vị/Tổ chức đầu tư'} />
             {
                 loading ?
                     <Loading />

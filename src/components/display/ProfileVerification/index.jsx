@@ -17,7 +17,7 @@ const ProfileVerification = ({ data }) => {
 
     return (
         <Box sx={box}>
-            <Typography variant="h3">Xác thực hồ sơ</Typography>
+            <Typography variant="h3">Xác nhận hồ sơ</Typography>
             <Divider sx={{ margin: "14px 0 !important" }} />
             <Box mb={1} sx={{ display: "flex", justifyContent: "space-between" }}>
                 <Box sx={{ maxWidth: '143px', width: '100%' }} mr={1}>

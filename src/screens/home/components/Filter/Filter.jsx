@@ -27,7 +27,7 @@ const Filter = ({ handleChange, project }) => {
             value: 2
         },
         {
-            label: 'Quỹ',
+            label: 'Đơn vị/Tổ chức',
             value: 3
         },
     ]
@@ -38,7 +38,7 @@ const Filter = ({ handleChange, project }) => {
             value: null
         },
         {
-            label: 'Xác thực dự án',
+            label: 'Xác nhận dự án',
             value: 1
         },
         {

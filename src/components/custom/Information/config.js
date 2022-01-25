@@ -23,7 +23,7 @@ export const listTitle = [
                 key: 'companyCode'
             },
             {
-                title: 'Ngày cấp',
+                title: 'Ngày phát hành',
                 key: 'acceptDate',
             },
             {

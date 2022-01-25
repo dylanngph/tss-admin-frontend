@@ -67,7 +67,7 @@ function ThemesScreen(props) {
                         marginBottom: '15px'
                     }}>
                         <StyledLabel>Tiêu đề banner</StyledLabel>
-                        <CustomInput aria-label="Cấp NFT" placeholder="Cấp NFT xác thực dự án Blockchain của bạn" />
+                        <CustomInput aria-label="Phát hành NFT" placeholder="Phát hành NFT xác nhận dự án Blockchain của bạn" />
                     </Box>
                     <Box sx={{
                         marginBottom: '15px'
@@ -94,7 +94,7 @@ function ThemesScreen(props) {
                 </Box>
             </StyledBox>
             <StyledBox>
-                <Typography variant='h3'>Đơn vị xác thực</Typography>
+                <Typography variant='h3'>Đơn vị xác nhận</Typography>
                 <Grid>
                     <StyledLabelUpload htmlFor="file-image">
                         <Grid container direction="column" justifyContent="center" alignItems="center" sx={{ height: '100%'}}>

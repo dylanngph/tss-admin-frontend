@@ -28,7 +28,7 @@ function EditingForm(props) {
                 value: "jadelab-biz-reg.pdf",
             },
             {
-                title: "Ngày cấp",
+                title: "Ngày phát hành",
                 value: "22/12/2022",
             },
             {

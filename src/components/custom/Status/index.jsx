@@ -62,7 +62,7 @@ const Status = (props) => {
                 }
                 
                 <Typography sx={{ marginLeft: '12px' }} variant="h5">
-                    {props.value == 0 ? 'Đợi duyệt' : props.value == 1 ? 'Đợi chỉnh sửa' : 'Đã xác thực'}
+                    {props.value == 0 ? 'Đợi duyệt' : props.value == 1 ? 'Đợi chỉnh sửa' : 'Đã xác nhận'}
                 </Typography>
             </Box>
         </Box>

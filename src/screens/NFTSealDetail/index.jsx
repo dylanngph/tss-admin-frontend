@@ -212,7 +212,7 @@ function NFTSealDetail(props) {
                                         </Box>
                                         <Box sx={{ display: "flex" }}>
                                             <BoxMoreInfo>
-                                                <span>Ngày cấp</span>
+                                                <span>Ngày phát hành</span>
                                                 <span>{moment(data?.issuedAt).format('DD/MM/YYYY')}</span>
                                             </BoxMoreInfo>
                                             <BoxMoreInfo>

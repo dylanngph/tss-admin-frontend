@@ -111,13 +111,13 @@ function InvestmentFundDetail() {
     const handleUpdate = async () => {
         setErrors([]);
         if (!data.name) {
-            setErrors(errors => [...errors, 'Tên quỹ đầu tư không được để trống']);
+            setErrors(errors => [...errors, 'Tên đơn vị/tổ chức đầu tư không được để trống']);
             return;
         } else if (!data.area) {
             setErrors(errors => [...errors, 'Dạng đầu tư không được để trống']);
             return;
         } else if (!data.establishedDate) {
-            setErrors(errors => [...errors, 'Ngày cấp không được để trống']);
+            setErrors(errors => [...errors, 'Ngày phát hành không được để trống']);
             return;
         }
         setLoading(true);
@@ -154,23 +154,23 @@ function InvestmentFundDetail() {
                     <Loading />
                     :
                     <Box sx={{background: "#FCFCFD"}}>
-                        <PageTitle text={`Quỹ đầu tư / ${data?.name}`} />
+                        <PageTitle text={`Đơn vị/Tổ chức đầu tư / ${data?.name}`} />
                         <WrapInvestmentProjectDetail>
                             <Box sx={{ marginLeft: "24px" }}>
                                 <img className='avarta-invest-detail' src={data?.logo} alt={data?.name} />
                                 <FormControl sx={{ width: "100%" }} className="form-control mb-16">
-                                    <FormLabel className="label">Tên quỹ đầu tư</FormLabel>
+                                    <FormLabel className="label">Tên đơn vị/tổ chức đầu tư</FormLabel>
                                     <OutlinedInput
                                         id="name"
                                         name="name"
                                         type="text"
-                                        placeholder="Tên quỹ đầu tư"
+                                        placeholder="Tên đơn vị/tổ chức đầu tư"
                                         value={data?.name}
                                         onChange={handleChange('name')}
                                     />
                                 </FormControl>
                                 <FormControl sx={{ width: "100%" }} className="form-control mb-16">
-                                    <FormLabel className="label">Logo quỹ đầu tư</FormLabel>
+                                    <FormLabel className="label">Logo đơn vị/tổ chức đầu tư</FormLabel>
                                     <OutlinedInput
                                         id="logo"
                                         name="logo"
@@ -212,7 +212,7 @@ function InvestmentFundDetail() {
                                     </Select>
                                 </FormControl>
                                 <FormControl sx={{ width: "100%" }} className="form-control mb-16 datePicker">
-                                    <FormLabel className="label">Ngày cấp</FormLabel>
+                                    <FormLabel className="label">Ngày phát hành</FormLabel>
                                     <LocalizationProvider dateAdapter={AdapterDateFns}>
                                         <DesktopDatePicker
                                             className="abc"

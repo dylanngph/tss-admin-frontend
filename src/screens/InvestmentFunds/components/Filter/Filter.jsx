@@ -53,7 +53,7 @@ const Filter = ({ handleChange, project }) => {
             value: 2
         },
         {
-            label: 'Quỹ',
+            label: 'Đơn vị/Tổ chức',
             value: 3
         },
     ]
