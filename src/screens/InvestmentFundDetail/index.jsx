@@ -186,10 +186,10 @@ function InvestmentFundDetail() {
                                         labelId="area"
                                         name="area"
                                         id="area"
-                                        placeholder="Lĩnh vực đầu tư"
+                                        placeholder="Dạng đầu tư"
                                         // value={data?.area}
                                         onChange={handleChange('area')}
-                                        defaultValue={'Đầu tư BlockChain'}
+                                        defaultValue={'Blockchain'}
                                     >
                                         {investmentSectors.map((item, index) => (
                                             <MenuItem value={item.value}>{item.label}</MenuItem>

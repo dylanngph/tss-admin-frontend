@@ -317,8 +317,8 @@ export const socialsListConstant = [
 
 export const investmentSectors = [
 	{
-		value: 'Đầu tư BlockChain',
-		label: "Đầu tư BlockChain"
+		value: 'BlockChain',
+		label: "BlockChain"
 	},
 ]
 

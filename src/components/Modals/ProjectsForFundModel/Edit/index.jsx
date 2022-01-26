@@ -55,7 +55,7 @@ const EditProjectsForFundModel = ({fundData, openStatus, handleClose, projectDat
             setErrors(errors => [...errors, 'Vòng gọi vốn không được để trống']);
         }
         else if (!projectData.fundedDate) {
-            setErrors(errors => [...errors, 'Ngày gọi vốn không được để trống']);
+            setErrors(errors => [...errors, 'Thời gian gọi vốn không được để trống']);
         }
         else if (!projectData.capAmount) {
             setErrors(errors => [...errors, 'Số vốn đầu tư không được để trống']);
@@ -144,7 +144,7 @@ const EditProjectsForFundModel = ({fundData, openStatus, handleClose, projectDat
                             </Select>
                         </FormControl>
                         <FormControl sx={{ width: "100%" }} className="form-control mb-16 datePicker">
-                            <FormLabel className="label">Ngày gọi vốn</FormLabel>
+                            <FormLabel className="label">Thời gian gọi vốn</FormLabel>
                             <LocalizationProvider dateAdapter={AdapterDateFns}>
                                 <DesktopDatePicker
                                     className="abc"

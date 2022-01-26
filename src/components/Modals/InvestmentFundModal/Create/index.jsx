@@ -13,7 +13,7 @@ const CreateInvestmentProjectModal = ({ product }) => {
     const [values, setValues] = useState({
         name: '',
         logo: '',
-        area: 'Đầu tư BlockChain',
+        area: 'Blockchain',
         establishedDate: '',
         description: '',
         statusId: '1',
