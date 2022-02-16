@@ -34,9 +34,7 @@ function LoginAccount({setToken , error}) {
                 setToken(res.data.data.accessToken);
                 history.push('/')
             }
-        } catch (error) {
-            console.log('error===>', error);
-        }
+        } catch (error) {}
     };
 
     const handleClickShowPassword = () => {

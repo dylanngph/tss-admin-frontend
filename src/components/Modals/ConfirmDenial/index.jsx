@@ -50,9 +50,7 @@ const ConfirmDenial = ({ data }) => {
                 setOpen(false);
                 setOpenModelSuccess(true);
             }
-        } catch (error) {
-            console.log('error===>', error);
-        }
+        } catch (error) {}
     }
 
     return (

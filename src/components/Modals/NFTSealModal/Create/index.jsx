@@ -194,7 +194,6 @@ const CreateNFTSealModal = ({ product }) => {
                 }
             } catch (error) {
                 setLoadingButton(false);
-                console.log(error);
             }
         }
     }

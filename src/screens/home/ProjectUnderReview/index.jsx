@@ -42,7 +42,6 @@ function ProjectUnderReview({ match }) {
             setLoading(false);
         } catch (error) {
             setLoading(false);
-            console.log('error===>', error);
         }
     };
 

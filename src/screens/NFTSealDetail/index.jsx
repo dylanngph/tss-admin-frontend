@@ -128,7 +128,6 @@ function NFTSealDetail(props) {
             setLoading(false);
         } catch (error) {
             setLoading(false);
-            console.log('error===>', error);
         }
     }
 
@@ -171,7 +170,6 @@ function NFTSealDetail(props) {
             setLoading(false);
         } catch (error) {
             setLoading(false);
-            console.log(error);
         }
     }
 
@@ -188,7 +186,6 @@ function NFTSealDetail(props) {
             setLoading(false);
         } catch (error) {
             setLoading(false);
-            console.log(error);
         }
     }
 

@@ -91,9 +91,7 @@ function InvestmentPortfolio(props) {
             if (res.data) {
                 window.location.reload(false);
             }
-        } catch (error) {
-            console.log(error);
-        }
+        } catch (error) {}
     }
 
     const handleUpdateProject = async (item) => {

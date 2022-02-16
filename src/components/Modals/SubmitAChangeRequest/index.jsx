@@ -72,9 +72,7 @@ const SubmitAChangeRequest = ({data, requestType}) => {
                 setOpen(false);
                 setOpenModelSuccess(true);
             }
-        } catch (error) {
-            console.log('error===>', error);
-        }
+        } catch (error) {}
     }
 
     const handleInputChange = (e) => {

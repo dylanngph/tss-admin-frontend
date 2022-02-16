@@ -21,7 +21,7 @@ function InvestmentProjectDetail() {
             .then(res => {
                 setData({ ...data, [prop]: res });
             })
-            .catch(error => console.log(error));
+            .catch();
         } else {
             setData({ ...data, [prop]: event.target.value });
         }
@@ -55,7 +55,6 @@ function InvestmentProjectDetail() {
             setLoading(false);
         } catch (error) {
             setLoading(false);
-            console.log('error===>', error);
         }
     }
 
@@ -83,7 +82,6 @@ function InvestmentProjectDetail() {
         } catch (error) {
             setLoading(false);
             setErrors(error?.response?.data?.message);
-            console.log(error);
         }
     }
 
@@ -100,7 +98,6 @@ function InvestmentProjectDetail() {
             setLoading(false);
         } catch (error) {
             setLoading(false);
-            console.log(error);
         }
     }
 

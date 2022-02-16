@@ -34,9 +34,7 @@ const EditProjectsForFundModel = ({fundData, openStatus, handleClose, projectDat
                 const items = res.data.data;
                 setData(items);
             }
-        } catch (error) {
-            console.log('error===>', error);
-        }
+        } catch (error) {}
     };
 
     const handleDatePickerChange = (newValue) => {
@@ -74,9 +72,7 @@ const EditProjectsForFundModel = ({fundData, openStatus, handleClose, projectDat
             if (res.data) {
                 window.location.reload(false);
             }
-        } catch (error) {
-            console.log(error);
-        }
+        } catch (error) {}
     }
 
     const style = {

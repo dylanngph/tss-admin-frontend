@@ -56,7 +56,6 @@ function NFTSeal(props) {
             setLoading(false);
         } catch (error) {
             setLoading(false);
-            console.log('error===>', error);
         }
     };
 
@@ -71,7 +70,6 @@ function NFTSeal(props) {
             }
         }  catch (error) {
             setLoading(false);
-            console.log('error===>', error);
         }
     }
 

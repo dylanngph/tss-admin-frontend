@@ -84,9 +84,7 @@ const CreateInvestmentProjectModal = ({ product }) => {
                     setOpen(false);
                     window.location.reload(false);
                 }
-            } catch (error) {
-                console.log(error);
-            }
+            } catch (error) {}
         }
     }
 
@@ -109,7 +107,7 @@ const CreateInvestmentProjectModal = ({ product }) => {
             .then(res => {
                 setValues({ ...values, [prop]: res });
             })
-            .catch(error => console.log(error));
+            .catch();
         } else {
             setValues({ ...values, [prop]: event.target.value });
         }

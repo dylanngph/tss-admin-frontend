@@ -27,7 +27,7 @@ function InvestmentFundDetail() {
                 .then(res => {
                     setData({ ...data, [prop]: res });
                 })
-                .catch(error => console.log(error));
+                .catch();
         } else {
             setData({ ...data, [prop]: event.target.value });
         }
@@ -104,7 +104,6 @@ function InvestmentFundDetail() {
             setLoading(false);
         } catch (error) {
             setLoading(false);
-            console.log('error===>', error);
         }
     }
 
@@ -143,7 +142,6 @@ function InvestmentFundDetail() {
         } catch (error) {
             setErrors(error?.response?.data?.message);
             setLoading(false);
-            console.log(error);
         }
     }
 

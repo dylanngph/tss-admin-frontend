@@ -77,7 +77,7 @@ const CreateInvestmentFundModal = ({ product }) => {
                 .then(res => {
                     setValues({ ...values, [prop]: res });
                 })
-                .catch(error => console.log(error));
+                .catch();
         } else {
             setValues({ ...values, [prop]: event.target.value });
         }
