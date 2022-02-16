@@ -51,7 +51,6 @@ function InvestmentProjectDetail() {
             const res = await axios.get(`${process.env.REACT_APP_URL_API}/fund/invested-project/detail`, { params: { projectId: userData.id }, headers: { "Authorization": `Bearer ${token}` } });
             if (res.data) {
                 setData(res.data.data);
-                console.log(res.data.data);
             }
             setLoading(false);
         } catch (error) {
@@ -95,7 +94,6 @@ function InvestmentProjectDetail() {
                 projectId: data._id,
             }
             const res = await axios.delete(`${process.env.REACT_APP_URL_API}/fund/invested-project`, { data: param, headers: { "Authorization": `Bearer ${token}` } });;
-            console.log(res);
             if (res.data) {
                 history.push('/investment-projects');
             }

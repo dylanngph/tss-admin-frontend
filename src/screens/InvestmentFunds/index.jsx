@@ -34,8 +34,6 @@ function InvestmentFunds(props) {
 
             const res = await axios.get(`${process.env.REACT_APP_URL_API}/fund/all`, { params: param, headers: { "Authorization": `Bearer ${token}` } });
 
-            console.log('res===>', res);
-
             if (res.data) {
                 const items = res.data.data;
                 setData(items);

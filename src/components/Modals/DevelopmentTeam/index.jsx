@@ -214,8 +214,6 @@ const DevelopmentTeam = ({ defaultValues, setFormValuesProject, view }) => {
     const [validator, setValidator] = useState({});
     const [validatorTeam, setValidatorTeam] = useState(false);
 
-    console.log('developmentTeam==>', developmentTeam);
-
     const handleAddMember = () => {
         const nextItem = {
             id: uuid(),

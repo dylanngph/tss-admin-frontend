@@ -40,7 +40,6 @@ const Status = (props) => {
     }
 
     const addClassName = () => {
-        console.log('status==>', status);
         // if (status == 0) {
         //     return 'pending-approve';
         // }

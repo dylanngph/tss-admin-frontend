@@ -30,7 +30,6 @@ function accountStore(state = initialState, action) {
       };
 
     case constants.ACCOUNT_LOGIN:
-      console.log("Dispatch no api: ", JSON.stringify(action?.payload));
       return {
         ...state,
         isLoadingLogin: true,

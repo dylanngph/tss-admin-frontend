@@ -11,7 +11,6 @@ const HiddenRequest = ({data}) => {
     const {token, setToken} = useToken();
 
     const handleClose = () => {
-        console.log('data===>', data);
         setOpen(false)
     };
 

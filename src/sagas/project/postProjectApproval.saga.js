@@ -7,7 +7,6 @@ import Notify from "components/custom/Notify";
 
 function* doAction(action) {
   try {
-    console.log("Test redux-saga: ", JSON.stringify(action.payload));
     yield put({ type: loadingConstant.SHOW_LOADING });
     const resData = yield call(projectApi.postApprovalProject, action.payload);
     const { code, data, message } = resData;

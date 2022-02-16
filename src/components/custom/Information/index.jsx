@@ -111,10 +111,7 @@ const Information = ({ project }) => {
             ...stateEditInput,
             [key]: true,
         })
-        console.log('>> stateEditInput: ', stateEditInput);
     }
-
-    // console.log('>> project ', project);
 
     // const [onEdit, setOnEdit] = useState(false)
 

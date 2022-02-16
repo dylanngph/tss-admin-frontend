@@ -68,8 +68,6 @@ function InvestmentPortfolio(props) {
         }
     }
 
-    console.log('data acb==>', data);
-
     const openModal = () => {
         setOpenModelSuccess(true);
     };

@@ -6,8 +6,6 @@ import axios from "axios";
 function ProfileInformation(props) {
     const { data, children, value, index, ...other } = props;
 
-    console.log('data ProfileInformation==>', data);
-
     return (
         <Box role="tabpanel" className="application"
             hidden={value !== index}
