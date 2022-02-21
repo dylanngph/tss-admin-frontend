@@ -145,6 +145,22 @@ function InvestmentFundDetail() {
         }
     }
 
+    const handleDelete = async () => {
+        setLoading(true);
+        try {
+            const param = {
+                fundId: data._id,
+            }
+            const res = await axios.delete(`${process.env.REACT_APP_URL_API}/fund`, { data: param, headers: { "Authorization": `Bearer ${token}` } });;
+            if (res.data) {
+                history.push('/investment-funds');
+            }
+            setLoading(false);
+        } catch (error) {
+            setLoading(false);
+        }
+    }
+
     return (
         <Box>
             {
@@ -286,6 +302,7 @@ function InvestmentFundDetail() {
                                 }
                                 <Box mt={2}>
                                     <Button sx={{ marginRight: "20px" }} className="button" onClick={handleUpdate} >Cập nhật</Button>
+                                    <Button sx={{ marginRight: "20px" }} className="button" onClick={handleDelete} >Xóa</Button>
                                 </Box>
                             </Box>
                         </WrapInvestmentProjectDetail>
