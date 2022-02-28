@@ -11,6 +11,7 @@ import useToken from 'components/hook/useToken';
 
 const CreateNFTSealModal = ({ product }) => {
     const [values, setValues] = useState({
+        unitType: '1',
         project: '',
         sealType: '1',
         acceptDate: '',
@@ -26,6 +27,17 @@ const CreateNFTSealModal = ({ product }) => {
     const [errors, setErrors] = useState([])
     const {token, setToken} = useToken();
     const [loadingButton, setLoadingButton] = useState(false);
+
+    const unitTypes = [
+        {
+            value: '1',
+            label: "Doanh nghiệp"
+        },
+        {
+            value: '3',
+            label: "Đơn vị/Tổ chức đầu tư"
+        },
+    ]
 
     const sealTypes = [
         {
@@ -133,10 +145,6 @@ const CreateNFTSealModal = ({ product }) => {
         },
     ]
 
-    useEffect(() => {
-        setProjects(product);
-    }, []);
-
     const handleClose = () => {
         setOpen(false);
         setErrors([]);
@@ -176,30 +184,93 @@ const CreateNFTSealModal = ({ product }) => {
             try {
                 setLoadingButton(true);
                 let now = moment(values.acceptDate).format('YYYY-MM-DD');
-                const param = {
-                    projectId: values.project,
-                    typeId: values.sealType,
-                    issuedAt: now,
-                    legalId: values.legalId,
-                    techLevelId: values.techLevelId,
-                    socialValueId: values.socialValueId,
-                    communRepuId: values.communRepuId,
+
+                if (values.unitType === '1') {
+                    const param = {
+                        projectId: values.project,
+                        typeId: values.sealType,
+                        issuedAt: now,
+                        legalId: values.legalId,
+                        techLevelId: values.techLevelId,
+                        socialValueId: values.socialValueId,
+                        communRepuId: values.communRepuId,
+                    }
+        
+                    const res = await axios.post(`${process.env.REACT_APP_URL_API}/nft/issue`, param, { headers: {"Authorization" : `Bearer ${token}`} });
+                    if (res.data) {
+                        setOpen(false);
+                        window.location.reload(false);
+                    }
                 }
-    
-                const res = await axios.post(`${process.env.REACT_APP_URL_API}/nft/issue`, param, { headers: {"Authorization" : `Bearer ${token}`} });
-                if (res.data) {
-                    setOpen(false);
-                    window.location.reload(false);
-                    setLoadingButton(false);
+                else if (values.unitType === '3') {
+                    const param = {
+                        fundId: values.project,
+                        typeId: values.sealType,
+                        issuedAt: now,
+                        legalId: values.legalId,
+                        techLevelId: values.techLevelId,
+                        socialValueId: values.socialValueId,
+                        communRepuId: values.communRepuId,
+                    }
+        
+                    const res = await axios.post(`${process.env.REACT_APP_URL_API}/nft/fund/issue`, param, { headers: {"Authorization" : `Bearer ${token}`} });
+                    if (res.data) {
+                        setOpen(false);
+                        window.location.reload(false);
+                    }
                 }
+                setLoadingButton(false);
             } catch (error) {
                 setLoadingButton(false);
             }
         }
     }
 
+    const handleSelectUnit = () => {
+        if (values.unitType === '1') {
+            getBusiness();
+        }
+        else if (values.unitType === '3') {
+            getInvestmentFunds();
+        }
+    }
+
+    const getBusiness = async () => {
+        try {
+            const paramProject = {
+                isSimple: true
+            }
+            const res = await axios.get(`${process.env.REACT_APP_URL_API}/project/all`, { params: paramProject, headers: { "Authorization": `Bearer ${token}` } });
+            if (res.data) {
+                setProjects(res.data.data);
+            }
+        } catch (error) {
+            
+        }
+    }
+
+    const getInvestmentFunds = async () => {
+        try {
+            const param = {
+                keyword: null,
+            }
+
+            const res = await axios.get(`${process.env.REACT_APP_URL_API}/fund/all`, { params: param, headers: { "Authorization": `Bearer ${token}` } });
+
+            if (res.data) {
+                setProjects(res.data.data);
+            }
+        } catch (error) {
+            
+        }
+    }
+
     const handleChange = (prop) => (event) => {
         setValues({ ...values, [prop]: event.target.value });
+
+        if (prop === 'unitType') {
+            setProjects([]);
+        }
     }
 
     const style = {
@@ -262,17 +333,36 @@ const CreateNFTSealModal = ({ product }) => {
                     }
                     <Box>
                         <FormControl sx={{ width: "100%" }} className="form-control mb-16">
-                            <FormLabel className="label">Dự án</FormLabel>
+                            <FormLabel className="label">Loại đơn vị</FormLabel>
+                            <Select
+                                labelId="unitType"
+                                name="unitType"
+                                id="unitType"
+                                placeholder="Chọn loại đơn vị"
+                                value={values.unitType}
+                                onChange={handleChange('unitType')}
+                            >
+                                {unitTypes?.map((item, index) => (
+                                    <MenuItem value={item.value}>{item.label}</MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                        <FormControl sx={{ width: "100%" }} className="form-control mb-16">
+                            <FormLabel className="label">Đơn vị</FormLabel>
                             <Select
                                 labelId="project"
                                 name="project"
                                 id="project"
-                                placeholder="Chọn dự án"
+                                placeholder="Chọn đơn vị"
                                 value={values.project}
                                 onChange={handleChange('project')}
+                                onOpen={handleSelectUnit}
                             >
                                 {projects?.map((item, index) => (
+                                    item.projectName ?
                                     <MenuItem value={item._id}>{item.projectName}</MenuItem>
+                                    :
+                                    <MenuItem value={item._id}>{item.name}</MenuItem>
                                 ))}
                             </Select>
                         </FormControl>

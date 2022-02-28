@@ -25,7 +25,11 @@ const TableSection = ({ data }) => {
   useEffect(() => {
     setRow([]);
     data?.map((item, index) => {
-      setRow(data => [...data, createData(index + 1, item?.project?.projectName, item?.project?.projectType, item?.typeId, item.issuedAt, item._id)])
+      if (item.fund) {
+        setRow(data => [...data, createData(index + 1, item?.fund?.name, 'Đơn vị/Tổ chức đầu tư', item?.typeId, item?.issuedAt, item?._id)])
+      } else {
+        setRow(data => [...data, createData(index + 1, item?.project?.projectName, item?.project?.projectType, item?.typeId, item.issuedAt, item._id)])
+      }
     })
   }, [data]);
 
@@ -60,8 +64,8 @@ const TableSection = ({ data }) => {
           <TableHead sx={{ backgroundColor: '#F7F8FA' }}>
             <StyledTableRow>
               <StyledTableCell>#</StyledTableCell>
-              <StyledTableCell>Dự án</StyledTableCell>
-              <StyledTableCell>Loại dự án</StyledTableCell>
+              <StyledTableCell>Đơn vị</StyledTableCell>
+              <StyledTableCell>Loại đơn vị</StyledTableCell>
               <StyledTableCell>Loại con dấu NFT</StyledTableCell>
               <StyledTableCell>Ngày phát hành</StyledTableCell>
             </StyledTableRow>

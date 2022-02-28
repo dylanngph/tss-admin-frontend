@@ -121,7 +121,12 @@ function NFTSealDetail(props) {
         const dataString = localStorage.getItem('NFTSeal');
         const nftData = JSON.parse(dataString);
         try {
-            const res = await axios.get(`${process.env.REACT_APP_URL_API}/nft/detail`, { params: { nftId: nftData.id }, headers: { "Authorization": `Bearer ${token}` } });
+            let res;
+            if (checkIsFund(nftData.typeProject)) {
+                res = await axios.get(`${process.env.REACT_APP_URL_API}/nft/fund/detail`, { params: { nftId: nftData.id }, headers: { "Authorization": `Bearer ${token}` } });
+            } else {
+                res = await axios.get(`${process.env.REACT_APP_URL_API}/nft/detail`, { params: { nftId: nftData.id }, headers: { "Authorization": `Bearer ${token}` } });
+            }
             if (res.data) {
                 setData(res.data.data);
             }
@@ -129,6 +134,12 @@ function NFTSealDetail(props) {
         } catch (error) {
             setLoading(false);
         }
+    }
+
+    const checkIsFund = (typeProject) => {
+        if (typeProject === "Đơn vị/Tổ chức đầu tư")
+            return true;
+        return false;
     }
 
     const abc = {
@@ -196,7 +207,7 @@ function NFTSealDetail(props) {
                     <Loading />
                     :
                     <>
-                        <PageTitle text={`Quản lý con dấu NFT / ${data?.project?.projectName}`} />
+                        <PageTitle text={`Quản lý con dấu NFT / ${data.fund ? data.fund.name : data?.project?.projectName}`} />
                         <Col>
                             <Box>
                                 <Grid container spacing={2}>
