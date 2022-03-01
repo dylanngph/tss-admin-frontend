@@ -203,7 +203,12 @@ function NFTSealDetail(props) {
             const nftData = {
                 nftId: data._id,
             }
-            const res = await axios.post(`${process.env.REACT_APP_URL_API}/nft/revoke`, nftData, { headers: { "Authorization": `Bearer ${token}` } });
+            let res;
+            if (isFund) {
+                res = await axios.post(`${process.env.REACT_APP_URL_API}/nft/fund/revoke`, nftData, { headers: { "Authorization": `Bearer ${token}` } });
+            } else {
+                res = await axios.post(`${process.env.REACT_APP_URL_API}/nft/revoke`, nftData, { headers: { "Authorization": `Bearer ${token}` } });
+            }
             if (res.data) {
                 setOpenModelSuccess(true);
             }
