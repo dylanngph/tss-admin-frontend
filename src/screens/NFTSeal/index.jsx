@@ -35,7 +35,8 @@ function NFTSeal(props) {
                 projectName: projectName,
                 projectTypeId: projectTypeId,
                 typeId: typeId,
-                issuedAt: issuedAt
+                issuedAt: issuedAt,
+                isBurned: false,
             }
 
             const res = await axios.get(`${process.env.REACT_APP_URL_API}/nft/all`, { params: param, headers: { "Authorization": `Bearer ${token}` } });

@@ -10,6 +10,7 @@ import moment from 'moment'
 import { useHistory } from 'react-router-dom'
 import useToken from 'components/hook/useToken';
 import SuccessNotify from 'components/Modals/SuccessNotify'
+import ExtendNFTModal from 'components/Modals/ExtendNFTModal/Extend'
 import ClipboardJS from 'clipboard'
 
 function NFTSealDetail(props) {
@@ -20,6 +21,7 @@ function NFTSealDetail(props) {
     const { token, setToken } = useToken();
     const [openModelSuccess, setOpenModelSuccess] = useState(false);
     const [isFund, setIsFund] = useState(false);
+    const [openModelExtend, setOpenModelExtend] = useState(false);
     new ClipboardJS('.block-copy');
 
     const sealInfor = [
@@ -121,19 +123,19 @@ function NFTSealDetail(props) {
         setLoading(true);
         const dataString = localStorage.getItem('NFTSeal');
         const nftData = JSON.parse(dataString);
+        let abc = isFund;
 
         if (nftData.typeProject === "Đơn vị/Tổ chức đầu tư") {
             setIsFund(true);
-            console.log('isFund 1===>', isFund);
+            abc = true;
         } else {
             setIsFund(false);
-            console.log('isFund 2===>', isFund);
+            abc = false;
         }
 
         try {
             let res;
-            console.log('isFund 3===>', isFund);
-            if (isFund) {
+            if (abc) {
                 res = await axios.get(`${process.env.REACT_APP_URL_API}/nft/fund/detail`, { params: { nftId: nftData.id }, headers: { "Authorization": `Bearer ${token}` } });
             } else {
                 res = await axios.get(`${process.env.REACT_APP_URL_API}/nft/detail`, { params: { nftId: nftData.id }, headers: { "Authorization": `Bearer ${token}` } });
@@ -184,7 +186,6 @@ function NFTSealDetail(props) {
                 socialValueId: data.socialValueId,
                 communRepuId: data.communRepuId,
             }
-            console.log('isFund===>', isFund);
             if (isFund) {
                 res = await axios.post(`${process.env.REACT_APP_URL_API}/nft/fund/update`, params, { headers: { "Authorization": `Bearer ${token}` } });
             } else {
@@ -210,6 +211,14 @@ function NFTSealDetail(props) {
         } catch (error) {
             setLoading(false);
         }
+    }
+
+    const handleEntend = () => {
+setOpenModelExtend(true);
+    }
+
+    const handleCloseExtendModal = () => {
+        setOpenModelExtend(false);
     }
 
     return (
@@ -289,8 +298,13 @@ function NFTSealDetail(props) {
                             ))}
 
                             <Typography variant='h3'>Hạn sử dụng</Typography>
+                            <Box sx={{display: 'flex', alignItems: 'center'}}>
+                                <ExpiredAt>{moment(data.expiredAt).format('DD/MM/YYYY')}</ExpiredAt>
+                                <Button onClick={handleEntend} sx={{marginLeft: '30px'}} className="button">Gia hạn</Button>
+                            </Box>
                         </Col>
                         <SuccessNotify title='Thu Hồi Con Dấu Thành Công' content='Bạn đã thu hồi con dấu thành công cho dự án này.' openStatus={openModelSuccess} />
+                        <ExtendNFTModal open={openModelExtend} handleClose={handleCloseExtendModal} nftData={data} isFund={isFund} token={token} />
                     </>
             }
 
@@ -337,6 +351,19 @@ const BoxMoreInfo = styled(Box)`
     span:last-child {
         color: #11142D;
     }
+`;
+
+const ExpiredAt = styled(Box)`
+    color: #58667E;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    min-width: 167px;
+    width: auto;
+    padding: 16px;
+    background: #EFF2F5;
+    border-radius: 8px;
+    display: inline-block;
 `;
 
 export default NFTSealDetail;
