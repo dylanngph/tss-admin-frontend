@@ -31,7 +31,7 @@ const ExtendNFTModal = ({ open, handleClose, nftData, isFund, token }) => {
             setLoadingButton(true);
             let dateRage = ""
             if (data.expiredAt === '1') {
-                dateRage = moment(moment(nftData.expiredAt).add(6, 'm').format('YYYY-MM-DD'));
+                dateRage = moment(moment(nftData.expiredAt).add(6, 'months').format('YYYY-MM-DD'));
             }
             else if (data.expiredAt === '2') {
                 dateRage = moment(moment(nftData.expiredAt).add(1, 'y').format('YYYY-MM-DD'));
@@ -51,6 +51,7 @@ const ExtendNFTModal = ({ open, handleClose, nftData, isFund, token }) => {
 
             if (res.data) {
                 setLoadingButton(false);
+                window.location.reload(false);
             }
 
         } catch (error) {
