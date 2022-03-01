@@ -87,23 +87,16 @@ const TableSection = ({ data }) => {
                   <Box sx={{ display: 'inline-flex'}}>
                     <Box mr={1}>
                       {
-                        row.typeNFT == '1'
-                        ?
-                        <>
-                          <img src="./assets/images/IOTA1.png" alt="IOTA" />
-                          Passport of Blockchain
-                        </>
-                        :
-                        row.typeNFT == '2'
+                        row.typeProject == 'Đơn vị/Tổ chức đầu tư'
                         ?
                         <>
                           <img src="./assets/images/IOTA2.png" alt="IOTA" />
-                          Tài sản số
+                          Passport of Blockchain
                         </>
                         :
                         <>
                           <img src="./assets/images/IOTA3.png" alt="IOTA" />
-                          Tài sản nền
+                          Passport of Blockchain
                         </>
                       }
                     </Box>
