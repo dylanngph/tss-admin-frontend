@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { Box, Button, Modal, Typography } from '@mui/material';
 import { useHistory } from 'react-router-dom'
 
-const SuccessNotify = ({title, content, openStatus}) => {
+const SuccessNotify = ({title, content, openStatus, redirectURL = '/projects'}) => {
     const history = useHistory();
 
     const handleClose = () => {
-        history.push('/projects');
+        history.push(redirectURL);
     };
 
     const style = {

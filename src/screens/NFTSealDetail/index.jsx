@@ -314,7 +314,7 @@ setOpenModelExtend(true);
                                 <Button onClick={handleEntend} sx={{marginLeft: '30px'}} className="button">Gia hạn</Button>
                             </Box>
                         </Col>
-                        <SuccessNotify title='Thu Hồi Con Dấu Thành Công' content='Bạn đã thu hồi con dấu thành công cho dự án này.' openStatus={openModelSuccess} />
+                        <SuccessNotify title='Thu Hồi Con Dấu Thành Công' content='Bạn đã thu hồi con dấu thành công cho dự án này.' openStatus={openModelSuccess} redirectURL='/nft-seal' />
                         <ExtendNFTModal open={openModelExtend} handleClose={handleCloseExtendModal} nftData={data} isFund={isFund} token={token} />
                     </>
             }
