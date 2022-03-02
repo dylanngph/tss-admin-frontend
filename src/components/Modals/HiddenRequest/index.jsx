@@ -62,13 +62,13 @@ const HiddenRequest = ({data}) => {
     }
 
     return (
-        <div>
+        <Box sx={{height: '100%'}}>
             {
                 data?.isActive
                 ?
-                <Button sx={{width: "100% !important"}} className="button confirm-hidden" onClick={handleOpen}>Tạm ẩn</Button>
+                <Button sx={{width: "100% !important", height: '100%'}} className="button confirm-hidden" onClick={handleOpen}>Tạm ẩn</Button>
                 :
-                <Button sx={{width: "100% !important"}} className="button confirm-hidden" onClick={handleOpen}>Khôi phục</Button>
+                <Button sx={{width: "100% !important", height: '100%'}} className="button confirm-hidden" onClick={handleOpen}>Khôi phục</Button>
             }
 
             <Modal
@@ -104,7 +104,7 @@ const HiddenRequest = ({data}) => {
                 <SuccessNotify title='Khôi phục Dự án thành công' content='Người dùng sẽ nhận được thông báo khôi phục dự án' openStatus={openModelSuccess} />
             }
             
-        </div>
+        </Box>
     )
 }
 

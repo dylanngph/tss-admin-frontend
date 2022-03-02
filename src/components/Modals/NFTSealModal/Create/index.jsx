@@ -252,10 +252,10 @@ const CreateNFTSealModal = ({ product }) => {
     const getInvestmentFunds = async () => {
         try {
             const param = {
-                keyword: null,
+                hasNFT: false,
             }
 
-            const res = await axios.get(`${process.env.REACT_APP_URL_API}/fund/all`, { params: param, headers: { "Authorization": `Bearer ${token}` } });
+            const res = await axios.get(`${process.env.REACT_APP_URL_API}/fund/list`, { params: param, headers: { "Authorization": `Bearer ${token}` } });
 
             if (res.data) {
                 setProjects(res.data.data);

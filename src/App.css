@@ -115,9 +115,9 @@ textarea,
 }
 
 .MuiButton-root.button.disable {
-  background: #EFF2F5;
-  border: 1px solid #EFF2F5;
-  color: #A6B0C3;
+  background: #F0F6FF;
+  border: 1px solid #F0F6FF;
+  color: #446DFF;
 }
 
 .MuiButton-root.button.cancel {

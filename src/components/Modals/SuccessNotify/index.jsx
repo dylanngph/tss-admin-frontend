@@ -6,7 +6,11 @@ const SuccessNotify = ({title, content, openStatus, redirectURL = '/projects'}) 
     const history = useHistory();
 
     const handleClose = () => {
-        history.push(redirectURL);
+        if (redirectURL === 'curent-page') {
+            window.location.reload(false);
+        } else {
+            history.push(redirectURL);
+        }
     };
 
     const style = {

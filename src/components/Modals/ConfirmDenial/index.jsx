@@ -54,8 +54,8 @@ const ConfirmDenial = ({ data }) => {
     }
 
     return (
-        <div>
-            <Button sx={{width: '100% !important'}} className="button confirm-denial" onClick={handleOpen}>Từ chối</Button>
+        <Box sx={{height: '100%'}}>
+            <Button sx={{width: '100% !important', height: '100%'}} className="button confirm-denial" onClick={handleOpen}>Từ chối</Button>
 
             <Modal
                 open={open}
@@ -76,7 +76,7 @@ const ConfirmDenial = ({ data }) => {
                 </Box>
             </Modal>
             <SuccessNotify title='Từ Chối Hồ Sơ' content='Người dùng sẽ nhận được thông báo từ chối hồ sơ' openStatus={openModelSuccess} />
-        </div>
+        </Box>
     )
 }
 

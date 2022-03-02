@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Box, Button, Modal, Typography, FormControl, FormLabel, Select, MenuItem, TextField, Alert, AlertTitle } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
-import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import axios from "axios";
 import moment from "moment";
-import { useHistory } from 'react-router-dom'
-import useToken from 'components/hook/useToken';
+import SuccessNotify from 'components/Modals/SuccessNotify'
 
 const ExtendNFTModal = ({ open, handleClose, nftData, isFund, token }) => {
     const [loadingButton, setLoadingButton] = useState(false);
+    const [openModelSuccess, setOpenModelSuccess] = useState(false);
     const [data, setData] = useState({
         expiredAt: "1"
     });
@@ -51,7 +48,7 @@ const ExtendNFTModal = ({ open, handleClose, nftData, isFund, token }) => {
 
             if (res.data) {
                 setLoadingButton(false);
-                window.location.reload(false);
+                setOpenModelSuccess(true);
             }
 
         } catch (error) {
@@ -118,9 +115,9 @@ const ExtendNFTModal = ({ open, handleClose, nftData, isFund, token }) => {
                     <Box mt={5} sx={contentWrap}>
                         <LoadingButton loading={loadingButton} className="button" onClick={handleExtendNft}>Xác nhận</LoadingButton>
                     </Box>
-
                 </Box>
             </Modal>
+            <SuccessNotify title='Gia Hạn Con Dấu Thành Công' content='Bạn đã gia hạn con dấu thành công cho đơn vị này.' openStatus={openModelSuccess} redirectURL='curent-page' />
         </div>
     )
 }
