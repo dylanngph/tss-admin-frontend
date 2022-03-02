@@ -256,18 +256,17 @@ setOpenModelExtend(true);
                                                 <span>{moment(data?.issuedAt).format('DD/MM/YYYY')}</span>
                                             </BoxMoreInfo>
                                             <BoxMoreInfo>
-                                                <span data-clipboard-text={data?.tokenId}
-                                                      className="block-copy">
+                                                <span data-clipboard-text={data?.tokenId}>
                                                     Token ID
                                                 </span>
                                                 <span>{data?.tokenId}</span>
                                             </BoxMoreInfo>
                                             <BoxMoreInfo>
-                                                <span data-clipboard-text="0xD0e366Ae42Ba7CE1a27c4Eab7b63524F1fBEA023"
+                                                <span data-clipboard-text={data.fund ? process.env.REACT_APP_CONTRACT_ID_VC : process.env.REACT_APP_NEXT_PUBLIC_BS_SCAN_CODE}
                                                       className="block-copy">
                                                     Contract ID
                                                 </span>
-                                                <span>{formatString('0xD0e366Ae42Ba7CE1a27c4Eab7b63524F1fBEA023')}</span>
+                                                <span>{formatString(data.fund ? process.env.REACT_APP_CONTRACT_ID_VC : process.env.REACT_APP_NEXT_PUBLIC_BS_SCAN_CODE)}</span>
                                             </BoxMoreInfo>
                                         </Box>
                                     </Grid>

@@ -43,6 +43,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "build:local": "env-cmd -f .env.development react-scripts build && rm -rf build-nginx && mv build build-nginx",
     "build:dev": "GENERATE_SOURCEMAP=false env-cmd -f .env.development react-scripts build && rm -rf build-nginx && mv build build-nginx",
     "build:prod": "GENERATE_SOURCEMAP=false env-cmd -f .env.production react-scripts build && rm -rf build-nginx && mv build build-nginx",
     "test": "react-scripts test",
