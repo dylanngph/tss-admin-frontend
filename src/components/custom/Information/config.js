@@ -31,7 +31,7 @@ export const listTitle = [
                 key: 'businessLicense'
             },
             {
-                title: 'Địa chỉ ví chủ sở hữu',
+                title: 'Địa chỉ ví nhận NFT Passport Blockchain',
                 key: 'ownerAddress'
             }
         ]
