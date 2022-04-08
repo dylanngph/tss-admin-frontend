@@ -116,7 +116,7 @@ function InvestmentFundDetail() {
             setErrors(errors => [...errors, 'Dạng đầu tư không được để trống']);
             return;
         } else if (!data.establishedDate) {
-            setErrors(errors => [...errors, 'Ngày phát hành không được để trống']);
+            setErrors(errors => [...errors, 'Ngày thành lập không được để trống']);
             return;
         }
         setLoading(true);
@@ -226,7 +226,7 @@ function InvestmentFundDetail() {
                                     </Select>
                                 </FormControl>
                                 <FormControl sx={{ width: "100%" }} className="form-control mb-16 datePicker">
-                                    <FormLabel className="label">Ngày phát hành</FormLabel>
+                                    <FormLabel className="label">Ngày thành lập</FormLabel>
                                     <LocalizationProvider dateAdapter={AdapterDateFns}>
                                         <DesktopDatePicker
                                             className="abc"
