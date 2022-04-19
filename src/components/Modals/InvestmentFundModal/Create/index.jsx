@@ -63,7 +63,7 @@ const CreateInvestmentProjectModal = ({ product }) => {
             setErrors(errors => [...errors, 'Trạng thái không được để trống']);
         }
         else if (!values.establishedDate) {
-            setErrors(errors => [...errors, 'Ngày phát hành không được để trống']);
+            setErrors(errors => [...errors, 'Năm thành lập không được để trống']);
         }
         else {
             try {
@@ -261,7 +261,7 @@ const CreateInvestmentProjectModal = ({ product }) => {
                             </Select>
                         </FormControl>
                         <FormControl sx={{ width: "100%" }} className="form-control mb-16 datePicker">
-                            <FormLabel className="label">Ngày phát hành</FormLabel>
+                            <FormLabel className="label">Năm thành lập</FormLabel>
                             <LocalizationProvider dateAdapter={AdapterDateFns}>
                                 <DesktopDatePicker
                                     className="abc"
@@ -298,7 +298,7 @@ const CreateInvestmentProjectModal = ({ product }) => {
                                             className="social-items"
                                         >
                                             {socialsListConstant.map((item, index) => (
-                                                <MenuItem key={index} className="social-item" key={item.name} value={item.value}>
+                                                <MenuItem className="social-item" key={item.name} value={item.value}>
                                                     <img src={item.icon} alt={item.name} />
                                                     {item.name}
                                                 </MenuItem>
