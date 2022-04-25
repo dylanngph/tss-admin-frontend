@@ -118,6 +118,9 @@ function InvestmentFundDetail() {
         } else if (!data.establishedDate) {
             setErrors(errors => [...errors, 'Ngày thành lập không được để trống']);
             return;
+        } else if (!data.ownerAddress) {
+            setErrors(errors => [...errors, 'Địa chỉ ví nhận NFT không được để trống']);
+            return;
         }
         setLoading(true);
         try {
@@ -132,6 +135,7 @@ function InvestmentFundDetail() {
                 socialWebs: socials,
                 statusId: data?.statusId,
                 fundId: data?._id,
+                ownerAddress: data?.ownerAddress,
             }
             
             const res = await axios.patch(`${process.env.REACT_APP_URL_API}/fund`, param, { headers: { "Authorization": `Bearer ${token}` } });
@@ -181,6 +185,17 @@ function InvestmentFundDetail() {
                                         placeholder="Tên đơn vị/tổ chức đầu tư"
                                         value={data?.name}
                                         onChange={handleChange('name')}
+                                    />
+                                </FormControl>
+                                <FormControl sx={{ width: "100%" }} className="form-control mb-16">
+                                    <FormLabel className="label">Địa chỉ ví nhận NFT</FormLabel>
+                                    <OutlinedInput
+                                        id="ownerAddress"
+                                        name="ownerAddress"
+                                        type="text"
+                                        placeholder="Địa chỉ ví nhận NFT"
+                                        value={data?.ownerAddress}
+                                        onChange={handleChange('ownerAddress')}
                                     />
                                 </FormControl>
                                 <FormControl sx={{ width: "100%" }} className="form-control mb-16">
@@ -263,7 +278,7 @@ function InvestmentFundDetail() {
                                                     className="social-items"
                                                 >
                                                     {socialsListConstant.map((item, index) => (
-                                                        <MenuItem key={index} className="social-item" key={item.name} value={item.value}>
+                                                        <MenuItem className="social-item" key={item.name} value={item.value}>
                                                             <img src={item.icon} alt={item.name} />
                                                             {item.name}
                                                         </MenuItem>

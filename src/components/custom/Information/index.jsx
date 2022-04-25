@@ -194,6 +194,22 @@ const Information = ({ project }) => {
                 case 'websites':
                     valueItem = project[item.key].join(", ");
                     break;
+                case 'socialWebs':
+                    return (
+                        <>
+                            {
+                                project && project[item.key].map((entry, index) => (
+                                    <Box key={index} sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between", width: "100%" }}>
+                                        <Typography sx={labelInforItem}>{entry.name}</Typography>
+                                        <Box sx={wrapperBoxValue}>
+                                            <a target="_blank" href={entry.link}>{entry.link}</a>
+                                        </Box>
+                                        {renderNote(item.key)}
+                                    </Box>
+                                ))
+                            }
+                        </>
+                    )
                 case 'name':
                 case 'dob':
                 case 'position':

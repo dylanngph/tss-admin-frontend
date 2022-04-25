@@ -23,6 +23,7 @@ const CreateInvestmentProjectModal = ({ product }) => {
                 link: '',
             }
         ],
+        ownerAddress: '',
     })
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
@@ -65,6 +66,9 @@ const CreateInvestmentProjectModal = ({ product }) => {
         else if (!values.establishedDate) {
             setErrors(errors => [...errors, 'Năm thành lập không được để trống']);
         }
+        else if (!values.ownerAddress) {
+            setErrors(errors => [...errors, 'Địa chỉ ví nhận NFT không được để trống']);
+        }
         else {
             try {
                 let now = moment(values.establishedDate).format('YYYY-MM-DD');
@@ -76,7 +80,8 @@ const CreateInvestmentProjectModal = ({ product }) => {
                     area: values.area,
                     description: values.description,
                     socialWebs: socials,
-                    statusId: values.statusId
+                    statusId: values.statusId,
+                    ownerAddress: values.ownerAddress,
                 }
     
                 const res = await axios.post(`${process.env.REACT_APP_URL_API}/fund`, param, { headers: { "Authorization": `Bearer ${token}` } });
@@ -217,6 +222,17 @@ const CreateInvestmentProjectModal = ({ product }) => {
                                 placeholder="Tên đơn vị/tổ chức"
                                 value={values.name}
                                 onChange={handleChange('name')}
+                            />
+                        </FormControl>
+                        <FormControl sx={{ width: "100%" }} className="form-control mb-16">
+                            <FormLabel className="label">Địa chỉ ví nhận NFT</FormLabel>
+                            <OutlinedInput
+                                id="ownerAddress"
+                                name="ownerAddress"
+                                type="text"
+                                placeholder="Địa chỉ ví nhận NFT"
+                                value={values.ownerAddress}
+                                onChange={handleChange('ownerAddress')}
                             />
                         </FormControl>
                         <FormControl sx={{ width: "100%" }} className="form-control mb-16">
