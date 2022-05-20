@@ -24,96 +24,96 @@ function NFTSealDetail(props) {
     const [openModelExtend, setOpenModelExtend] = useState(false);
     new ClipboardJS('.block-copy');
 
-    const sealInfor = [
-        {
-            title: "Pháp lý",
-            name: "legalId",
-            items: [
-                {
-                    value: '1',
-                    label: "Rủi ro thấp"
-                },
-                {
-                    value: '2',
-                    label: "Rủi ro cao"
-                },
-                {
-                    value: '3',
-                    label: "Chưa thấy rủi ro"
-                },
-                {
-                    value: '4',
-                    label: "Không có thông tin"
-                }
-            ]
-        },
-        {
-            title: "Mức độ công nghệ",
-            name: "techLevelId",
-            items: [
-                {
-                    value: '1',
-                    label: "Có khả năng ứng dụng cao"
-                },
-                {
-                    value: '2',
-                    label: "Có khả năng ứng dụng"
-                },
-                {
-                    value: '3',
-                    label: "Chưa nhận thấy khả năng ứng dụng"
-                },
-                {
-                    value: '4',
-                    label: "Không có thông tin"
-                }
-            ]
-        },
-        {
-            title: "Giá trị xã hội",
-            name: "socialValueId",
-            items: [
-                {
-                    value: '1',
-                    label: "Có tiềm năng đóng góp cao cho xã hội"
-                },
-                {
-                    value: '2',
-                    label: "Có tiềm năng đóng góp cho xã hội"
-                },
-                {
-                    value: '3',
-                    label: "Chưa nhận thấy tiềm năng đóng góp cao cho xã hội"
-                },
-                {
-                    value: '4',
-                    label: "Không có thông tin"
-                }
-            ]
-        },
-        {
-            title: "Uy tín cộng đồng",
-            name: "communRepuId",
-            items: [
-                {
-                    value: '1',
-                    label: "Có nhiều thông tin tích cực"
-                },
-                {
-                    value: '2',
-                    label: "Có một số thông tin tiêu cực"
-                },
-                {
-                    value: '3',
-                    label: "Chưa tìm thấy thông tin tiêu cực"
-                },
-                {
-                    value: '4',
-                    label: "Không có thông tin"
-                }
-            ]
-        },
-    ]
+    // const sealInfor = [
+    //     {
+    //         title: "Pháp lý",
+    //         name: "legalId",
+    //         items: [
+    //             {
+    //                 value: '1',
+    //                 label: "Rủi ro thấp"
+    //             },
+    //             {
+    //                 value: '2',
+    //                 label: "Rủi ro cao"
+    //             },
+    //             {
+    //                 value: '3',
+    //                 label: "Chưa thấy rủi ro"
+    //             },
+    //             {
+    //                 value: '4',
+    //                 label: "Không có thông tin"
+    //             }
+    //         ]
+    //     },
+    //     {
+    //         title: "Mức độ công nghệ",
+    //         name: "techLevelId",
+    //         items: [
+    //             {
+    //                 value: '1',
+    //                 label: "Có khả năng ứng dụng cao"
+    //             },
+    //             {
+    //                 value: '2',
+    //                 label: "Có khả năng ứng dụng"
+    //             },
+    //             {
+    //                 value: '3',
+    //                 label: "Chưa nhận thấy khả năng ứng dụng"
+    //             },
+    //             {
+    //                 value: '4',
+    //                 label: "Không có thông tin"
+    //             }
+    //         ]
+    //     },
+    //     {
+    //         title: "Giá trị xã hội",
+    //         name: "socialValueId",
+    //         items: [
+    //             {
+    //                 value: '1',
+    //                 label: "Có tiềm năng đóng góp cao cho xã hội"
+    //             },
+    //             {
+    //                 value: '2',
+    //                 label: "Có tiềm năng đóng góp cho xã hội"
+    //             },
+    //             {
+    //                 value: '3',
+    //                 label: "Chưa nhận thấy tiềm năng đóng góp cao cho xã hội"
+    //             },
+    //             {
+    //                 value: '4',
+    //                 label: "Không có thông tin"
+    //             }
+    //         ]
+    //     },
+    //     {
+    //         title: "Uy tín cộng đồng",
+    //         name: "communRepuId",
+    //         items: [
+    //             {
+    //                 value: '1',
+    //                 label: "Có nhiều thông tin tích cực"
+    //             },
+    //             {
+    //                 value: '2',
+    //                 label: "Có một số thông tin tiêu cực"
+    //             },
+    //             {
+    //                 value: '3',
+    //                 label: "Chưa tìm thấy thông tin tiêu cực"
+    //             },
+    //             {
+    //                 value: '4',
+    //                 label: "Không có thông tin"
+    //             }
+    //         ]
+    //     },
+    // ]
 
     useEffect(() => {
         initData();
@@ -280,7 +280,7 @@ setOpenModelExtend(true);
                                     </Grid>
                                 </Grid>
                             </Box>
-                            {sealInfor.map((item, index) => (
+                            {/* {sealInfor.map((item, index) => (
                                 <Accordion key={item.title + index} className='AccordionSummary'>
                                     <AccordionSummary
                                         sx={{ background: "#FFFFFF", boxShadow: "0px 4px 15px rgb(0 0 0 / 5%)", borderRadius: "12px" }}
@@ -305,7 +305,7 @@ setOpenModelExtend(true);
                                         </FormControl>
                                     </AccordionDetails>
                                 </Accordion>
-                            ))}
+                            ))} */}
 
                             <Typography variant='h3'>Hạn sử dụng</Typography>
                             <Box sx={{display: 'flex', alignItems: 'center'}}>

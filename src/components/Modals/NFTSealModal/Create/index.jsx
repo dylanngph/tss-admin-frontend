@@ -54,96 +54,96 @@ const CreateNFTSealModal = ({ product }) => {
         // },
     ]
 
-    const sealInfor = [
-        {
-            title: "Pháp lý",
-            name: "legalId",
-            items: [
-                {
-                    value: '1',
-                    label: "Rủi ro thấp"
-                },
-                {
-                    value: '2',
-                    label: "Rủi ro cao"
-                },
-                {
-                    value: '3',
-                    label: "Chưa thấy rủi ro"
-                },
-                {
-                    value: '4',
-                    label: "Không có thông tin"
-                }
-            ]
-        },
-        {
-            title: "Mức độ công nghệ",
-            name: "techLevelId",
-            items: [
-                {
-                    value: '1',
-                    label: "Có khả năng ứng dụng cao"
-                },
-                {
-                    value: '2',
-                    label: "Có khả năng ứng dụng"
-                },
-                {
-                    value: '3',
-                    label: "Chưa nhận thấy khả năng ứng dụng"
-                },
-                {
-                    value: '4',
-                    label: "Không có thông tin"
-                }
-            ]
-        },
-        {
-            title: "Giá trị xã hội",
-            name: "socialValueId",
-            items: [
-                {
-                    value: '1',
-                    label: "Có tiềm năng đóng góp cao cho xã hội"
-                },
-                {
-                    value: '2',
-                    label: "Có tiềm năng đóng góp cho xã hội"
-                },
-                {
-                    value: '3',
-                    label: "Chưa nhận thấy tiềm năng đóng góp cao cho xã hội"
-                },
-                {
-                    value: '4',
-                    label: "Không có thông tin"
-                }
-            ]
-        },
-        {
-            title: "Uy tín cộng đồng",
-            name: "communRepuId",
-            items: [
-                {
-                    value: '1',
-                    label: "Có nhiều thông tin tích cực"
-                },
-                {
-                    value: '2',
-                    label: "Có một số thông tin tiêu cực"
-                },
-                {
-                    value: '3',
-                    label: "Chưa tìm thấy thông tin tiêu cực"
-                },
-                {
-                    value: '4',
-                    label: "Không có thông tin"
-                }
-            ]
-        },
-    ]
+    // const sealInfor = [
+    //     {
+    //         title: "Pháp lý",
+    //         name: "legalId",
+    //         items: [
+    //             {
+    //                 value: '1',
+    //                 label: "Rủi ro thấp"
+    //             },
+    //             {
+    //                 value: '2',
+    //                 label: "Rủi ro cao"
+    //             },
+    //             {
+    //                 value: '3',
+    //                 label: "Chưa thấy rủi ro"
+    //             },
+    //             {
+    //                 value: '4',
+    //                 label: "Không có thông tin"
+    //             }
+    //         ]
+    //     },
+    //     {
+    //         title: "Mức độ công nghệ",
+    //         name: "techLevelId",
+    //         items: [
+    //             {
+    //                 value: '1',
+    //                 label: "Có khả năng ứng dụng cao"
+    //             },
+    //             {
+    //                 value: '2',
+    //                 label: "Có khả năng ứng dụng"
+    //             },
+    //             {
+    //                 value: '3',
+    //                 label: "Chưa nhận thấy khả năng ứng dụng"
+    //             },
+    //             {
+    //                 value: '4',
+    //                 label: "Không có thông tin"
+    //             }
+    //         ]
+    //     },
+    //     {
+    //         title: "Giá trị xã hội",
+    //         name: "socialValueId",
+    //         items: [
+    //             {
+    //                 value: '1',
+    //                 label: "Có tiềm năng đóng góp cao cho xã hội"
+    //             },
+    //             {
+    //                 value: '2',
+    //                 label: "Có tiềm năng đóng góp cho xã hội"
+    //             },
+    //             {
+    //                 value: '3',
+    //                 label: "Chưa nhận thấy tiềm năng đóng góp cao cho xã hội"
+    //             },
+    //             {
+    //                 value: '4',
+    //                 label: "Không có thông tin"
+    //             }
+    //         ]
+    //     },
+    //     {
+    //         title: "Uy tín cộng đồng",
+    //         name: "communRepuId",
+    //         items: [
+    //             {
+    //                 value: '1',
+    //                 label: "Có nhiều thông tin tích cực"
+    //             },
+    //             {
+    //                 value: '2',
+    //                 label: "Có một số thông tin tiêu cực"
+    //             },
+    //             {
+    //                 value: '3',
+    //                 label: "Chưa tìm thấy thông tin tiêu cực"
+    //             },
+    //             {
+    //                 value: '4',
+    //                 label: "Không có thông tin"
+    //             }
+    //         ]
+    //     },
+    // ]
 
     const handleClose = () => {
         setOpen(false);
@@ -168,18 +168,18 @@ const CreateNFTSealModal = ({ product }) => {
         else if (!values.acceptDate) {
             setErrors(errors => [...errors, 'Ngày phát hành không được để trống']);
         }
-        else if (!values.legalId) {
-            setErrors(errors => [...errors, 'Pháp lý không được để trống']);
-        }
-        else if (!values.techLevelId) {
-            setErrors(errors => [...errors, 'Mức độ công nghệ không được để trống']);
-        }
-        else if (!values.socialValueId) {
-            setErrors(errors => [...errors, 'Giá trị xã hội không được để trống']);
-        }
-        else if (!values.communRepuId) {
-            setErrors(errors => [...errors, 'Uy tín cộng đồng không được để trống']);
-        }
+        // else if (!values.legalId) {
+        //     setErrors(errors => [...errors, 'Pháp lý không được để trống']);
+        // }
+        // else if (!values.techLevelId) {
+        //     setErrors(errors => [...errors, 'Mức độ công nghệ không được để trống']);
+        // }
+        // else if (!values.socialValueId) {
+        //     setErrors(errors => [...errors, 'Giá trị xã hội không được để trống']);
+        // }
+        // else if (!values.communRepuId) {
+        //     setErrors(errors => [...errors, 'Uy tín cộng đồng không được để trống']);
+        // }
         else {
             try {
                 setLoadingButton(true);
@@ -288,7 +288,6 @@ const CreateNFTSealModal = ({ product }) => {
         border: "1px solid #ffffff",
         maxHeight: "807px",
         overflow: "auto",
-        height: "100%",
     };
 
     const contentWrap = {
@@ -382,7 +381,7 @@ const CreateNFTSealModal = ({ product }) => {
                                 ))}
                             </Select>
                         </FormControl>
-                        {sealInfor.map((item, index) => (
+                        {/* {sealInfor.map((item, index) => (
                             <FormControl sx={{ width: "100%" }} className="form-control mb-16">
                             <FormLabel className="label">{ item.title }</FormLabel>
                                 <Select
@@ -397,7 +396,7 @@ const CreateNFTSealModal = ({ product }) => {
                                     ))}
                                 </Select>
                             </FormControl>
-                        ))}
+                        ))} */}
                         <FormControl sx={{ width: "100%" }} className="form-control mb-16 datePicker">
                             <FormLabel className="label">Ngày phát hành</FormLabel>
                             <LocalizationProvider dateAdapter={AdapterDateFns}>
